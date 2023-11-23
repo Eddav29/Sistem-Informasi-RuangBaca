@@ -1,4 +1,3 @@
 # Sistem-Informasi-RuangBaca
-Sebuah Sistem Informasi yang digunakan untuk memudahkan sistem peminjaman ruang baca dan mampu memanagement buku di ruang baca
-
-HALO GACO
+Ruang baca JTI POLINEMA merupakan salah satu sarana utama yang digunakan oleh mahasiswa dan dosen untuk mendukung kegiatan belajar-mengajar. Saat ini, proses peminjaman buku di ruang baca masih dilakukan secara konvensional, menyebabkan adanya kendala dalam pengelolaan dan administrasi. Oleh karena itu, diperlukan pengembangan sistem informasi manajemen ruang baca yang modern dan efisien
+Dengan melihat kebutuhan tersebut, kami merancang proyek ini untuk membangun "Sistem Informasi Manajemen Ruang Baca JTI POLINEMA" Sistem ini akan memberikan solusi bagi admin ruang baca dan anggota (mahasiswa/dosen) untuk melakukan peminjaman buku dengan lebih terstruktur dan efektif.
