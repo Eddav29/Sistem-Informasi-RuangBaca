@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;500;700;900&display=swap");
+:root {
+  --base-color: white;
+  --primary-color: darkblue;
+  --secondary: gray;
+  --dark: black;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", "Roboto", sans-serif;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url("../Assets/img/bg2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+img.img-fluid {
+  height: 500px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+}
+.navbar-brand {
+  font-weight: 700;
+}
+.navbar-nav a {
+  color: var(--dark);
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.navbar-nav a:hover,
+.navbar-nav a:focus {
+  color: var(--base-color);
+  background-color: var(--primary-color);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+  border-radius: 5px;
+}
+
+.login-darkblue {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 5px;
+  width: 100px;
+  height: 38px;
+  padding: 2.5px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+nav input.form-control {
+  width: 500px;
+  border-radius: 15px;
+}
+.bg-darkblue {
+  background-color: darkblue;
+  color: white; /* Set text color to white for better visibility */
+}
+.btn-close-white {
+  color: white;
+}
+
+.text-darkblue {
+  color: darkblue;
+}
+
+/*modal */
+/* Update the styles for the modal and form */
+.modal-content {
+  background-color: darkblue;
+  border: 2px solid darkblue;
+  border-radius: 10px;
+  color: white;
+}
+
+.modal-body {
+  background-color: white;
+  padding: 20px; /* Adjust the padding as needed */
+  border-radius: 8px;
+}
+
+/* Update the styles for the form elements */
+.form-label {
+  color: darkblue; /* Set the label color to dark blue */
+}
+
+.form-control {
+  background-color: #f8f9fa; /* Set the input background color to a light shade of gray */
+  border: 1px solid darkblue; /* Set the input border color to dark blue */
+}
+
+.input-group-text {
+  background-color: #007bff; /* Set the background color for the icon container to the primary color */
+  border: 1px solid #007bff; /* Set the border color for the icon container */
+}
+
+.input-group-text i {
+  color: white; /* Set the icon color to white */
+}
+
+.btn-primary {
+  background-color: darkblue;
+  border-color: darkblue;
+}
+/* Custom style for the logo image */
+.img-logo {
+  max-width: 400px; /* Adjust the maximum width as needed */
+  padding: 10px; /* Add padding for better spacing */
+}
+
+/* CSS untuk responsivitas modal */
+@media (max-width: 767px) {
+  .modal-content {
+    max-width: 100%; /* Lebar modal 100% pada perangkat mobile */
+  }
+
+  .flex-shrink-0 {
+    width: 100%; /* Logo penuh lebar pada perangkat mobile */
+  }
+}
+
+/* hero  */
+#hero {
+  height: 100vh;
+  width: 100%;
+}
+
+.hero-tagline h1 {
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 1; /* Adjusted line height */
+  color: white;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
+}
+
+.hero-tagline h2 {
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 1; /* Adjusted line height */
+  color: white;
+  -webkit-text-stroke-width: 0.25px;
+  -webkit-text-stroke-color: black;
+  padding-left: 20px; /* Adjusted padding */
+  font-style: italic;
+}
