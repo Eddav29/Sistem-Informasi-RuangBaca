@@ -1,0 +1,270 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;500;700;900&display=swap");
+
+:root {
+  --base-color: white;
+  --primary-color: darkblue;
+  --secondary: gray;
+  --dark: black;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", "Roboto", sans-serif;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url("../Assets/img/bg2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+img.img-fluid {
+  height: 500px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-brand {
+  font-weight: 700;
+}
+
+.navbar-nav a {
+  color: var(--dark);
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.navbar-nav a:hover,
+.navbar-nav a:focus {
+  color: var(--base-color);
+  background-color: var(--primary-color);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+  border-radius: 5px;
+}
+
+.login-darkblue {
+  background-color: var(--primary-color);
+  color: var(--base-color);
+  border-radius: 5px;
+  width: 100px;
+  height: 38px;
+  padding: 2.5px;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+nav input.form-control {
+  width: 500px;
+  border-radius: 15px;
+}
+
+.bg-darkblue {
+  background-color: var(--primary-color);
+  color: var(--base-color);
+}
+
+.btn-close-white {
+  color: var(--base-color);
+}
+
+.text-darkblue {
+  color: var(--primary-color);
+}
+
+/*modal */
+/* Update the styles for the modal and form */
+.modal-content {
+  background-color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  color: var(--base-color);
+}
+
+.modal-body {
+  background-color: var(--base-color);
+  padding: 20px; /* Adjust the padding as needed */
+  border-radius: 8px;
+}
+
+/* Update the styles for the form elements */
+.form-label {
+  color: var(--primary-color); /* Set the label color to primary color */
+}
+
+.form-control {
+  background-color: var(
+    --base-color
+  ); /* Set the input background color to a light shade of gray */
+  border: 1px solid var(--primary-color); /* Set the input border color to primary color */
+}
+
+.input-group-text {
+  background-color: var(
+    --primary-color
+  ); /* Set the background color for the icon container to the primary color */
+  border: 1px solid var(--primary-color); /* Set the border color for the icon container */
+}
+
+.input-group-text i {
+  color: var(--base-color); /* Set the icon color to base color */
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Custom style for the logo image */
+.img-logo {
+  max-width: 400px; /* Adjust the maximum width as needed */
+  padding: 10px; /* Add padding for better spacing */
+}
+
+/* CSS untuk responsivitas modal */
+@media (max-width: 767px) {
+  .modal-content {
+    max-width: 100%; /* Lebar modal 100% pada perangkat mobile */
+  }
+
+  .flex-shrink-0 {
+    width: 100%; /* Logo penuh lebar pada perangkat mobile */
+  }
+}
+
+/* hero  */
+#hero {
+  height: 100vh;
+  width: 100%;
+}
+
+.hero-tagline h1 {
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 1; /* Adjusted line height */
+  color: var(--base-color);
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: var(--dark);
+}
+
+.hero-tagline h2 {
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 1; /* Adjusted line height */
+  color: var(--base-color);
+  -webkit-text-stroke-width: 0.25px;
+  -webkit-text-stroke-color: var(--dark);
+  padding-left: 20px; /* Adjusted padding */
+  font-style: italic;
+}
+
+.dropdown-item:hover {
+  color: var(--base-color);
+}
+
+/* Toggler styles */
+.custom-toggler {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.bar {
+  width: 30px;
+  height: 3px;
+  background-color: var(--base-color);
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+/* Sidebar styles */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0; /* Ubah left menjadi right */
+  background-color: var(--primary-color);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: var(--base-color);
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar .dropdown-item {
+  color: var(--primary-color);
+}
+
+.sidebar a:hover {
+  color: var(--base-color);
+}
+
+.sidebar .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 25px;
+  color: var(--base-color);
+  cursor: pointer;
+}
+
+/* Sidebar animation */
+.sidebar.open {
+  width: 250px;
+}
+.sidebar form {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.sidebar input.form-control {
+  width: 100%;
+}
+
+.sidebar button {
+  margin-top: 10px;
+}
+
+/* Tampilan mobile (dan di bawahnya) */
+@media (max-width: 767px) {
+  .custom-toggler {
+    display: block;
+  }
+
+  .navbar-collapse {
+    display: none;
+  }
+
+  .navbar-collapse.open {
+    display: block;
+  }
+}
+
+/* Tampilan desktop */
+@media (min-width: 768px) {
+  .custom-toggler {
+    display: none;
+  }
+
+  .navbar-collapse {
+    display: block !important;
+  }
+}
