@@ -18,9 +18,14 @@ html {
   padding: 0;
 }
 
-body {
+#hero {
   background-image: url("../Assets/img/bg2.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
+}
+
+nav {
+  background-image: url("../Assets/img/bg2.jpg");
   background-repeat: no-repeat;
 }
 
@@ -265,6 +270,6 @@ nav input.form-control {
   }
 
   .navbar-collapse {
-    display: block !important;
+    display: none !important;
   }
 }

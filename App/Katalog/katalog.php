@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
     <link rel="stylesheet" href="../../Assets/style.css">
     <link rel="icon" href="../../Assets/img/logo.jpg" type="image/x-icon">
+
 </head>
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg m-0 navbar-light bg-transparent">
+    <nav class="navbar navbar-expand-lg m-0">
         <div class="container-fluid">
 
             <img src="../../Assets/img/logo.jpg" alt="Logo-ruangBaca" width="125px" class="d-inline-block align-text-top ">
@@ -46,17 +47,20 @@
                             <li><a class="dropdown-item " href="#">Laporan Tugas Akhir</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <form class="d-flex form-group">
-                            <input class="form-control me-3" type="search" placeholder="Search " aria-label="Search">
-                            <button class="btn btn-outline-light" type="submit"> <i href="" class="fa fa-search"></i></button>
-                        </form>
-                    </li>
-                    <li class="nav-item mt-1">
-                        <button class="btn btn-outline-light login-darkblue" type="submit" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="submitForm()">
-                            <i class="fa-solid fa-right-to-bracket"></i> Log in
-                        </button>
-                    </li>
+                    <?php
+                    if (isset($showSearch) && $showSearch) {
+                        echo '
+                        <li class="nav-item">
+                            <form class="d-flex form-group">
+                                <input class="form-control me-3" type="search" placeholder="Search " aria-label="Search">
+                                <button class="btn btn-outline-light" type="submit"> <i href="" class="fa fa-search"></i></button>
+                            </form>
+                        </li>';
+                    }
+                    ?>
+                    <button class="btn btn-outline-light login-darkblue" type="submit" data-bs-toggle="modal" data-bs-target="#loginAwal" ">
+                        <i class=" fa-solid fa-right-to-bracket"></i> Log in
+                    </button>
                 </ul>
             </div>
 
@@ -83,33 +87,28 @@
                         <a class="nav-link p-2 text-white" aria-current="page" href="#">About</a>
                     </li>
                 </ul>
-                <form class="d-flex form-group">
-                    <input class="form-control me-3" type="search" placeholder="Search " aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit"> <i href="" class="fa fa-search"></i></button>
-                    <button class="btn btn-outline-light login-darkblue" type="submit" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="submitForm()">
-                        <i class="fa-solid fa-right-to-bracket"></i> Log in
+                <div class="d-flex align-items-center"> <!-- Container for search and login -->
+                    <?php
+                    if (isset($showSearch) && $showSearch) {
+                        echo '
+                        <form class="d-flex form-group align-items-center me-3">
+                            <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-light" type="submit"><i href="" class="fa fa-search"></i></button>
+                        </form>';
+                    }
+                    ?>
+
+                    <button class="btn btn-outline-light login-darkblue" type="submit" data-bs-toggle="modal" data-bs-target="#loginModal" ">
+                        <i class=" fa-solid fa-right-to-bracket"></i> Log in
                     </button>
-                </form>
+                </div>
             </div>
         </div>
     </nav>
     <!-- End Navbar -->
 
-    <!-- Hero Section -->
-    <div id="hero" class="d-flex align-items-center justify-content-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 hero-tagline text-center">
-                    <h1 class="text-white">Selamat datang di Ruang Baca</h1>
-                    <h2 class="">Jti Polinema</h2>
-                    <a href="#katalog" class="btn btn-outline-light mt-3">Cek Katalog →</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <?php
-    include("../../Login/Member/login.php");
+    include("../../Login/login.php");
     ?>
 
     <!-- JavaScript -->
