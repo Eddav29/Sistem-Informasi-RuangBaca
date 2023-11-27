@@ -9,10 +9,10 @@
                 <div class="modal-body">
                     <!-- Struktur HTML untuk logo dan form -->
                     <div class="d-flex flex-column-reverse flex-lg-row align-items-lg-center">
-                        <form class="flex-grow-1" id="loginForm">
+                        <form class="flex-grow-1" id="loginForm" action="cek_login.php" method="post">
                             <!-- ... (form fields) -->
                             <div class="mb-3 mt-3 text-dark">
-                                <h5>Login Sebagai Member</h5>
+                                <h5>Login</h5>
                                 <p>If you are not a member, <a href="#" id="registerModalLink" class="text-darkblue" data-bs-toggle="modal" data-bs-target="#registerModal" style="text-decoration: none;">register here</a>!</p>
                             </div>
 
@@ -48,7 +48,7 @@
     </div>
     <!--End Modal-->
     <?php
-    include("../../Login/Member/register.php");
+    include("../../Login/register.php");
     ?>
 
     <script src="../../Assets/app.js"></script>
