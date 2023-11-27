@@ -24,9 +24,12 @@ html {
   background-repeat: no-repeat;
 }
 
-nav {
+.navbar {
   background-image: url("../Assets/img/bg2.jpg");
+  background-size: cover;
   background-repeat: no-repeat;
+  background-position: top;
+  background-color: transparent;
 }
 
 img.img-fluid {
