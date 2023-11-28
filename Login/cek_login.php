@@ -1,20 +1,48 @@
 <?php
-include("../../config/database.php"); // Adjust the path accordingly
+include("../../config/koneksi.php");
 
+class Authentication
+{
+    private $conn;
+
+    public function __construct($conn)
+    {
+        $this->conn = $conn;
+    }
+
+    public function login($username, $password)
+    {
+        $username = mysqli_real_escape_string($this->conn, $username);
+        $password = mysqli_real_escape_string($this->conn, $password);
+
+        $query = "SELECT * FROM MEMBER WHERE USERNAME_MEMBER = '$username' AND PASSWORD_MEMBER = '$password'";
+        $result = mysqli_query($this->conn, $query);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            $user = mysqli_fetch_assoc($result);
+            return $user;
+        } else {
+            return false;
+        }
+    }
+}
+
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the username and password from the form
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    // Validate the credentials (You should use secure password hashing and validation)
-    $query = "SELECT * FROM MEMBER WHERE USERNAME_MEMBER = '$username' AND PASSWORD_MEMBER = '$password'";
-    $result = mysqli_query($conn, $query);
+    // Create an instance of the Database class
+    $db = new Database();
+    $conn = $db->getConnection();
 
-    if ($result && mysqli_num_rows($result) > 0) {
-        // Login successful, fetch the user data
-        $user = mysqli_fetch_assoc($result);
+    // Create an instance of the Authentication class
+    $authentication = new Authentication($conn);
 
-        // Start the session and store user data
+    // Attempt to login
+    $user = $authentication->login($username, $password);
+
+    if ($user) {
         session_start();
         $_SESSION["user_id"] = $user["ID_MEMBER"];
         $_SESSION["username"] = $user["USERNAME_MEMBER"];
@@ -22,16 +50,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Redirect based on user level
         if ($_SESSION["level"] == "Admin") {
-            header("Location: admin_dashboard.php"); // Redirect to the admin dashboard
+            header("Location: admin_dashboard.php");
             exit();
         } elseif ($_SESSION["level"] == "Member") {
-            header("Location: member_dashboard.php"); // Redirect to the member dashboard
+            header("Location: member_dashboard.php");
             exit();
         }
     } else {
-        // Invalid login credentials
         echo "<script>alert('Invalid username or password. Please try again.');</script>";
+        header("Location : ../App/Katalog/index.php");
     }
 
+    // Close the database connection
     mysqli_close($conn);
 }
