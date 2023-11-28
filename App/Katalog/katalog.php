@@ -51,10 +51,11 @@
                     if (isset($showSearch) && $showSearch) {
                         echo '
                         <li class="nav-item">
-                            <form class="d-flex form-group">
-                                <input class="form-control me-3" type="search" placeholder="Search " aria-label="Search">
-                                <button class="btn btn-outline-light" type="submit"> <i href="" class="fa fa-search"></i></button>
-                            </form>
+                              <form class="d-flex form-group align-items-center me-3">
+                            <input id="searchInput" class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
+                            <div id="searchResults" class="autocomplete-results"></div>
+                            <button class="btn btn-outline-light" type="submit"><i href="" class="fa fa-search"></i></button>
+                        </form>
                         </li>';
                     }
                     ?>
@@ -91,10 +92,13 @@
                     <?php
                     if (isset($showSearch) && $showSearch) {
                         echo '
-                        <form class="d-flex form-group align-items-center me-3">
-                            <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-light" type="submit"><i href="" class="fa fa-search"></i></button>
-                        </form>';
+                         <form id="searchForm" class="d-flex form-group align-items-center me-3" method="POST" action="../../Functions/searchHandler.php">
+                            <input id="searchInput" class="form-control me-1" type="search" name="query" placeholder="Search" aria-label="Search">
+                            <div id="searchResults" class="autocomplete-results"></div>
+                            <button class="btn btn-outline-light" type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+
+                            ';
                     }
                     ?>
 
@@ -218,6 +222,24 @@
                     document.getElementById("passwordMatchError").classList.add("d-none");
                 }
             });
+        $(document).ready(function() {
+            $('#searchForm').submit(function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '../../Functions/searchHandler.php',
+                    data: formData,
+                    success: function(response) {
+                        // Update bagian katalog dengan hasil pencarian
+                        $('#katalogContent').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
     </script>
 
 </body>

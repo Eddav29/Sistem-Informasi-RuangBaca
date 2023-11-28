@@ -82,7 +82,13 @@ $totalPages = ceil($totalBooks / $booksPerPage);
         <!-- Book Items - Products -->
         <div class="col-md-9 mt-3">
             <div class="card">
-                <div class="card-body row">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        Katalog Buku
+                    </h5>
+
+                </div>
+                <div class="card-body row" id="katalogContent">
                     <?php
                     while ($book = mysqli_fetch_assoc($booksResult)) {
                         echo "<div class='col'>";
@@ -158,7 +164,3 @@ $totalPages = ceil($totalBooks / $booksPerPage);
         </div>
     </div>
 </div>
-
-<script>
-
-</script>
