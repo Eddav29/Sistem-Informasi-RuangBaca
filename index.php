@@ -1,4 +1,4 @@
-<!-- <!-- 
+<!--
 if (session_status() === PHP_SESSION_NONE)
     session_start();
 if (!empty($_SESSION['level'])) {
@@ -21,7 +21,7 @@ if (!empty($_SESSION['level'])) {
 //     session_start();
 //     include "Config/koneksi.php";
 // if (empty($_SESSION['level'])) {
-    
+
 //     include 'App/Admin/indexAdmin.php';
 
 //     // include 'App/Admin/header.php';
@@ -54,7 +54,9 @@ if(isset($_SESSION["username"]) && $_SESSION["userLevel"] == 'Admin'){
         include 'App/Admin/header.php';
         include 'App/Admin/' . $_GET['page'] . '/index.php';
         include 'App/Admin/footer.php';
-    }else{
+    } else {
         include 'App/Admin/indexAdmin.php';
     }
+} else {
+    header("location ./App/Katalog/index.php");
 }
