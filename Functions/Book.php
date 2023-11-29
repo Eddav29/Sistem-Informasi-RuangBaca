@@ -72,18 +72,19 @@ class Book
         return $result;
     }
     // search
-    public function getLiveSearchResults($searchTerm)
+    // Metode untuk melakukan pencarian buku berdasarkan judul
+    public function searchBooks($query)
     {
-        $searchTerm = mysqli_real_escape_string($this->conn, $searchTerm);
+        $query = '%' . mysqli_real_escape_string($this->conn, $query) . '%';
 
-        $query = "SELECT JUDUL_BUKU FROM BUKU WHERE JUDUL_BUKU LIKE '%$searchTerm%'";
-        $result = mysqli_query($this->conn, $query);
+        $sql = "SELECT * FROM BUKU WHERE JUDUL_BUKU LIKE ?";
 
-        $results = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            $results[] = $row;
-        }
+        $stmt = mysqli_prepare($this->conn, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $query);
+        mysqli_stmt_execute($stmt);
 
-        return $results;
+        $result = mysqli_stmt_get_result($stmt);
+
+        return $result;
     }
 }
