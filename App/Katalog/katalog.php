@@ -283,50 +283,6 @@
                 $("#registerModal").modal("show");
             });
 
-        // Show password login
-        document
-            .getElementById("togglePassword")
-            .addEventListener("click", function() {
-                var passwordInput = document.getElementById("password");
-                var type =
-                    passwordInput.getAttribute("type") === "password" ? "text" : "password";
-                passwordInput.setAttribute("type", type);
-                this.innerHTML =
-                    type === "password" ?
-                    '<i class="fas fa-eye"></i>' :
-                    '<i class="fas fa-eye-slash"></i>';
-            });
-
-        // Show password register
-        document
-            .getElementById("togglePasswordRegister")
-            .addEventListener("click", function() {
-                var passwordInput = document.getElementById("registerPassword");
-                var type =
-                    passwordInput.getAttribute("type") === "password" ? "text" : "password";
-                passwordInput.setAttribute("type", type);
-                this.innerHTML =
-                    type === "password" ?
-                    '<i class="fas fa-eye"></i>' :
-                    '<i class="fas fa-eye-slash"></i>';
-            });
-
-        // Show confirm password
-        document
-            .getElementById("toggleConfirmPassword")
-            .addEventListener("click", function() {
-                var confirmPasswordInput = document.getElementById("confirmPassword");
-                var type =
-                    confirmPasswordInput.getAttribute("type") === "password" ?
-                    "text" :
-                    "password";
-                confirmPasswordInput.setAttribute("type", type);
-                this.innerHTML =
-                    type === "password" ?
-                    '<i class="fas fa-eye"></i>' :
-                    '<i class="fas fa-eye-slash"></i>';
-            });
-
         // Check password match on registration
         document
             .getElementById("registerForm")
@@ -359,6 +315,36 @@
                 });
             });
         });
+
+        var passwordInput = document.getElementById("password");
+        var passwordInput = document.getElementById("loginPassword");
+        // Show password login
+        document
+            .getElementById("togglePassword")
+            .addEventListener("click", function() {
+                var passwordInput = document.getElementById("loginPassword");
+                var type =
+                    passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                passwordInput.setAttribute("type", type);
+                this.innerHTML =
+                    type === "password" ?
+                    '<i class="fas fa-eye"></i>' :
+                    '<i class="fas fa-eye-slash"></i>';
+            });
+
+        // Show password register
+        document
+            .getElementById("togglePasswordRegister")
+            .addEventListener("click", function() {
+                var passwordInput = document.getElementById("registerPassword");
+                var type =
+                    passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                passwordInput.setAttribute("type", type);
+                this.innerHTML =
+                    type === "password" ?
+                    '<i class="fas fa-eye"></i>' :
+                    '<i class="fas fa-eye-slash"></i>';
+            });
     </script>
 
 </body>
