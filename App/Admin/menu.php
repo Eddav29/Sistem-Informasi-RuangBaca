@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="Assets2/custom/dashboard.css">
 <div class="sidebar border-right col-md-3 col-lg-2 p-0" style="background-color: #082E3E;">
     <div class="offcanvas-md offcanvas-end" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel" style="background-color: #082E3E;">
         <div class="offcanvas-header">
