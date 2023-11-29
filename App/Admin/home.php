@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row">
         <?php
+        
         include "menu.php";
-        include "koneksi.php";
-
         // $query_total = "SELECT count(id) as jml from buku";
         // $result_total = mysqli_query($koneksi,$query_total);
         // $row_total = mysqli_fetch_assoc($result_total);
-
+        $db = new Database();
+        $conn = $db->getConnection();
 
         // $query_dipinjam = "SELECT count(id) as jml from detail_peminjaman";
         // $result_dipinjam = mysqli_query($koneksi, $query_dipinjam);
@@ -123,7 +123,7 @@
                         <?php
                         $no = 1;
                         $query = "SELECT * FROM member order by id_member desc";
-                        $result = mysqli_query($koneksi, $query);
+                        $result = mysqli_query($conn, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                         ?>
                             <tr>
@@ -162,7 +162,7 @@
                         <?php
                         $no = 1;
                         $query = "SELECT * FROM buku order by id_buku desc";
-                        $result = mysqli_query($koneksi, $query);
+                        $result = mysqli_query($conn, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                         ?>
                             <tr>

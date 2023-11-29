@@ -1,66 +1,66 @@
 <?php
-include("../../config/koneksi.php");
+session_start();
 
-class Authentication
-{
-    private $conn;
-
-    public function __construct($conn)
-    {
-        $this->conn = $conn;
-    }
-
-    public function login($username, $password)
-    {
-        $username = mysqli_real_escape_string($this->conn, $username);
-        $password = mysqli_real_escape_string($this->conn, $password);
-
-        $query = "SELECT * FROM MEMBER WHERE USERNAME_MEMBER = '$username' AND PASSWORD_MEMBER = '$password'";
-        $result = mysqli_query($this->conn, $query);
-
-        if ($result && mysqli_num_rows($result) > 0) {
-            $user = mysqli_fetch_assoc($result);
-            return $user;
-        } else {
-            return false;
-        }
-    }
-}
-
-// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    $username = $_POST["loginUsername"];
+    $password = $_POST["loginPassword"];
 
-    // Create an instance of the Database class
-    $db = new Database();
-    $conn = $db->getConnection();
+    // Include your database connection file or establish a connection here
+    include_once("../Config/koneksi.php"); // Adjust the path accordingly
+    $database = new Database();
+    $conn = $database->getConnection();
 
-    // Create an instance of the Authentication class
-    $authentication = new Authentication($conn);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
-    // Attempt to login
-    $user = $authentication->login($username, $password);
+    // Check if the connection is successful
+    if ($conn) {
+        // Use prepared statements to prevent SQL injection
+        $stmt = $conn->prepare("SELECT ID_MEMBER, PASSWORD_MEMBER, level FROM MEMBER WHERE USERNAME_MEMBER = ?");
+        $stmt->bind_param("s", $username);
 
-    if ($user) {
-        session_start();
-        $_SESSION["user_id"] = $user["ID_MEMBER"];
-        $_SESSION["username"] = $user["USERNAME_MEMBER"];
-        $_SESSION["level"] = $user["level"];
+        $stmt->execute();
+        $stmt->store_result();
 
-        // Redirect based on user level
-        if ($_SESSION["level"] == "Admin") {
-            header("Location: admin_dashboard.php");
-            exit();
-        } elseif ($_SESSION["level"] == "Member") {
-            header("Location: member_dashboard.php");
+        if ($stmt->num_rows > 0) {
+            $stmt->bind_result($userID, $hashedPassword, $userLevel);
+            $stmt->fetch();
+
+            // Verify the password using md5()
+            if (md5($password) === $hashedPassword) {
+                // Password is correct
+                // Store user ID and level in session variables
+                $_SESSION["userID"] = $userID;
+                $_SESSION["userLevel"] = $userLevel;
+
+                $stmt->close();
+
+                // Redirect based on user level
+                if ($userLevel === 'Admin') {
+                    header("Location: ../index.php");
+                    exit();
+                } elseif ($userLevel === 'Member') {
+                    header("Location: ../App/member/index.php");
+                    exit();
+                }
+            } else {
+                // Incorrect password
+                header("Location: ../App/Katalog/katalog.php?error=incorrect_password");
+                exit();
+            }
+        } else {
+            // Invalid username
+            header("Location: ../App/Katalog/katalog.php?error=invalid_username");
             exit();
         }
     } else {
-        echo "<script>alert('Invalid username or password. Please try again.');</script>";
-        header("Location : ../App/Katalog/index.php");
+        // Database connection failed
+        header("Location: ../App/Katalog/katalog.php?error=db_connection_failed");
+        exit();
     }
-
-    // Close the database connection
-    mysqli_close($conn);
+} else {
+    // Redirect to login page if accessed directly
+    header("Location: ../App/Katalog/katalog.php");
+    exit();
 }
