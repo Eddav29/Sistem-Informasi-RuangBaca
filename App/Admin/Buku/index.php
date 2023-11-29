@@ -1,10 +1,13 @@
 <div class="container-fluid">
     <div class="row">
-        <?php
-        include "App/Admin/menu.php";
-        include "Config/koneksi.php";
+    
+    <?php
         
-        ?>
+
+        include 'App/Admin/menu.php';
+        $db = new Database();
+        $conn = $db->getConnection();
+        ?>  
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -46,7 +49,7 @@
                         <?php
                         $no = 1;
                         $query = "SELECT * FROM buku order by id_buku desc";
-                        $result = mysqli_query($koneksi, $query);
+                        $result = mysqli_query($conn, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                         ?>
                             <tr>
@@ -147,4 +150,3 @@
         </main>
     </div>
 </div>
-

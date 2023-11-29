@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="Assets2/js/color-modes.js"></script>
+  <head>
+    <script src="Assets2/js/color-modes.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link rel="stylesheet" href="Assets2/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="Assets2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="assets/dist/css/dashboard.css" rel="stylesheet"> -->
+    <link href="Assets2/dist/css/dashboard.css" rel="stylesheet">
     <style>
         
         
@@ -114,7 +115,7 @@
     <!-- Custom styles for this template -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="Assets2/custom/dashboard.css" rel="stylesheet">
+    <link href="dashboard.css" rel="stylesheet">
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
