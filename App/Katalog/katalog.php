@@ -226,14 +226,6 @@
         </div>
     </div>
     <!--End Modal-->
-    <script src="../../Assets/app.js"></script>
-    <script src=" ../../Assets/JQuery/jquery-3.7.1.min.js"></script>
-    <script src="../../Assets/Bootstraps/js/bootstrap.min.js"></script>
-
-    <script src="../../Assets/app.js"></script>
-    <script src=" ../../Assets/JQuery/jquery-3.7.1.min.js"></script>
-    <script src="../../Assets/Bootstraps/js/bootstrap.min.js"></script>
-
     <!-- JavaScript -->
     <script src=" ../../Assets/JQuery/jquery-3.7.1.min.js"></script>
     <script src="../../Assets/Bootstraps/js/bootstrap.min.js"></script>
