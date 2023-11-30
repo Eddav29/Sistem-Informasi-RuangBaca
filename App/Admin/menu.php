@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="Assets2/custom/dashboard.css">
 <div class="sidebar border-right col-md-3 col-lg-2 p-0" style="background-color: #082E3E;">
     <div class="offcanvas-md offcanvas-end" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel" style="background-color: #082E3E;">
         <div class="offcanvas-header">
@@ -23,7 +24,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2 active text-white" href="index.php?page=jabatan">
+                    <a class="nav-link d-flex align-items-center gap-2 active text-white" href="index.php?page=Buku">
                         <svg class="bi">
                             <use xlink:href="#puzzle"/>
                         </svg>
@@ -49,6 +50,13 @@
                             <use xlink:href="#door-closed" />
                         </svg>
                         Transaksi
+                    </a>
+                </li><li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2 active text-white" href="Login/logout.php">
+                        <svg class="bi">
+                            <use xlink:href="#door-closed" />
+                        </svg>
+                        Logout
                     </a>
                 </li>
             </ul>

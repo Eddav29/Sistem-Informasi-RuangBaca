@@ -157,7 +157,8 @@
             PEMINJAMAN.TANGGAL_PEMINJAMAN AS 'Tanggal Pinjam',
             PEMINJAMAN.TANGGAL_PENGEMBALIAN AS 'Tanggal Kembali',
             BUKU.JUDUL_BUKU AS 'Judul Buku',
-            COUNT(DETAILPEMINJAMAN.ID_BUKU) AS 'Jumlah Buku'
+            COUNT(DETAILPEMINJAMAN.ID_BUKU) AS 'Jumlah Buku',
+            ATTRIBSTATUSUTE_26 AS 'Status'
         FROM 
             PEMINJAMAN
         LEFT JOIN 
@@ -212,9 +213,6 @@
             <i class="fa fa-plus"></i>+Tambah Peminjam</button>
 
 
-
-
-
         <!-- Search Box untuk Tabel Peminjaman -->
         <div class="search-box">
             <input type="text" id="searchPeminjaman" placeholder="Cari...">
@@ -233,8 +231,6 @@
                 var table = document.getElementsByTagName("table")[0]; // Menggunakan tag table pertama di halaman
                 var rows = table.getElementsByTagName("tr");
 
-
-
                 // Melakukan iterasi pada setiap baris data
                 for (var i = 0; i < rows.length; i++) {
                     var data = rows[i].getElementsByTagName("td")[2]; // Kolom indeks 2 adalah kolom Nama Peminjam
@@ -252,8 +248,6 @@
 
         <!-- Tombol "Kembali" -->
         <button onclick="clearSearchPeminjaman()">Kembali</button>
-
-        <!-- ... -->
 
         <!-- Script untuk menghapus filter pada Tabel Peminjaman -->
         <script>
@@ -283,6 +277,7 @@
                     <th>Tanggal Kembali</th>
                     <th>Judul Buku</th>
                     <th>Jumlah Buku</th>
+                    <th>status</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -297,41 +292,48 @@
                         echo "<td>" . $row["Nama Peminjam"] . "</td>";
                         echo "<td>" . $row["Tanggal Pinjam"] . "</td>";
                         echo "<td>" . $row["Tanggal Kembali"] . "</td>";
+                        // echo "<td>" . $row['ATTRIBSTATUSUTE_26'] . "</td>";
                         echo "<td>" . ($row["Judul Buku"] ?? 'Belum ada') . "</td>"; // Gunakan operator null coalescing untuk menampilkan pesan jika nilai NULL
                         echo "<td>" . ($row["Jumlah Buku"] ?? '0') . "</td>"; // Gunakan operator null coalescing untuk menampilkan pesan jika nilai NULL atau 0
+                        echo "<td>" . $row["Status"] . "</td>";
                         echo "<td><a href='edit.php?id=" . $row['ID Peminjaman'] . "'>Edit</a> | <a href='hapus.php?id=" . $row['ID Peminjaman'] . "'>Hapus</a></td>";
                         echo "</tr>";
                     }
                 } else {
                     echo "<tr><td colspan='8'>Tidak ada data peminjaman</td></tr>";
                 }
+
                 ?>
+
             </tbody>
         </table>
-        <!-- Pagination or additional controls if needed -->
         <!-- Modal untuk menambahkan data peminjam -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+            role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Tambah Peminjam</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <!-- Form untuk menambahkan data peminjam -->
-                        <form action="proses_tambah_peminjam.php" method="POST">
+                    <form action="proses_tambah_peminjam.php" method="POST">
+                        <div class="modal-body">
+                            <!-- Form untuk menambahkan data peminjam -->
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama Peminjam</label>
                                 <input type="text" class="form-control" id="nama" name="nama" required>
                             </div>
                             <!-- Tambahkan field lainnya sesuai kebutuhan -->
 
+
                             <button type="submit" class="btn btn-primary">Tambah</button>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+
+
+
 
         <!-- Modal untuk mengedit data peminjaman -->
         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -466,42 +468,18 @@
                         echo "<td>" . $row["Tanggal Kembali"] . "</td>";
                         echo "<td>" . ($row["Judul Buku"] ?? 'Belum ada') . "</td>"; // Gunakan operator null coalescing untuk menampilkan pesan jika nilai NULL
                         echo "<td>" . ($row["Jumlah Buku"] ?? '0') . "</td>"; // Gunakan operator null coalescing untuk menampilkan pesan jika nilai NULL atau 0
-                        echo "<td><a href='edit.php?id=" . $row['ID Pengembalian'] . "'>Edit</a> | <a href='hapus.php?id=" . $row['ID Pengembalian'] . "'>Hapus</a></td>";
+                        echo "<td> <a href='hapus.php?id=" . $row['ID Pengembalian'] . "'>Hapus</a></td>";
                         echo "</tr>";
                     }
                 } else {
                     echo "<tr><td colspan='8'>Tidak ada data pengembalian</td></tr>";
                 }
                 ?>
+
             </tbody>
         </table>
         <!-- Pagination or additional controls if needed -->
 
-        <!-- Modal untuk mengedit data pengembalian -->
-        <div class="modal fade" id="editPengembalianModal" tabindex="-1" aria-labelledby="editPengembalianModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editPengembalianModalLabel">Edit Pengembalian</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form untuk mengedit data pengembalian -->
-                        <form action="proses_edit_pengembalian.php" method="POST">
-                            <div class="mb-3">
-                                <label for="editJudulBuku" class="form-label">Judul Buku</label>
-                                <input type="text" class="form-control" id="editJudulBuku" name="editJudulBuku"
-                                    required>
-                            </div>
-                            <!-- Tambahkan field lainnya sesuai kebutuhan -->
-
-                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Modal untuk menghapus data pengembalian -->
         <div class="modal fade" id="deletePengembalianModal" tabindex="-1"

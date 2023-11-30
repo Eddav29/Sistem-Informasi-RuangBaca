@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row">
         <?php
+        
         include "menu.php";
-        include "Config/koneksi.php";
-
         // $query_total = "SELECT count(id) as jml from buku";
         // $result_total = mysqli_query($koneksi,$query_total);
         // $row_total = mysqli_fetch_assoc($result_total);
-
+        $db = new Database();
+        $conn = $db->getConnection();
 
         // $query_dipinjam = "SELECT count(id) as jml from detail_peminjaman";
         // $result_dipinjam = mysqli_query($koneksi, $query_dipinjam);
@@ -28,8 +28,8 @@
                             <h5><i class="fa fa-users fa-2x" aria-hidden="true"></i></h5>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Anggota</h5>
-                            <p class="card-text">jumlah anggota terdaftar</p>
+                            <h5 class="card-title">Member</h5>
+                            <p class="card-text">jumlah member terdaftar</p>
 
                             
                         </div>
@@ -108,8 +108,35 @@
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h5 class="card-title"><i class="fa fa-users"></i>  MEMBER</h5>
-                            <h5 class="card-title" text-right>Lihat Selengkapnya >></h5>
+                            <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
                         </div>
+                        <div class="table-responsive small">
+                        <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">USERNAME</th>
+                                <th scope="col">NAMA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $no = 1;
+                        $query = "SELECT * FROM member order by id_member desc";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <tr>
+                                <th scope="row"><?= $no++ ?></th>
+                                <td><?= $row['USERNAME_MEMBER'] ?></td>
+                                <td><?= $row['NAMA_MEMBER'] ?></td>
+
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+
+                        </table>
+                </div>
 
                     </div>
 
@@ -118,9 +145,38 @@
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h5 class="card-title"><i class="fa fa-book"> BOOK</i></h5>
-                            <h5 class="card-title" text-right>Lihat Selengkapnya >></h5>
+                            <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
 
                         </div>
+                        <div class="table-responsive small">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Judul</th>
+                                <th scope="col">Deskripsi</th>
+                                <th scope="col">Ketersediaan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $no = 1;
+                        $query = "SELECT * FROM buku order by id_buku desc";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <tr>
+                                <th scope="row"><?= $no++ ?></th>
+                                <td><?= $row['JUDUL_BUKU'] ?></td>
+                                <td><?= $row['DESKRIPSI'] ?></td>
+                                <td><?= $row['KETERSEDIAAN'] ?></td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+
+                    </table>
+                </div>
+
 
                     </div>
 
@@ -132,8 +188,8 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5 class="card-title"><i class="fa fa-users"></i>  MEMBER</h5>
-                            <h5 class="card-title" text-right>Lihat Selengkapnya >></h5>
+                            <h5 class="card-title"><i class="fa fa-users"></i>  PETUGAS</h5>
+                            <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
                         </div>
 
                     </div>
@@ -142,16 +198,42 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5 class="card-title"><i class="fa fa-book"> BOOK</i></h5>
-                            <h5 class="card-title" text-right>Lihat Selengkapnya >></h5>
+                            <h5 class="card-title"><i class="fa fa-book"> TRANSAKSI</i></h5>
+                            <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
 
                         </div>
 
                     </div>
 
                 </div>
+                
+            </div>
+            <br></br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h5 class="card-title"><i class="fa fa-users"></i>  KATEGORI</h5>
+                            <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
+                        </div>
 
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h5 class="card-title"><i class="fa fa-book"> PENULIS</i></h5>
+                            <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                
             </div>
         </main>
     </div>
 </div>
+                            

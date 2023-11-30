@@ -1,37 +1,66 @@
 <?php
-include("../../config/database.php"); // Adjust the path accordingly
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the username and password from the form
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    $username = $_POST["loginUsername"];
+    $password = $_POST["loginPassword"];
 
-    // Validate the credentials (You should use secure password hashing and validation)
-    $query = "SELECT * FROM MEMBER WHERE USERNAME_MEMBER = '$username' AND PASSWORD_MEMBER = '$password'";
-    $result = mysqli_query($conn, $query);
+    // Include your database connection file or establish a connection here
+    include_once("../Config/koneksi.php"); // Adjust the path accordingly
+    $database = new Database();
+    $conn = $database->getConnection();
 
-    if ($result && mysqli_num_rows($result) > 0) {
-        // Login successful, fetch the user data
-        $user = mysqli_fetch_assoc($result);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
-        // Start the session and store user data
-        session_start();
-        $_SESSION["user_id"] = $user["ID_MEMBER"];
-        $_SESSION["username"] = $user["USERNAME_MEMBER"];
-        $_SESSION["level"] = $user["level"];
+    // Check if the connection is successful
+    if ($conn) {
+        // Use prepared statements to prevent SQL injection
+        $stmt = $conn->prepare("SELECT ID_MEMBER, PASSWORD_MEMBER, level FROM MEMBER WHERE USERNAME_MEMBER = ?");
+        $stmt->bind_param("s", $username);
 
-        // Redirect based on user level
-        if ($_SESSION["level"] == "Admin") {
-            header("Location: admin_dashboard.php"); // Redirect to the admin dashboard
-            exit();
-        } elseif ($_SESSION["level"] == "Member") {
-            header("Location: member_dashboard.php"); // Redirect to the member dashboard
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows > 0) {
+            $stmt->bind_result($userID, $hashedPassword, $userLevel);
+            $stmt->fetch();
+
+            // Verify the password using md5()
+            if (md5($password) === $hashedPassword) {
+                // Password is correct
+                // Store user ID and level in session variables
+                $_SESSION["userID"] = $userID;
+                $_SESSION["userLevel"] = $userLevel;
+
+                $stmt->close();
+
+                // Redirect based on user level
+                if ($userLevel === 'Admin') {
+                    header("Location: ../index.php?level=admin");
+                    exit();
+                } elseif ($userLevel === 'Member') {
+                    header("Location: ../App/member/index.php");
+                    exit();
+                }
+            } else {
+                // Incorrect password
+                header("Location: ../App/Katalog/katalog.php?error=incorrect_password");
+                exit();
+            }
+        } else {
+            // Invalid username
+            header("Location: ../App/Katalog/katalog.php?error=invalid_username");
             exit();
         }
     } else {
-        // Invalid login credentials
-        echo "<script>alert('Invalid username or password. Please try again.');</script>";
+        // Database connection failed
+        header("Location: ../App/Katalog/katalog.php?error=db_connection_failed");
+        exit();
     }
-
-    mysqli_close($conn);
+} else {
+    // Redirect to login page if accessed directly
+    header("Location: ../App/Katalog/katalog.php");
+    exit();
 }
