@@ -11,15 +11,12 @@
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Buku</h1>
+                <h1 class="h2">Member</h1>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                        <i class="fa fa-plus"></i> Tambah Data
+                </button>
             </div>
             <div class="row">
-                <div class="col-lg-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-                        <i class="fa fa-plus"></i>Tambah Member
-                    </button>
-                </div>
-
                 <?php
                 if (isset($_SESSION['_flashdata'])) {
                     echo "<br>";
@@ -46,12 +43,11 @@
                         <tbody>
                         <?php
                         $no = 1;
-                        $query = "SELECT * FROM member order by id_member desc";
+                        $query = "SELECT * FROM member where level = 'Member' order by id_member asc";
                         $result = mysqli_query($conn, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                         ?>
                             <tr>
-                                <th scope="row"><?= $no++ ?></th>
                                 <td><?= $row['ID_MEMBER'] ?></td>
                                 <td><?= $row['USERNAME_MEMBER'] ?></td>
                                 <td><?= $row['PASSWORD_MEMBER'] ?></td>
@@ -61,8 +57,8 @@
                                 <td><?= $row['ALAMAT'] ?></td>
                                 <td><?= $row['level'] ?></td>
                                 <td>
-                                    <a href="index.php?page=buku/edit&id=<?= $row['id'] ?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
-                                    <a href="fungsi/hapus.php?buku=hapus&id=<?= $row['id'] ?>" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
+                                    <a href="" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
+                                    <a href="" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
                                 </td>
                             </tr>
                         <?php } ?>
