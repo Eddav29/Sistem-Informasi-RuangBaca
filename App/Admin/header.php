@@ -13,10 +13,14 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link rel="stylesheet" href="Assets2/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="">
     <link href="Assets2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="Assets2/dist/css/dashboard.css" rel="stylesheet">
     <style>
-        
+        .card-body1 {
+        height: 150px; /* Set your desired fixed height for the card body */
+        overflow-y: auto; /* Add vertical scrollbar if content exceeds the fixed height */
+       }
         
         .sidebar {
           background-color: navy;
