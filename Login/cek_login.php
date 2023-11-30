@@ -38,7 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Redirect based on user level
                 if ($userLevel === 'Admin') {
+
                     header("Location: ../index.php?");
+
                     exit();
                 } elseif ($userLevel === 'Member') {
                     header("Location: ../App/member/index.php");
