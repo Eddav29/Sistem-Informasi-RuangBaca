@@ -10,7 +10,7 @@
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2 active text-white" aria-current="page" href="index.php">
                         <svg class="bi">
-                            <use xlink:href="#house-fill"/>
+                            <use xlink:href="#house-fill" />
                         </svg>
                         Dashboard
                     </a>
@@ -26,7 +26,7 @@
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2 active text-white" href="index.php?page=Buku">
                         <svg class="bi">
-                            <use xlink:href="#puzzle"/>
+                            <use xlink:href="#puzzle" />
                         </svg>
                         Buku
                     </a>
@@ -34,7 +34,7 @@
             </ul>
             <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2 active text-white" href="#">
+                    <a class="nav-link d-flex align-items-center gap-2 active text-white" href="index.php?page=Petugas">
                         <svg class="bi">
                             <use xlink:href="#gear-wide-connected" />
                         </svg>
@@ -45,13 +45,14 @@
                 <hr class="my-3">
 
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2 active text-white" href="logout.php">
+                    <a class="nav-link d-flex align-items-center gap-2 active text-white" href="index.php?page=Peminjaman">
                         <svg class="bi">
                             <use xlink:href="#door-closed" />
                         </svg>
                         Transaksi
                     </a>
-                </li><li class="nav-item">
+                </li>
+                <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2 active text-white" href="Login/logout.php">
                         <svg class="bi">
                             <use xlink:href="#door-closed" />
