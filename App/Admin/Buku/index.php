@@ -75,14 +75,14 @@
                 </div>
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-                        <div class="modal-content">
+                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm " role="document">
+                        <div class="modal-content h-100 ">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Data Buku</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <form action="" method="post">
-                                <div class="modal-body">
+                            <form action="" method="post" class="vh-100" style="padding-bottom: 10rem;">
+                                <div class="modal-body overflow-y-scroll h-100 ">
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Judul :</label>
                                         <input type="text" name="judul_buku" class="form-control" id="recipient-name">
