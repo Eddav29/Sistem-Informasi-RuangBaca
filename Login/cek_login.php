@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Redirect based on user level
                 if ($userLevel === 'Admin') {
-                    header("Location: ../index.php");
+                    header("Location: ../index.php?");
                     exit();
                 } elseif ($userLevel === 'Member') {
                     header("Location: ../App/member/index.php");
@@ -61,6 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     // Redirect to login page if accessed directly
-    header("Location: ../App/Katalog/katalog.php");
+    header("Location: App/Katalog/katalog.php");
     exit();
 }

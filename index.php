@@ -46,17 +46,26 @@ if (!empty($_SESSION['level'])) {
 // }
 
 
-if (session_status() === PHP_SESSION_NONE)
+if (session_status() === PHP_SESSION_NONE){
     session_start();
-include "Config/koneksi.php";
-if (isset($_SESSION["username"]) || $_SESSION["userLevel"] == 'Admin') {
-    if (!empty($_GET['page'])) {
-        include 'App/Admin/header.php';
-        include 'App/Admin/' . $_GET['page'] . '/index.php';
-        include 'App/Admin/footer.php';
+    if (isset($_SESSION["userID"]) && isset($_SESSION["userLevel"])) {
+        include "Config/koneksi.php";
+        $userLevel = $_SESSION["userLevel"];
+
+        if($userLevel == "Admin"){
+            if (!empty($_GET['page'])) {
+                include 'App/Admin/header.php';
+                include 'App/Admin/' . $_GET['page'] . '/index.php';
+                include 'App/Admin/footer.php';
+            } else {
+                include 'App/Admin/indexAdmin.php';
+            }
+        }
+
+        
     } else {
-        include 'App/Admin/indexAdmin.php';
+        header("Location: App/Katalog/index.php");
     }
-} else {
-    header("location ./App/Katalog/index.php");
 }
+
+
