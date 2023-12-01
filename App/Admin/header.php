@@ -378,7 +378,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div id="page-content-wrapper" class="m-0">
+    <div id="page-content-wrapper">
 
       <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
         <span class="hamb-top"></span>
