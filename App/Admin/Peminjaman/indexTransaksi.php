@@ -31,7 +31,6 @@
             display: flexbox;
             margin-top: 20px;
             padding: 20px;
-            line-break: ;
             border: 1px solid black;
             /* Tambahkan border untuk luaran .table-container */
             margin-bottom: 20px;
@@ -208,8 +207,7 @@
     <div class="table-container">
         <div class="table-title">Tabel Peminjaman</div>
         <!-- Tombol "Tambah" untuk menambahkan data -->
-        <button type="button" class="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            data-bs-whatever="@mdo">
+        <button type="button" class="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
             <i class="fa fa-plus"></i>+Tambah Peminjam</button>
 
 
@@ -308,8 +306,7 @@
             </tbody>
         </table>
         <!-- Modal untuk menambahkan data peminjam -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-            role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -482,8 +479,7 @@
 
 
         <!-- Modal untuk menghapus data pengembalian -->
-        <div class="modal fade" id="deletePengembalianModal" tabindex="-1"
-            aria-labelledby="deletePengembalianModalLabel" aria-hidden="true">
+        <div class="modal fade" id="deletePengembalianModal" tabindex="-1" aria-labelledby="deletePengembalianModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

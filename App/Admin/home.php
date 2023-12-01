@@ -1,7 +1,7 @@
-<div class="container-fluid">
+<div class="container-fluid ">
     <div class="row">
         <?php
-        
+
         include "menu.php";
         // $query_total = "SELECT count(id) as jml from buku";
         // $result_total = mysqli_query($koneksi,$query_total);
@@ -16,7 +16,7 @@
 
         ?>
 
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <main class="col-md-9 col-lg-12 px-md-4 m=0 ms-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Dashboard</h1>
             </div>
@@ -31,7 +31,7 @@
                             <h5 class="card-title">Member</h5>
                             <p class="card-text">jumlah member terdaftar</p>
 
-                            
+
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                <div class="card">
+                    <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h5>16</h5>
                             <h5><i class="fa fa-user fa-2x" aria-hidden="true"></i></h5>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                <div class="card">
+                    <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h5>16</h5>
                             <h5><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></h5>
@@ -86,7 +86,7 @@
                                 <h6 class="card-title">Tentang</h6>
                                 <p class="card-text">Ruang Baca</p>
                             </div>
-                            
+
                             <a href="index.php?page=anggota" class="btn btn-primary"><i class="fa fa-users" aria-hidden="true"></i> Kelola</a>
                         </div>
                     </div>
@@ -94,9 +94,9 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-bar-chart-line-fill" aria-hidden="true"></i>  STATISTIK</h5>
+                            <h5 class="card-title"><i class="bi bi-bar-chart-line-fill" aria-hidden="true"></i> STATISTIK</h5>
                             <p class="card-text">Total Jabatan: <?= $row_jabatan['jml'] ?>.</p>
-                            <p class="card-text">Total Inventaris: <?= $row['']?></p>
+                            <p class="card-text">Total Inventaris: <?= $row[''] ?></p>
                             <a href="index.php?page=jabatan" class="btn btn-primary"><i class="fa fa-puzzle-piece" aria-hidden="true"></i> Kelola</a>
                         </div>
                     </div>
@@ -107,46 +107,46 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5 class="card-title"><i class="fa fa-users"></i>  MEMBER</h5>
+                            <h5 class="card-title"><i class="fa fa-users"></i> MEMBER</h5>
                             <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
                         </div>
                         <div class="table-responsive small">
-                        <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">USERNAME</th>
-                                <th scope="col">NAMA</th>
-                                <th scope="col">ALAMAT</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $no = 1;
-                        $query = "SELECT * FROM member where level = 'Admin' order by id_member asc";
-                        $result = mysqli_query($conn, $query);
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">USERNAME</th>
+                                        <th scope="col">NAMA</th>
+                                        <th scope="col">ALAMAT</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT * FROM member where level = 'Admin' order by id_member asc";
+                                    $result = mysqli_query($conn, $query);
 
-                        $count=0;
+                                    $count = 0;
 
-                        while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                            <tr>
-                                <th scope="row"><?= $no++ ?></th>
-                                <td><?= $row['USERNAME_MEMBER'] ?></td>
-                                <td><?= $row['NAMA_MEMBER'] ?></td>
-                                <td><?= $row['ALAMAT'] ?></td>
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                        <tr>
+                                            <th scope="row"><?= $no++ ?></th>
+                                            <td><?= $row['USERNAME_MEMBER'] ?></td>
+                                            <td><?= $row['NAMA_MEMBER'] ?></td>
+                                            <td><?= $row['ALAMAT'] ?></td>
 
-                            </tr>
-                        <?php
-                            $count++;
-                            if($count == 5){
-                                break;
-                            }
-                         } ?>
-                        </tbody>
+                                        </tr>
+                                    <?php
+                                        $count++;
+                                        if ($count == 5) {
+                                            break;
+                                        }
+                                    } ?>
+                                </tbody>
 
-                        </table>
-                </div>
+                            </table>
+                        </div>
 
                     </div>
 
@@ -159,39 +159,39 @@
 
                         </div>
                         <div class="table-responsive small">
-                        <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Judul</th>
-                                <th scope="col">Deskripsi</th>
-                                <th scope="col">Ketersediaan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $no = 1;
-                        $query = "SELECT * FROM buku order by id_buku desc";
-                        $result = mysqli_query($conn, $query);
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Judul</th>
+                                        <th scope="col">Deskripsi</th>
+                                        <th scope="col">Ketersediaan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT * FROM buku order by id_buku desc";
+                                    $result = mysqli_query($conn, $query);
 
-                        $count=0;
-                        while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                            <tr>
-                                <th scope="row"><?= $no++ ?></th>
-                                <td><?= $row['JUDUL_BUKU'] ?></td>
-                                <td><?= $row['DESKRIPSI'] ?></td>
-                                <td><?= $row['KETERSEDIAAN'] ?></td>
-                            </tr>
-                        <?php
-                            $count++;
-                            if($count == 5){
-                                break;
-                            }
-                        } ?>
-                        </tbody>
+                                    $count = 0;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                        <tr>
+                                            <th scope="row"><?= $no++ ?></th>
+                                            <td><?= $row['JUDUL_BUKU'] ?></td>
+                                            <td><?= $row['DESKRIPSI'] ?></td>
+                                            <td><?= $row['KETERSEDIAAN'] ?></td>
+                                        </tr>
+                                    <?php
+                                        $count++;
+                                        if ($count == 5) {
+                                            break;
+                                        }
+                                    } ?>
+                                </tbody>
 
-                        </table>
+                            </table>
                         </div>
 
 
@@ -205,44 +205,44 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5 class="card-title"><i class="fa fa-users"></i>  PETUGAS</h5>
+                            <h5 class="card-title"><i class="fa fa-users"></i> PETUGAS</h5>
                             <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
                         </div>
                         <div class="table-responsive small">
-                        <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID Petugas</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Alamat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $no = 1;
-                        $query = "SELECT * FROM member where level = 'Admin' order by id_member asc";
-                        $result = mysqli_query($conn, $query);
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID Petugas</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">Alamat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT * FROM member where level = 'Admin' order by id_member asc";
+                                    $result = mysqli_query($conn, $query);
 
-                        $count=0;
-                        while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                            <tr>
-                                <th scope="row"><?= $no++ ?></th>
-                                <td><?= $row['USERNAME_MEMBER'] ?></td>
-                                <td><?= $row['NAMA_MEMBER'] ?></td>
-                                <td><?= $row['ALAMAT'] ?></td>
+                                    $count = 0;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                        <tr>
+                                            <th scope="row"><?= $no++ ?></th>
+                                            <td><?= $row['USERNAME_MEMBER'] ?></td>
+                                            <td><?= $row['NAMA_MEMBER'] ?></td>
+                                            <td><?= $row['ALAMAT'] ?></td>
 
-                            </tr>
-                        <?php
-                            $count++;
-                            if($count == 5){
-                                break;
-                            }
-                        } ?>
-                        </tbody>
+                                        </tr>
+                                    <?php
+                                        $count++;
+                                        if ($count == 5) {
+                                            break;
+                                        }
+                                    } ?>
+                                </tbody>
 
-                        </table>
+                            </table>
                         </div>
                     </div>
 
@@ -255,84 +255,84 @@
 
                         </div>
                         <div class="table-responsive small">
-                        <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID Peminjaman</th>
-                                <th scope="col">ID Member</th>
-                                <th scope="col">Tanggal Peminjaman</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $no = 1;
-                        $query = "SELECT * FROM peminjaman order by id_peminjaman asc";
-                        $result = mysqli_query($conn, $query);
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID Peminjaman</th>
+                                        <th scope="col">ID Member</th>
+                                        <th scope="col">Tanggal Peminjaman</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT * FROM peminjaman order by id_peminjaman asc";
+                                    $result = mysqli_query($conn, $query);
 
-                        $count=0;
-                        while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                            <tr>
-                                <th scope="row"><?= $no++ ?></th>
-                                <td><?= $row['ID_MEMBER'] ?></td>
-                                <td><?= $row['TANGGAL_PEMINJAMAN'] ?></td>
-                                <td><?= $row['ATTRIBSTATUSUTE_26'] ?></td>
+                                    $count = 0;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                        <tr>
+                                            <th scope="row"><?= $no++ ?></th>
+                                            <td><?= $row['ID_MEMBER'] ?></td>
+                                            <td><?= $row['TANGGAL_PEMINJAMAN'] ?></td>
+                                            <td><?= $row['ATTRIBSTATUSUTE_26'] ?></td>
 
-                            </tr>
-                        <?php
-                            $count++;
-                            if($count == 5){
-                                break;
-                            }
-                        } ?>
-                        </tbody>
+                                        </tr>
+                                    <?php
+                                        $count++;
+                                        if ($count == 5) {
+                                            break;
+                                        }
+                                    } ?>
+                                </tbody>
 
-                        </table>
+                            </table>
                         </div>
                     </div>
 
                 </div>
-                
+
             </div>
             <br></br>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5 class="card-title"><i class="fa fa-users"></i>  KATEGORI</h5>
+                            <h5 class="card-title"><i class="fa fa-users"></i> KATEGORI</h5>
                             <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
                         </div>
                         <div class="table-responsive small">
-                        <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID Petugas</th>
-                                <th scope="col">Nama Kategori</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $no = 1;
-                        $query = "SELECT * FROM kategori order by id_kategori asc";
-                        $result = mysqli_query($conn, $query);
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID Petugas</th>
+                                        <th scope="col">Nama Kategori</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT * FROM kategori order by id_kategori asc";
+                                    $result = mysqli_query($conn, $query);
 
-                        $count=0;
-                        while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                            <tr>
-                                <th scope="row"><?= $no++ ?></th>
-                                <td><?= $row['NAMA_KATEGORI'] ?></td>
-                            </tr>
-                        <?php
-                            $count++;
-                            if($count == 5){
-                                break;
-                            }
-                        } ?>
-                        </tbody>
+                                    $count = 0;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                        <tr>
+                                            <th scope="row"><?= $no++ ?></th>
+                                            <td><?= $row['NAMA_KATEGORI'] ?></td>
+                                        </tr>
+                                    <?php
+                                        $count++;
+                                        if ($count == 5) {
+                                            break;
+                                        }
+                                    } ?>
+                                </tbody>
 
-                        </table>
+                            </table>
                         </div>
                     </div>
 
@@ -345,42 +345,41 @@
 
                         </div>
                         <div class="table-responsive small">
-                        <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID Penulis</th>
-                                <th scope="col">Nama Penulis</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $no = 1;
-                        $query = "SELECT * FROM penulis order by id_penulis asc";
-                        $result = mysqli_query($conn, $query);
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID Penulis</th>
+                                        <th scope="col">Nama Penulis</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT * FROM penulis order by id_penulis asc";
+                                    $result = mysqli_query($conn, $query);
 
-                        $count=0;
-                        while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                            <tr>
-                                <th scope="row"><?= $no++ ?></th>
-                                <td><?= $row['NAMA_PENULIS'] ?></td>
-                            </tr>
-                        <?php
-                            $count++;
-                            if($count == 5){
-                                break;
-                            }
-                        } ?>
-                        </tbody>
+                                    $count = 0;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                        <tr>
+                                            <th scope="row"><?= $no++ ?></th>
+                                            <td><?= $row['NAMA_PENULIS'] ?></td>
+                                        </tr>
+                                    <?php
+                                        $count++;
+                                        if ($count == 5) {
+                                            break;
+                                        }
+                                    } ?>
+                                </tbody>
 
-                        </table>
+                            </table>
                         </div>
                     </div>
 
                 </div>
-                
+
             </div>
         </main>
     </div>
 </div>
-                            

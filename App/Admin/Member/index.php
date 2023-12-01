@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row">
-    
-    <?php
-        
+
+        <?php
+
 
         include 'App/Admin/menu.php';
         $db = new Database();
         $conn = $db->getConnection();
-        ?>  
+        ?>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -75,14 +75,23 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <?php
-                                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                                    if (isset($_POST['submit'])) {
-                                        include 'insert_function.php';
-                                        insertData($_POST['judul_buku'], $_POST['deskripsi'], $_POST['ketersediaan'], $_POST['tanggal_pengadaan'],
-                                        $_POST['tahun_penerbit'], $_POST['penerbit'], $_POST['rak'], $_POST['img'], $_POST['status'],);
-                                    }
+                            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                                if (isset($_POST['submit'])) {
+                                    include 'insert_function.php';
+                                    insertData(
+                                        $_POST['judul_buku'],
+                                        $_POST['deskripsi'],
+                                        $_POST['ketersediaan'],
+                                        $_POST['tanggal_pengadaan'],
+                                        $_POST['tahun_penerbit'],
+                                        $_POST['penerbit'],
+                                        $_POST['rak'],
+                                        $_POST['img'],
+                                        $_POST['status'],
+                                    );
                                 }
-                                ?>
+                            }
+                            ?>
                             <form action="" method="post">
                                 <div class="modal-body">
                                     <div class="mb-3">
@@ -142,7 +151,7 @@
                                         <button type="submit" name="submit" class="btn btn-primary ms-2" aria-hidden="true"><i class="fa fa-floppy-o"></i> Simpan</button>
                                     </div>
                                 </div>
-                                
+
                             </form>
                         </div>
                     </div>
