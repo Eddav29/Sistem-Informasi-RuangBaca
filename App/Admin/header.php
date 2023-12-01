@@ -366,24 +366,21 @@
           </div>
         </div>
         <li class="nav-item"><a href="#home"><i class="fa-solid fa-gauge"></i> Home</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa-solid fa-table-columns"></i> Master Data
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-book"></i> Buku</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-list"></i> Kategori</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user-pen"></i> Penulis</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user-tie"></i> Petugas</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-users"></i> Member</a></li>
-          </ul>
-        </li>
-        <li class="nav-item mb-10"><a href="#services"> <i class="fa-solid fa-truck-ramp-box"></i> Peminjaman</a></li>\
-        <li class="nav-item mt-10"><a href="#contact"><i class="fa-solid fa-right-from-bracket"></i> Log out</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-table-columns"></i> Master Data</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-book"></i> Buku</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-list"></i> Kategori</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-user-pen"></i> Penulis</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-user-tie"></i> Petugas</a></li>
+        <li class="nav-item"><a href="#"><i class="fa-solid fa-users"></i> Member</a></li>
+        <li class="nav-item mb-10"><a href="#services"> <i class="fa-solid fa-truck-ramp-box"></i> Peminjaman</a></li>
+
+        <li class="nav-item mt-10"><a href="#contact"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
+
     </nav>
+
     <!-- Page Content -->
-    <div id="page-content-wrapper">
+    <div id="page-content-wrapper" class="m-0">
 
       <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
         <span class="hamb-top"></span>

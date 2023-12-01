@@ -15,7 +15,7 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg m-0">
+    <nav class="navbar navbar-expand-lg m-0 fixed-top">
         <div class="container-fluid">
 
             <img src="../../Assets/img/logo.jpg" alt="Logo-ruangBaca" width="125px" class="d-inline-block align-text-top ">
@@ -33,19 +33,16 @@
                 <a href="#" class="close-btn">&times;</a>
                 <ul class="navbar-nav p-2 m-1">
                     <li class="nav-item">
-                        <a class="nav-link active p-2 text-white" aria-current="page" href="katalog.php">Home</a>
+                        <a class="nav-link active p-2 text-white" aria-current="page" href="index.php">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle p-2 text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Katalog
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item " href="#">Skripsi</a></li>
-                            <li><a class="dropdown-item " href="#">Modul Ajar</a></li>
-                            <li><a class="dropdown-item " href="#">Laporan PKL</a></li>
-                            <li><a class="dropdown-item " href="#">Laporan Skripsi</a></li>
-                            <li><a class="dropdown-item " href="#">Laporan Tugas Akhir</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#team">our teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#contact">Contact</a>
                     </li>
                     <?php
                     if (isset($showSearch) && $showSearch) {
@@ -69,23 +66,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active p-2 text-white" aria-current="page" href="katalog.php">Home</a>
+                        <a class="nav-link active p-2 text-white" aria-current="page" href="index.php">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle p-2 text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Katalog
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Skripsi</a></li>
-                            <li><a class="dropdown-item" href="#">Modul Ajar</a></li>
-                            <li><a class="dropdown-item" href="#">Laporan PKL</a></li>
-                            <li><a class="dropdown-item" href="#">Laporan Skripsi</a></li>
-                            <li><a class="dropdown-item" href="#">Laporan Tugas Akhir</a></li>
-                        </ul>
-                    </li>
-
                     <li class="nav-item">
-                        <a class="nav-link p-2 text-white" aria-current="page" href="#">About</a>
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#team">our teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#contact">Contact</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center"> <!-- Container for search and login -->
@@ -234,10 +224,12 @@
     <script>
         //toggle sidebar
         document.querySelector(".custom-toggler").addEventListener("click", function() {
+            event.preventDefault();
             toggleSidebar();
         });
 
         document.querySelector(".close-btn").addEventListener("click", function() {
+            event.preventDefault();
             closeSidebar();
         });
 
@@ -289,6 +281,7 @@
                     document.getElementById("passwordMatchError").classList.add("d-none");
                 }
             });
+        //search
         $(document).ready(function() {
             $('#searchForm').submit(function(e) {
                 e.preventDefault();
