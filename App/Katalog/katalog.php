@@ -143,7 +143,7 @@
                         </form>
                         <!-- Reverse column order untuk mobile -->
                         <div class="flex-shrink-0 ms-lg-3 mb-3 mb-lg-0"> <!-- Tambahkan margin-bottom untuk mobile -->
-                            <img src="../../Assets/img/logo.jpg" alt="Logo" class="img-fluid img-logo" width="200px">
+                            <img src="../../Assets/img/logo.jpg" alt="Logo" class="img-fluid img-logo" width="400px">
                         </div>
                     </div>
                 </div>

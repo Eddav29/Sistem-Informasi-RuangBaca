@@ -374,20 +374,20 @@
         <li class="nav-item"><a href="#"><i class="fa-solid fa-users"></i> Member</a></li>
         <li class="nav-item mb-10"><a href="#services"> <i class="fa-solid fa-truck-ramp-box"></i> Peminjaman</a></li>
 
-        <li class="nav-item mt-10"><a href="#contact"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        <li class="nav-item mt-10"><a href="Login/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
 
     </nav>
 
     <!-- Page Content -->
-    <div id="page-content-wrapper" class="m-0">
+    <div id="page-content-wrapper">
 
       <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
         <span class="hamb-top"></span>
         <span class="hamb-middle"></span>
         <span class="hamb-bottom"></span>
       </button>
-      <div class="container">
+      <div class="container m-0">
         <div class="row">
 
 
