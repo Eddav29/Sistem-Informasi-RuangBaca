@@ -365,15 +365,13 @@
             <a href="#"> <img src="Assets/img/logo.jpg" alt="logo" width="100px"></a>
           </div>
         </div>
-        <li class="nav-item"><a href="#home"><i class="fa-solid fa-gauge"></i> Home</a></li>
-        <li class="nav-item"><a href="#"><i class="fa-solid fa-table-columns"></i> Master Data</a></li>
-        <li class="nav-item"><a href="#"><i class="fa-solid fa-book"></i> Buku</a></li>
-        <li class="nav-item"><a href="#"><i class="fa-solid fa-list"></i> Kategori</a></li>
-        <li class="nav-item"><a href="#"><i class="fa-solid fa-user-pen"></i> Penulis</a></li>
-        <li class="nav-item"><a href="#"><i class="fa-solid fa-user-tie"></i> Petugas</a></li>
-        <li class="nav-item"><a href="#"><i class="fa-solid fa-users"></i> Member</a></li>
-        <li class="nav-item mb-10"><a href="#services"> <i class="fa-solid fa-truck-ramp-box"></i> Peminjaman</a></li>
-
+        <li class="nav-item"><a href="index.php"><i class="fa-solid fa-gauge"></i> Home</a></li>
+        <li class="nav-item"><a href="index.php?page=Buku"><i class="fa-solid fa-book"></i> Buku</a></li>
+        <li class="nav-item"><a href="index.php?page=Kategori"><i class="fa-solid fa-list"></i> Kategori</a></li>
+        <li class="nav-item"><a href="index.php?page=Penulis"><i class="fa-solid fa-user-pen"></i> Penulis</a></li>
+        <li class="nav-item"><a href="index.php?page=Petugas"><i class="fa-solid fa-user-tie"></i> Petugas</a></li>
+        <li class="nav-item"><a href="index.php?page=Member"><i class="fa-solid fa-users"></i> Member</a></li>
+        <li class="nav-item mb-10"><a href="index.php?page=Peminjaman"> <i class="fa-solid fa-truck-ramp-box"></i> Peminjaman</a></li>
         <li class="nav-item mt-10"><a href="Login/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
       </ul>
 
@@ -387,7 +385,7 @@
         <span class="hamb-middle"></span>
         <span class="hamb-bottom"></span>
       </button>
-      <div class="container m-0">
+      <div class="container ms-0 ">
         <div class="row">
 
 
