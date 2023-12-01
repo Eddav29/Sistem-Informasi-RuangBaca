@@ -9,6 +9,13 @@ class Book
         $this->conn = $conn;
     }
 
+    public function createBuku(){
+        if(!empty($_SESSION['judul_buku'])){
+            require '../Config/koneksi.php';
+
+        }
+    }
+
     public function getAuthors()
     {
         $authors_query = "SELECT * FROM PENULIS";
@@ -87,4 +94,58 @@ class Book
 
         return $result;
     }
+
+    public function addBook($judul, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_terbit, $penerbit, $rak, $img, $status_buku)
+{
+    $judul = mysqli_real_escape_string($this->conn, $judul);
+    $deskripsi = mysqli_real_escape_string($this->conn, $deskripsi);
+    $ketersediaan = mysqli_real_escape_string($this->conn, $ketersediaan);
+    $tanggal_pengadaan = mysqli_real_escape_string($this->conn, $tanggal_pengadaan);
+    $tahun_terbit = mysqli_real_escape_string($this->conn, $tahun_terbit);
+    $penerbit = mysqli_real_escape_string($this->conn, $penerbit);
+    $rak = mysqli_real_escape_string($this->conn, $rak);
+    $img = mysqli_real_escape_string($this->conn, $img);
+    $status_buku = mysqli_real_escape_string($this->conn, $status_buku);
+
+    $insert_query = "INSERT INTO BUKU (JUDUL_BUKU, DESKRIPSI, KETERSEDIAAN, TANGGAL_PENGADAAN, TAHUN_TERBIT, PENERBIT, RAK, IMG, STATUS_BUKU) 
+                     VALUES ('$judul', '$deskripsi', '$ketersediaan', '$tanggal_pengadaan', '$tahun_terbit', '$penerbit', '$rak', '$img', '$status_buku')";
+
+    $result = mysqli_query($this->conn, $insert_query);
+
+    return $result;
+}
+
+public function addBookFromForm()
+{
+    if (isset($_POST['submit'])) {
+        $judul_buku = $_POST['judul_buku'];
+        $deskripsi = $_POST['deskripsi'];
+        $ketersediaan = $_POST['ketersediaan'];
+        $tanggal_pengadaan = $_POST['tanggal_pengadaan'];
+        $tahun_penerbit = $_POST['tahun_penerbit'];
+        $penerbit = $_POST['penerbit'];
+        $rak = $_POST['rak'];
+        $img = $_POST['img'];
+        $status_buku = $_POST['status_buku'];
+
+        // Assuming $book is an instance of your Book class
+        $result = $this->addBook($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_penerbit, $penerbit, $rak, $img, $status_buku);
+
+        if ($result) {
+            ob_start();
+            // Book added successfully
+            // You can redirect to a success page or perform any other actions
+            // For example, you can use header("Location: success.php");
+            pesan('success', "Jabatan Baru Ditambahkan.");
+            header("Location: index.php?page=Buku");
+        } else {
+            pesan('danger', "Gagal Menambahkan Jabatan Karena: " . mysqli_error($this->conn));
+        }
+    }
+}
+
+
+
+
+
 }

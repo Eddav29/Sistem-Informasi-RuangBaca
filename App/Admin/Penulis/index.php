@@ -1,8 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <?php
-        include "../menu.php";
-        require "../../../Config/koneksi.php";
+        include 'App/Admin/menu.php';   
         $db = new Database();
         
         // Get the database connection
