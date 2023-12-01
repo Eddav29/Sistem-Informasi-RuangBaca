@@ -1,15 +1,14 @@
 <div class="container-fluid">
     <div class="row">
-    
-    <?php
-    include 'App/Admin/menu.php';
-    include 'Functions/pesan_kilat.php';
-    $db = new Database();
-    $conn = $db->getConnection();
+
+        <?php
+        include 'Functions/pesan_kilat.php';
+        $db = new Database();
+        $conn = $db->getConnection();
         require 'Functions/Book.php';
         $book = new Book($conn);
         $add = $book->addBookFromForm();
-        ?>  
+        ?>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -20,7 +19,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-2">
-                    
+
                 </div>
 
                 <?php
@@ -44,34 +43,34 @@
                                 <th scope="col">Tahun Terbit</th>
                                 <th scope="col">Penerbit</th>
                                 <th scope="col">Rak</th>
-                                <th scope="col">Img</th> 
+                                <th scope="col">Img</th>
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
-                        $no = 1;
-                        $query = "SELECT * FROM buku order by id_buku desc";
-                        $result = mysqli_query($conn, $query);
-                        while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                            <tr>
-                                <th scope="row"><?= $no++ ?></th>
-                                <td><?= $row['JUDUL_BUKU'] ?></td>
-                                <td><?= $row['DESKRIPSI'] ?></td>
-                                <td><?= $row['KETERSEDIAAN'] ?></td>
-                                <td><?= $row['TANGGAL_PENGADAAN'] ?></td>
-                                <td><?= $row['TAHUN_TERBIT'] ?></td>
-                                <td><?= $row['PENERBIT'] ?></td>
-                                <td><?= $row['RAK'] ?></td>
-                                <td><?= $row['IMG'] ?></td>
-                                <td><?= $row['STATUS_BUKU'] ?></td>
-                                <td>
-                                    <a href="" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
-                                    <a href="" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
-                                </td>
-                            </tr>
-                        <?php } ?>
+                            <?php
+                            $no = 1;
+                            $query = "SELECT * FROM buku order by id_buku desc";
+                            $result = mysqli_query($conn, $query);
+                            while ($row = mysqli_fetch_assoc($result)) {
+                            ?>
+                                <tr>
+                                    <th scope="row"><?= $no++ ?></th>
+                                    <td><?= $row['JUDUL_BUKU'] ?></td>
+                                    <td><?= $row['DESKRIPSI'] ?></td>
+                                    <td><?= $row['KETERSEDIAAN'] ?></td>
+                                    <td><?= $row['TANGGAL_PENGADAAN'] ?></td>
+                                    <td><?= $row['TAHUN_TERBIT'] ?></td>
+                                    <td><?= $row['PENERBIT'] ?></td>
+                                    <td><?= $row['RAK'] ?></td>
+                                    <td><?= $row['IMG'] ?></td>
+                                    <td><?= $row['STATUS_BUKU'] ?></td>
+                                    <td>
+                                        <a href="" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
+                                        <a href="" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
 
                     </table>
@@ -143,7 +142,7 @@
                                         <button type="submit" name="submit" class="btn btn-primary ms-2" aria-hidden="true"><i class="fa fa-floppy-o"></i> Simpan</button>
                                     </div>
                                 </div>
-                                
+
                             </form>
                         </div>
                     </div>

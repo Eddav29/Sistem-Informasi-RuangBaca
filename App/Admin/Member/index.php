@@ -3,8 +3,6 @@
 
         <?php
 
-
-        include 'App/Admin/menu.php';
         $db = new Database();
         $conn = $db->getConnection();
         ?>
@@ -13,7 +11,7 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Member</h1>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-                        <i class="fa fa-plus"></i> Tambah Data
+                    <i class="fa fa-plus"></i> Tambah Data
                 </button>
             </div>
             <div class="row">
@@ -41,27 +39,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
-                        $no = 1;
-                        $query = "SELECT * FROM member where level = 'Member' order by id_member asc";
-                        $result = mysqli_query($conn, $query);
-                        while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                            <tr>
-                                <td><?= $row['ID_MEMBER'] ?></td>
-                                <td><?= $row['USERNAME_MEMBER'] ?></td>
-                                <td><?= $row['PASSWORD_MEMBER'] ?></td>
-                                <td><?= $row['NAMA_MEMBER'] ?></td>
-                                <td><?= $row['JENIS_IDENTITAS'] ?></td>
-                                <td><?= $row['NOMOR_IDENTITAS'] ?></td>
-                                <td><?= $row['ALAMAT'] ?></td>
-                                <td><?= $row['level'] ?></td>
-                                <td>
-                                    <a href="" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
-                                    <a href="" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
-                                </td>
-                            </tr>
-                        <?php } ?>
+                            <?php
+                            $no = 1;
+                            $query = "SELECT * FROM member where level = 'Member' order by id_member asc";
+                            $result = mysqli_query($conn, $query);
+                            while ($row = mysqli_fetch_assoc($result)) {
+                            ?>
+                                <tr>
+                                    <td><?= $row['ID_MEMBER'] ?></td>
+                                    <td><?= $row['USERNAME_MEMBER'] ?></td>
+                                    <td><?= $row['PASSWORD_MEMBER'] ?></td>
+                                    <td><?= $row['NAMA_MEMBER'] ?></td>
+                                    <td><?= $row['JENIS_IDENTITAS'] ?></td>
+                                    <td><?= $row['NOMOR_IDENTITAS'] ?></td>
+                                    <td><?= $row['ALAMAT'] ?></td>
+                                    <td><?= $row['level'] ?></td>
+                                    <td>
+                                        <a href="" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
+                                        <a href="" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
 
                     </table>

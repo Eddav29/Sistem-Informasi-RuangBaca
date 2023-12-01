@@ -1,20 +1,12 @@
 <div class="container-fluid">
     <div class="row">
-        <?php
-        include "App/Admin/menu.php";
-        include "Config/koneksi.php";
-
-        ?>
-
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Buku</h1>
             </div>
             <div class="row">
                 <div class="col-lg-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        data-bs-whatever="@mdo">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                         <i class="fa fa-plus"></i>Tambah Buku
                     </button>
                 </div>
@@ -49,7 +41,7 @@
                             $query = "SELECT * FROM buku order by id_buku desc";
                             $reqult = mysqli_query($koneksi, $query);
                             while ($row = mysqli_fetch_assoc($reqult)) {
-                                ?>
+                            ?>
                                 <tr>
                                     <th scope="row">
                                         <?= $no++ ?>
@@ -79,11 +71,8 @@
                                         <?= $row['status_buku'] ?>
                                     </td>
                                     <td>
-                                        <a href="index.php?page=buku/edit&id=<?= $row['id'] ?>"
-                                            class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
-                                        <a href="fungsi/hapus.php?buku=hapus&id=<?= $row['id'] ?>"
-                                            onclick="javascript:return confirm('Hapus Data Buku?');"
-                                            class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
+                                        <a href="index.php?page=buku/edit&id=<?= $row['id'] ?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
+                                        <a href="fungsi/hapus.php?buku=hapus&id=<?= $row['id'] ?>" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -92,14 +81,12 @@
                     </table>
                 </div>
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static"
-                    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Data Buku</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <form action="" method="post">
                                 <div class="modal-body">
@@ -115,25 +102,21 @@
                                         <label for="recipient-name" class="col-form-label">Ketersediaan :</label>
                                         <br>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" name="ketersediaan"
-                                                value="Tersedia">
+                                            <input type="radio" class="form-check-input" name="ketersediaan" value="Tersedia">
                                             <label class="form-check-label" for="inlineRadio1">Tersedia</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" name="ketersediaan"
-                                                value="Tidak Tersedia">
+                                            <input type="radio" class="form-check-input" name="ketersediaan" value="Tidak Tersedia">
                                             <label class="form-check-label" for="inlineRadio2">Tidak Tersedia</label>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Tanggal Pengadaan:</label>
-                                        <input type="date" name="tanggal_pengadaan" class="form-control"
-                                            id="recipient-name">
+                                        <input type="date" name="tanggal_pengadaan" class="form-control" id="recipient-name">
                                     </div>
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Tahun Penerbit:</label>
-                                        <input type="year" name="tahun_penerbit" class="form-control"
-                                            id="recipient-name">
+                                        <input type="year" name="tahun_penerbit" class="form-control" id="recipient-name">
                                     </div>
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Penerbit :</label>
@@ -151,21 +134,17 @@
                                         <label for="recipient-name" class="col-form-label">Status :</label>
                                         <br>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" name="status_buku"
-                                                value="Rusak">
+                                            <input type="radio" class="form-check-input" name="status_buku" value="Rusak">
                                             <label class="form-check-label" for="inlineRadio1">Rusak</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" name="status_buku"
-                                                value="Bagus">
+                                            <input type="radio" class="form-check-input" name="status_buku" value="Bagus">
                                             <label class="form-check-label" for="inlineRadio2">Bagus</label>
                                         </div>
                                     </div>
                                     <div class="mb-3 d-flex justify-content-end">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                            aria-hidden="true"><i class="fa fa-times"></i> Close</button>
-                                        <button type="submit" name="submit" class="btn btn-primary ms-2"
-                                            aria-hidden="true"><i class="fa fa-floppy-o"></i> Simpan</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i> Close</button>
+                                        <button type="submit" name="submit" class="btn btn-primary ms-2" aria-hidden="true"><i class="fa fa-floppy-o"></i> Simpan</button>
                                     </div>
                                 </div>
 

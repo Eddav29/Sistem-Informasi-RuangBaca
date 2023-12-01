@@ -1,5 +1,4 @@
 <?php
-include("../../../Config/koneksi.php");
 $db = new Database();
 $conn = $db->getConnection();
 
