@@ -13,6 +13,6 @@ if (!empty($_SESSION['level'])){
     }
     include 'App/Admin/footer.php';
 } else {
-         header("Location: login.php");
+         header("Location: ./App/Katalog/index.php");
 }
 ?>
