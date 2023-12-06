@@ -15,6 +15,16 @@ if (session_status() === PHP_SESSION_NONE) {
             } else {
                 include 'App/Admin/indexAdmin.php';
             }
+        } elseif ($userLevel == "Member") {
+            if (!empty($_GET['page'])) {
+                ob_start();
+                include 'App/Member/headerMember.php';
+                include 'App/Member/' . $_GET['page'] . '/index.php';
+                include 'App/Member/footerMember.php';
+                ob_end_flush();
+            } else {
+                include 'App/Member/indexMember.php';
+            }
         }
     } else {
         header("Location: App/Katalog/index.php");
