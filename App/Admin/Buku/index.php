@@ -1,6 +1,9 @@
 <div class="container-fluid">
     <div class="row">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
         <?php
+        include 'App/Admin/menu.php';
         include 'Functions/pesan_kilat.php';
         $db = new Database();
         $conn = $db->getConnection();
