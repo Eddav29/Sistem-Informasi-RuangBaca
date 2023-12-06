@@ -1,48 +1,33 @@
-f=<div class="container-fluid">
+<div class="container-fluid">
     <div class="row">
-<<<<<<< HEAD
-=======
-
-        <?php
-
->>>>>>> 141d9eb117a80b66d828f0cc899c0f066abd02d5
 
         <?php
         include 'Functions/pesan_kilat.php';
         $db = new Database();
         $conn = $db->getConnection();
-<<<<<<< HEAD
-        require 'Functions/Book.php';
-        $book = new Book($conn);
-        $add = $book->addBookFromForm();
-=======
->>>>>>> 141d9eb117a80b66d828f0cc899c0f066abd02d5
         ?>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div
                 class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Buku</h1>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    data-bs-whatever="@mdo">
                     <i class="fa fa-plus"></i> Tambah Data
                 </button>
             </div>
             <div class="row">
                 <div class="col-lg-2">
-<<<<<<< HEAD
-
-=======
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                         data-bs-whatever="@mdo">
                         <i class="fa fa-plus"></i>Tambah Buku
                     </button>
->>>>>>> 141d9eb117a80b66d828f0cc899c0f066abd02d5
                 </div>
 
                 <?php
-                if (isset($_SESSION['_flashdata'])) {
+                if(isset($_SESSION['_flashdata'])) {
                     echo "<br>";
-                    foreach ($_SESSION['_flashdata'] as $key => $val) {
+                    foreach($_SESSION['_flashdata'] as $key => $val) {
                         echo get_flashdata($key);
                     }
                 }
@@ -69,26 +54,8 @@ f=<div class="container-fluid">
                             $no = 1;
                             $query = "SELECT * FROM buku order by id_buku desc";
                             $result = mysqli_query($conn, $query);
-                            while ($row = mysqli_fetch_assoc($result)) {
+                            while($row = mysqli_fetch_assoc($result)) {
                                 ?>
-<<<<<<< HEAD
-                                    <tr>
-                                        <th scope="row"><?= $no++ ?></th>
-                                        <td><?= $row['JUDUL_BUKU'] ?></td>
-                                        <td><?= $row['DESKRIPSI'] ?></td>
-                                        <td><?= $row['KETERSEDIAAN'] ?></td>
-                                        <td><?= $row['TANGGAL_PENGADAAN'] ?></td>
-                                        <td><?= $row['TAHUN_TERBIT'] ?></td>
-                                        <td><?= $row['PENERBIT'] ?></td>
-                                        <td><?= $row['RAK'] ?></td>
-                                        <td><?= $row['IMG'] ?></td>
-                                        <td><?= $row['STATUS_BUKU'] ?></td>
-                                        <td>
-                                            <a href="" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
-                                            <a href="" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
-                                        </td>
-                                    </tr>
-=======
                                 <tr>
                                     <th scope="row">
                                         <?= $no++ ?>
@@ -128,7 +95,6 @@ f=<div class="container-fluid">
                                             class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
                                     </td>
                                 </tr>
->>>>>>> 141d9eb117a80b66d828f0cc899c0f066abd02d5
                             <?php } ?>
                         </tbody>
                     </table>
@@ -143,8 +109,8 @@ f=<div class="container-fluid">
                                     aria-label="Close"></button>
                             </div>
                             <?php
-                            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                                if (isset($_POST['submit'])) {
+                            if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                                if(isset($_POST['submit'])) {
                                     include 'insert_function.php';
                                     insertData(
                                         $_POST['judul_buku'],
@@ -160,7 +126,7 @@ f=<div class="container-fluid">
                                 }
                             }
                             ?>
-                     
+
                             <form action="" method="post" class="vh-100" style="padding-bottom: 10rem;">
                                 <div class="modal-body overflow-y-scroll h-100 ">
                                     <div class="mb-3">
