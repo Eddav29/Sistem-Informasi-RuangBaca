@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     exit();
                 } elseif ($userLevel === 'Member') {
-                    header("Location: ../App/member/index.php");
+                    header("Location: ../index.php?");
                     exit();
                 }
             } else {
