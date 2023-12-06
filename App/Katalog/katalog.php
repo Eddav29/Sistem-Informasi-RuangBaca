@@ -15,7 +15,7 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg m-0">
+    <nav class="navbar navbar-expand-lg m-0 fixed-top">
         <div class="container-fluid">
 
             <img src="../../Assets/img/logo.jpg" alt="Logo-ruangBaca" width="125px" class="d-inline-block align-text-top ">
@@ -33,28 +33,26 @@
                 <a href="#" class="close-btn">&times;</a>
                 <ul class="navbar-nav p-2 m-1">
                     <li class="nav-item">
-                        <a class="nav-link active p-2 text-white" aria-current="page" href="katalog.php">Home</a>
+                        <a class="nav-link active p-2 text-white" aria-current="page" href="index.php">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle p-2 text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Katalog
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item " href="#">Skripsi</a></li>
-                            <li><a class="dropdown-item " href="#">Modul Ajar</a></li>
-                            <li><a class="dropdown-item " href="#">Laporan PKL</a></li>
-                            <li><a class="dropdown-item " href="#">Laporan Skripsi</a></li>
-                            <li><a class="dropdown-item " href="#">Laporan Tugas Akhir</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#team">our teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#contact">Contact</a>
                     </li>
                     <?php
                     if (isset($showSearch) && $showSearch) {
                         echo '
                         <li class="nav-item">
-                            <form class="d-flex form-group">
-                                <input class="form-control me-3" type="search" placeholder="Search " aria-label="Search">
-                                <button class="btn btn-outline-light" type="submit"> <i href="" class="fa fa-search"></i></button>
-                            </form>
+                              <form class="d-flex form-group align-items-center me-3">
+                            <input id="searchInput" class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
+                            <div id="searchResults" class="autocomplete-results"></div>
+                            <button class="btn btn-outline-light" type="submit"><i href="" class="fa fa-search"></i></button>
+                        </form>
                         </li>';
                     }
                     ?>
@@ -68,33 +66,29 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active p-2 text-white" aria-current="page" href="katalog.php">Home</a>
+                        <a class="nav-link active p-2 text-white" aria-current="page" href="index.php">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle p-2 text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Katalog
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Skripsi</a></li>
-                            <li><a class="dropdown-item" href="#">Modul Ajar</a></li>
-                            <li><a class="dropdown-item" href="#">Laporan PKL</a></li>
-                            <li><a class="dropdown-item" href="#">Laporan Skripsi</a></li>
-                            <li><a class="dropdown-item" href="#">Laporan Tugas Akhir</a></li>
-                        </ul>
-                    </li>
-
                     <li class="nav-item">
-                        <a class="nav-link p-2 text-white" aria-current="page" href="#">About</a>
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#team">our teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2 text-white" aria-current="page" href="#contact">Contact</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center"> <!-- Container for search and login -->
                     <?php
                     if (isset($showSearch) && $showSearch) {
                         echo '
-                        <form class="d-flex form-group align-items-center me-3">
-                            <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-light" type="submit"><i href="" class="fa fa-search"></i></button>
-                        </form>';
+                         <form id="searchForm" class="d-flex form-group align-items-center me-3" method="POST" action="../../Functions/searchHandler.php">
+                            <input id="searchInput" class="form-control me-1" type="search" name="query" placeholder="Search" aria-label="Search">
+                            <div id="searchResults" class="autocomplete-results"></div>
+                            <button class="btn btn-outline-light" type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+
+                            ';
                     }
                     ?>
 
@@ -107,10 +101,121 @@
     </nav>
     <!-- End Navbar -->
 
-    <?php
-    include("../../Login/login.php");
-    ?>
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg "> <!-- Ubah modal ke ukuran besar (modal-lg) -->
+            <div class="modal-content bg-darkblue text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Log in</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Struktur HTML untuk logo dan form -->
+                    <div class="d-flex flex-column-reverse flex-lg-row align-items-lg-center">
+                        <form class="flex-grow-1" id="loginForm" action="../../Login/cek_login.php" method="post" onsubmit="return handleLoginForm()">
+                            <!-- ... (form fields) -->
+                            <div class="mb-3 mt-3 text-dark">
+                                <h5>Login</h5>
+                                <p>If you are not a member, <a href="#" id="registerModalLink" class="text-darkblue" data-bs-toggle="modal" data-bs-target="#registerModal" style="text-decoration: none;">register here</a>!</p>
+                            </div>
 
+                            <div class="mb-3">
+                                <label for="loginUsername" class="form-label">Username</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text" class="form-control" id="loginUsername" name="loginUsername">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" class="form-control" id="loginPassword" name="loginPassword">
+                                    <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Log in</button>
+                            </div>
+                        </form>
+                        <!-- Reverse column order untuk mobile -->
+                        <div class="flex-shrink-0 ms-lg-3 mb-3 mb-lg-0"> <!-- Tambahkan margin-bottom untuk mobile -->
+                            <img src="../../Assets/img/logo.jpg" alt="Logo" class="img-fluid img-logo" width="400px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Modal-->
+
+    <!-- Registration Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-darkblue text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Register</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Registration form -->
+                    <form id="registerForm" method="post" action="../../Login/register.php">
+                        <div class="mb-3">
+                            <label for="registerUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="registerUsername">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="registerPassword">
+                                <button type="button" class="btn btn-outline-secondary" id="togglePasswordRegister">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <span id="passwordMatchError" class="text-danger d-none">Passwords do not match.</span>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="confirmPassword">
+                                <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="identityType" class="form-label">Identity Type (Mahasiswa/Dosen)</label>
+                            <input type="text" class="form-control" id="identityType">
+                        </div>
+                        <div class="mb-3">
+                            <label for="identityNumber" class="form-label">Identity Number</label>
+                            <input type="text" class="form-control" id="identityNumber">
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address">
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Modal-->
     <!-- JavaScript -->
     <script src=" ../../Assets/JQuery/jquery-3.7.1.min.js"></script>
     <script src="../../Assets/Bootstraps/js/bootstrap.min.js"></script>
@@ -119,10 +224,12 @@
     <script>
         //toggle sidebar
         document.querySelector(".custom-toggler").addEventListener("click", function() {
+            event.preventDefault();
             toggleSidebar();
         });
 
         document.querySelector(".close-btn").addEventListener("click", function() {
+            event.preventDefault();
             closeSidebar();
         });
 
@@ -160,11 +267,47 @@
                 $("#registerModal").modal("show");
             });
 
+        // Check password match on registration
+        document
+            .getElementById("registerForm")
+            .addEventListener("submit", function(e) {
+                var password = document.getElementById("registerPassword").value;
+                var confirmPassword = document.getElementById("confirmPassword").value;
+
+                if (password !== confirmPassword) {
+                    e.preventDefault(); // Prevent form submission
+                    document.getElementById("passwordMatchError").classList.remove("d-none");
+                } else {
+                    document.getElementById("passwordMatchError").classList.add("d-none");
+                }
+            });
+        //search
+        $(document).ready(function() {
+            $('#searchForm').submit(function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '../../Functions/searchHandler.php',
+                    data: formData,
+                    success: function(response) {
+                        // Update bagian katalog dengan hasil pencarian
+                        $('#katalogContent').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+
+        var passwordInput = document.getElementById("password");
+        var passwordInput = document.getElementById("loginPassword");
         // Show password login
         document
             .getElementById("togglePassword")
             .addEventListener("click", function() {
-                var passwordInput = document.getElementById("password");
+                var passwordInput = document.getElementById("loginPassword");
                 var type =
                     passwordInput.getAttribute("type") === "password" ? "text" : "password";
                 passwordInput.setAttribute("type", type);
@@ -186,37 +329,6 @@
                     type === "password" ?
                     '<i class="fas fa-eye"></i>' :
                     '<i class="fas fa-eye-slash"></i>';
-            });
-
-        // Show confirm password
-        document
-            .getElementById("toggleConfirmPassword")
-            .addEventListener("click", function() {
-                var confirmPasswordInput = document.getElementById("confirmPassword");
-                var type =
-                    confirmPasswordInput.getAttribute("type") === "password" ?
-                    "text" :
-                    "password";
-                confirmPasswordInput.setAttribute("type", type);
-                this.innerHTML =
-                    type === "password" ?
-                    '<i class="fas fa-eye"></i>' :
-                    '<i class="fas fa-eye-slash"></i>';
-            });
-
-        // Check password match on registration
-        document
-            .getElementById("registerForm")
-            .addEventListener("submit", function(e) {
-                var password = document.getElementById("registerPassword").value;
-                var confirmPassword = document.getElementById("confirmPassword").value;
-
-                if (password !== confirmPassword) {
-                    e.preventDefault(); // Prevent form submission
-                    document.getElementById("passwordMatchError").classList.remove("d-none");
-                } else {
-                    document.getElementById("passwordMatchError").classList.add("d-none");
-                }
             });
     </script>
 
