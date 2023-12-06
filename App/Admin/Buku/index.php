@@ -53,23 +53,23 @@
                             $query = "SELECT * FROM buku order by id_buku desc";
                             $result = mysqli_query($conn, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
-                            ?>
-                                <tr>
-                                    <th scope="row"><?= $no++ ?></th>
-                                    <td><?= $row['JUDUL_BUKU'] ?></td>
-                                    <td><?= $row['DESKRIPSI'] ?></td>
-                                    <td><?= $row['KETERSEDIAAN'] ?></td>
-                                    <td><?= $row['TANGGAL_PENGADAAN'] ?></td>
-                                    <td><?= $row['TAHUN_TERBIT'] ?></td>
-                                    <td><?= $row['PENERBIT'] ?></td>
-                                    <td><?= $row['RAK'] ?></td>
-                                    <td><?= $row['IMG'] ?></td>
-                                    <td><?= $row['STATUS_BUKU'] ?></td>
-                                    <td>
-                                        <a href="" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
-                                        <a href="" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
-                                    </td>
-                                </tr>
+                                ?>
+                                    <tr>
+                                        <th scope="row"><?= $no++ ?></th>
+                                        <td><?= $row['JUDUL_BUKU'] ?></td>
+                                        <td><?= $row['DESKRIPSI'] ?></td>
+                                        <td><?= $row['KETERSEDIAAN'] ?></td>
+                                        <td><?= $row['TANGGAL_PENGADAAN'] ?></td>
+                                        <td><?= $row['TAHUN_TERBIT'] ?></td>
+                                        <td><?= $row['PENERBIT'] ?></td>
+                                        <td><?= $row['RAK'] ?></td>
+                                        <td><?= $row['IMG'] ?></td>
+                                        <td><?= $row['STATUS_BUKU'] ?></td>
+                                        <td>
+                                            <a href="" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
+                                            <a href="" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
+                                        </td>
+                                    </tr>
                             <?php } ?>
                         </tbody>
 
