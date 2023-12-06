@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <div class="row">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <?php
+        <?php
 
     include 'Functions/pesan_kilat.php';
     $db = new Database();
@@ -25,7 +25,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-2">
-                    
+
                 </div>
 
                 <?php
@@ -164,8 +164,8 @@
                     </table>
                 </div>
 
-                
-<div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm " role="document">
                         <div class="modal-content h-100 ">
                             <div class="modal-header">
@@ -217,7 +217,7 @@
                                         <button type="submit" name="submit" class="btn btn-primary ms-2" aria-hidden="true"><i class="fa fa-floppy-o"></i> Simpan</button>
                                     </div>
                                 </div>
-                                
+
                             </form>
                         </div>
                     </div>

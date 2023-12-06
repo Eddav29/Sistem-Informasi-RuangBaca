@@ -25,10 +25,8 @@ if (session_status() === PHP_SESSION_NONE) {
             } else {
                 include 'App/Member/indexMember.php';
             }
-        
         }
     } else {
         header("Location: App/Katalog/index.php");
     }
 }
-
