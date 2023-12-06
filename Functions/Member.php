@@ -11,7 +11,6 @@ class Member
     }
 
 
-
     public function addMember($id, $username, $password, $nama, $jenisIdentitas, $noIdentitas, $alamat, $level)
     {
         $id = mysqli_real_escape_string($this->conn, $id);

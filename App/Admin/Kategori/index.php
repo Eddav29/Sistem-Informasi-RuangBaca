@@ -61,8 +61,8 @@
                                             <?= $row_kategori["NAMA_KATEGORI"] ?>
                                         </td>
                                         <td>
-                                            <a href='indexKategori.php?action=edit&id=<?= $row_kategori["ID_KATEGORI"] ?>' class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
-                                            <a href='indexKategori.php?action=hapus&id=<?= $row_kategori["ID_KATEGORI"] ?>' onclick="javascript:return confirm('Hapus Data Kategori?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
+                                            <a href='index.php?page=edit&id=<?= $row_kategori["ID_KATEGORI"] ?>' class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
+                                            <a href='index.php?page=kategori&id=<?= $row_kategori["ID_KATEGORI"] ?>' onclick="javascript:return confirm('Hapus Data Kategori?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
                                         </td>
                                     </tr>
                             <?php

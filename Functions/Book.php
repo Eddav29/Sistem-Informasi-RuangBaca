@@ -5,6 +5,7 @@ class Book
     private $conn;
 
 
+
     public function __construct($conn)
     {
         $this->conn = $conn;
@@ -109,7 +110,7 @@ class Book
         $status_buku = mysqli_real_escape_string($this->conn, $status_buku);
 
         $insert_query = "INSERT INTO BUKU (JUDUL_BUKU, DESKRIPSI, KETERSEDIAAN, TANGGAL_PENGADAAN, TAHUN_TERBIT, PENERBIT, RAK, IMG, STATUS_BUKU) 
-                     VALUES ('$judul', '$deskripsi', '$ketersediaan', '$tanggal_pengadaan', '$tahun_terbit', '$penerbit', '$rak', '$img', '$status_buku')";
+                        VALUES ('$judul', '$deskripsi', '$ketersediaan', '$tanggal_pengadaan', '$tahun_terbit', '$penerbit', '$rak', '$img', '$status_buku')";
 
         $result = mysqli_query($this->conn, $insert_query);
 

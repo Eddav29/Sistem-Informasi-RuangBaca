@@ -2,8 +2,8 @@
     <div class="row">
         <?php
 
-        include "menu.php";
-        // $query_total = "SELECT count(id) as jml from buku";
+
+        // $query_total = "SELECT count(id_buku) as jml from buku";
         // $result_total = mysqli_query($koneksi,$query_total);
         // $row_total = mysqli_fetch_assoc($result_total);
         $db = new Database();
@@ -86,8 +86,6 @@
                                 <h6 class="card-title">Tentang</h6>
                                 <p class="card-text">Ruang Baca</p>
                             </div>
-
-                            <a href="index.php?page=anggota" class="btn btn-primary"><i class="fa fa-users" aria-hidden="true"></i> Kelola</a>
                         </div>
                     </div>
                 </div>
@@ -95,9 +93,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><i class="bi bi-bar-chart-line-fill" aria-hidden="true"></i> STATISTIK</h5>
-                            <p class="card-text">Total Jabatan: <?= $row_jabatan['jml'] ?>.</p>
-                            <p class="card-text">Total Inventaris: <?= $row[''] ?></p>
-                            <a href="index.php?page=jabatan" class="btn btn-primary"><i class="fa fa-puzzle-piece" aria-hidden="true"></i> Kelola</a>
+                            <!-- <p class="card-text">Total Inventaris: <?= $row[''] ?>.</p>
+                            <p class="card-text">Buku Dipinjam: <?= $row[''] ?></p>
+                            <p class="card-text">Buku Dirak: <?= $row[''] ?></p> -->
                         </div>
                     </div>
                 </div>
@@ -108,7 +106,7 @@
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h5 class="card-title"><i class="fa fa-users"></i> MEMBER</h5>
-                            <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
+                            <a href="index.php?page=Member" class="btn btn-primary"> Lihat Selengkapnya >></a>
                         </div>
                         <div class="table-responsive small">
                             <table class="table table-striped">
@@ -123,7 +121,7 @@
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    $query = "SELECT * FROM member where level = 'Admin' order by id_member asc";
+                                    $query = "SELECT * FROM member where level = 'Member' order by id_member asc";
                                     $result = mysqli_query($conn, $query);
 
                                     $count = 0;
