@@ -46,6 +46,7 @@
                                 <th scope="col">Rak</th>
                                 <th scope="col">Img</th> 
                                 <th scope="col">Status</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>

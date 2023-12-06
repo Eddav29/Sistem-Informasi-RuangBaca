@@ -38,12 +38,14 @@
                                 <th scope="col">Nomor Identitas</th>
                                 <th scope="col">Alamat</th>
                                 <th scope="col">Level</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                         <?php
                         $no = 1;
-                        $query = "SELECT * FROM member where level = 'Member' order by id_member asc";
+                        $query = "SELECT * FROM member order by id_member desc";
+                        // $query = "SELECT * FROM member where level = 'Member' order by id_member asc";
                         $result = mysqli_query($conn, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                         ?>
