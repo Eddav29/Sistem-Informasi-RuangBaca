@@ -34,106 +34,104 @@ if (
 }
 $totalPages = ceil($totalBooks / $booksPerPage);
 ?>
-
+<br>
+<br>
+<br>
+<br>
 <!-- HTML Rendering -->
 <div class="container ms-5">
     <div class="row">
+        <!-- Filter Sidebar -->
         <div class="col-md-3">
             <form action="" method="GET">
-                <div class="card shadow mt-3">
-                    <div class="card-header">
-                        <h5 class="mb-0">Filter
-                            <button type="submit" class="btn btn-primary mt-3">Filter</button>
-                        </h5>
-
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-darkblue text-white">
+                        <h5 class="mb-0">Filter</h5>
                     </div>
                     <div class="card-body">
-                        <h6>Penulis
-
-                        </h6>
+                        <h6>Penulis</h6>
+                        <div class="form-group">
+                            <?php
+                            while ($author = mysqli_fetch_assoc($authorsResult)) {
+                                echo "<div class='form-check'>";
+                                echo "<input class='form-check-input' type='checkbox' name='authors[]' value='" . $author['ID_PENULIS'] . "' " . (in_array($author['ID_PENULIS'], $selectedAuthors) ? "checked" : "") . " />";
+                                echo "<label class='form-check-label'>" . $author['NAMA_PENULIS'] . "</label>";
+                                echo "</div>";
+                            }
+                            ?>
+                        </div>
                         <hr>
-                        <?php
-                        while ($author = mysqli_fetch_assoc($authorsResult)) {
-                            echo "<div class='form-check'>";
-                            echo "<input class='form-check-input' type='checkbox' name='authors[]' value='" . $author['ID_PENULIS'] . "' " . (in_array($author['ID_PENULIS'], $selectedAuthors) ? "checked" : "") . " />";
-                            echo "<label class='form-check-label'>" . $author['NAMA_PENULIS'] . "</label>";
-                            echo "</div>";
-                        }
-                        ?>
-
-                        <hr>
-
                         <h6>Kategori</h6>
-                        <hr>
-                        <?php
-                        while ($category = mysqli_fetch_assoc($categoriesResult)) {
-                            echo "<div class='form-check'>";
-                            echo "<input class='form-check-input' type='checkbox' name='categories[]' value='" . $category['ID_KATEGORI'] . "' " . (in_array($category['ID_KATEGORI'], $selectedCategories) ? "checked" : "") . " />";
-                            echo "<label class='form-check-label'>" . $category['NAMA_KATEGORI'] . "</label>";
-                            echo "</div>";
-                        }
-                        ?>
-
+                        <div class="form-group">
+                            <?php
+                            while ($category = mysqli_fetch_assoc($categoriesResult)) {
+                                echo "<div class='form-check'>";
+                                echo "<input class='form-check-input' type='checkbox' name='categories[]' value='" . $category['ID_KATEGORI'] . "' " . (in_array($category['ID_KATEGORI'], $selectedCategories) ? "checked" : "") . " />";
+                                echo "<label class='form-check-label'>" . $category['NAMA_KATEGORI'] . "</label>";
+                                echo "</div>";
+                            }
+                            ?>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Filter</button>
                     </div>
                 </div>
             </form>
         </div>
 
         <!-- Book Items - Products -->
-        <div class="col-md-9 mt-3">
+        <div class="col-md-9 ">
             <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">
-                        Katalog Buku
-                    </h5>
-
+                <div class="card-header bg-darkblue text-white">
+                    <h5 class="mb-0">katalog</h5>
                 </div>
                 <div class="card-body row" id="katalogContent">
-                    <?php
-                    while ($book = mysqli_fetch_assoc($booksResult)) {
-                        echo "<div class='col'>";
-                        echo "<div class='card h-100'>";
-                        echo "<img src='" . $book['IMG'] . "' class='card-img-top' alt='" . $book['JUDUL_BUKU'] . "'>";
-                        echo "<div class='card-body'>";
-                        echo "<h5 class='card-title'>" . $book['JUDUL_BUKU'] . "</h5>";
-                        echo "<p class='card-text'>" . $book['DESKRIPSI'] . "</p>";
+                    <?php while ($book = mysqli_fetch_assoc($booksResult)) : ?>
+                        <div class='col-lg-4 col-md-6 mb-4'>
+                            <div class='card h-100'>
+                                <img src='<?php echo $book['IMG']; ?>' class='card-img-top' alt='<?php echo $book['JUDUL_BUKU']; ?>'>
+                                <div class='card-body'>
+                                    <h5 class='card-title'><?php echo $book['JUDUL_BUKU']; ?></h5>
+                                    <p class='card-text'><?php echo $book['DESKRIPSI']; ?></p>
 
-                        // Fetch and display authors for the book
-                        $author_query = "SELECT P.NAMA_PENULIS FROM PENULIS P
-                                            JOIN DETAIL_PENULIS_BUKU DPB ON P.ID_PENULIS = DPB.ID_PENULIS
-                                            WHERE DPB.ID_BUKU = " . $book['ID_BUKU'];
-                        $author_result = mysqli_query($conn, $author_query);
-                        if ($author_result) {
-                            echo "<p class='card-text'><strong>Penulis:</strong> ";
-                            $authors = array();
-                            while ($author_row = mysqli_fetch_assoc($author_result)) {
-                                $authors[] = $author_row['NAMA_PENULIS'];
-                            }
-                            echo implode(", ", $authors);
-                            echo "</p>";
-                        }
-                        // Fetch and display categories for the book
-                        $category_query = "SELECT K.NAMA_KATEGORI FROM KATEGORI K
-                                            JOIN DETAIL_KATEGORI_BUKU DKB ON K.ID_KATEGORI = DKB.ID_KATEGORI
-                                            WHERE DKB.ID_BUKU = " . $book['ID_BUKU'];
-                        $category_result = mysqli_query($conn, $category_query);
-                        if ($category_result) {
-                            echo "<p class='card-text'><strong>Kategori:</strong> ";
-                            $categories = array();
-                            while ($category_row = mysqli_fetch_assoc($category_result)) {
-                                $categories[] = $category_row['NAMA_KATEGORI'];
-                            }
-                            echo implode(", ", $categories);
-                            echo "</p>";
-                        }
+                                    <!-- Display authors -->
+                                    <?php
+                                    $author_query = "SELECT P.NAMA_PENULIS FROM PENULIS P
+                                    JOIN DETAIL_PENULIS_BUKU DPB ON P.ID_PENULIS = DPB.ID_PENULIS
+                                    WHERE DPB.ID_BUKU = " . $book['ID_BUKU'];
+                                    $author_result = mysqli_query($conn, $author_query);
+                                    if ($author_result) : ?>
+                                        <p class='card-text'><strong>Penulis:</strong>
+                                            <?php
+                                            $authors = array();
+                                            while ($author_row = mysqli_fetch_assoc($author_result)) {
+                                                $authors[] = $author_row['NAMA_PENULIS'];
+                                            }
+                                            echo implode(", ", $authors);
+                                            ?>
+                                        </p>
+                                    <?php endif; ?>
 
-                        echo "</div>";
-                        echo "</div>";
-                        echo "</div>";
-                    }
-
-
-                    ?>
+                                    <!-- Display categories -->
+                                    <?php
+                                    $category_query = "SELECT K.NAMA_KATEGORI FROM KATEGORI K
+                                    JOIN DETAIL_KATEGORI_BUKU DKB ON K.ID_KATEGORI = DKB.ID_KATEGORI
+                                    WHERE DKB.ID_BUKU = " . $book['ID_BUKU'];
+                                    $category_result = mysqli_query($conn, $category_query);
+                                    if ($category_result) : ?>
+                                        <p class='card-text'><strong>Kategori:</strong>
+                                            <?php
+                                            $categories = array();
+                                            while ($category_row = mysqli_fetch_assoc($category_result)) {
+                                                $categories[] = $category_row['NAMA_KATEGORI'];
+                                            }
+                                            echo implode(", ", $categories);
+                                            ?>
+                                        </p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
                     <!-- Pagination -->
                     <div class="container mt-5">
                         <nav aria-label="Page navigation">
