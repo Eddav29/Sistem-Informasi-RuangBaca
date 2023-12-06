@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="auto">
 
 <head>
-  <script src="Assets2/js/color-modes.js"></script>
+  <script src="Assets/js/color-modes.js"></script>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,10 +13,37 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-  <link rel="stylesheet" href="../../Assets2/font-awesome/css/font-awesome.css" rel="stylesheet">
-  <link href="Assets2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="Assets2/dist/css/dashboard.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- <link rel="stylesheet" href="../../Assets2/font-awesome/css/font-awesome.css" rel="stylesheet"> -->
+  <link href="Assets/Bootstraps/css/bootstrap.min.css" rel="stylesheet">
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <style>
+.custom-modal-body {
+        border: 15px solid white;
+        padding: 20px; /* Adjust the padding as needed */
+        background-color: #f2f2f2; /* Set the desired background color */
+        border-radius: 30px;
+    }
+
+    .btn-close-style {
+  background-color: black; /* Warna latar belakang hitam */
+  color: white; /* Warna teks putih */
+  border: none; /* Hilangkan border */
+  padding: 0.375rem 0.75rem; /* Sesuaikan padding sesuai kebutuhan */
+  font-size: 1.25rem; /* Sesuaikan ukuran font sesuai kebutuhan */
+  line-height: 1.5; /* Sesuaikan line height sesuai kebutuhan */
+  border-radius: 0.25rem; /* Sesuaikan border radius sesuai kebutuhan */
+}
+
+.btn-close-style:hover {
+  background-color: #333; /* Warna latar belakang hitam saat hover */
+}
+
     body {
       position: relative;
       overflow-x: hidden;
@@ -348,7 +375,7 @@
   <!-- Custom styles for this template -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
   <!-- Custom styles for this template -->
-  <link href="dashboard.css" rel="stylesheet">
+  <!-- <link href="dashboard.css" rel="stylesheet"> -->
   <link rel=" stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
   <link rel="stylesheet" href="Assets/styleSidebar.css">
   <script src="https://kit.fontawesome.com/b450899c31.js" crossorigin="anonymous"></script>
@@ -385,7 +412,7 @@
         <span class="hamb-middle"></span>
         <span class="hamb-bottom"></span>
       </button>
-      <div class="container ms-0 ">
+      <div class="container ms-5 ">
         <div class="row">
 
 
