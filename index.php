@@ -31,3 +31,4 @@ if (session_status() === PHP_SESSION_NONE) {
         header("Location: App/Katalog/index.php");
     }
 }
+

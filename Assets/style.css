@@ -32,12 +32,6 @@ html {
   background-color: transparent;
 }
 
-img.img-fluid {
-  height: 500px;
-  width: 100%;
-  object-fit: cover;
-}
-
 .container {
   margin: 0;
   padding: 0;
@@ -292,9 +286,9 @@ nav input.form-control {
 }
 
 .team-member img {
+  object-fit: cover;
   border-radius: 50%;
-  max-width: 100%;
-  height: auto;
+  height: 100px;
 }
 
 .team-member-name {

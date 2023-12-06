@@ -1,7 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+    
     <?php
     include 'App/Admin/menu.php';
     include 'Functions/pesan_kilat.php';
@@ -10,9 +9,6 @@
         require 'Functions/Book.php';
         $book = new Book($conn);
         $add = $book->addBookFromForm();
-            
-        $delete = $book->hapusBukuFromForm();
-        
         ?>  
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -24,7 +20,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-2">
-                    
+
                 </div>
 
                 <?php
@@ -48,7 +44,7 @@
                                 <th scope="col">Tahun Terbit</th>
                                 <th scope="col">Penerbit</th>
                                 <th scope="col">Rak</th>
-                                <th scope="col">Img</th> 
+                                <th scope="col">Img</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Aksi</th>
                             </tr>
@@ -56,24 +52,24 @@
                         <tbody>
                         <?php
                         $no = 1;
-                        $query = "SELECT * FROM buku";
+                        $query = "SELECT * FROM buku order by id_buku desc";
                         $result = mysqli_query($conn, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                         ?>
-                            <tr id="<?=$row['ID_BUKU']?>">
+                            <tr>
                                 <th scope="row"><?= $no++ ?></th>
-                                <td data-target="judul_buku"><?= $row['JUDUL_BUKU'] ?></td>
-                                <td data-target="deskripsi"><?= $row['DESKRIPSI'] ?></td>
-                                <td data-target="ketersediaan"><?= $row['KETERSEDIAAN'] ?></td>
-                                <td data-target="tanggal_pengadaan"><?= $row['TANGGAL_PENGADAAN'] ?></td>
-                                <td data-target="tahun_terbit"><?= date('Y', strtotime($row['TAHUN_TERBIT']))?></td>
-                                <td data-target="penerbit"><?= $row['PENERBIT'] ?></td>
-                                <td data-target="rak"><?= $row['RAK'] ?></td>
-                                <td data-target="img"><?= $row['IMG'] ?></td>
-                                <td data-target="status_buku"><?= $row['STATUS_BUKU'] ?></td>
+                                <td><?= $row['JUDUL_BUKU'] ?></td>
+                                <td><?= $row['DESKRIPSI'] ?></td>
+                                <td><?= $row['KETERSEDIAAN'] ?></td>
+                                <td><?= $row['TANGGAL_PENGADAAN'] ?></td>
+                                <td><?= $row['TAHUN_TERBIT'] ?></td>
+                                <td><?= $row['PENERBIT'] ?></td>
+                                <td><?= $row['RAK'] ?></td>
+                                <td><?= $row['IMG'] ?></td>
+                                <td><?= $row['STATUS_BUKU'] ?></td>
                                 <td>
-                                    <a href="#" data-role="update" data-id="<?=$row['ID_BUKU'] ;?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
-                                    <a href="index.php?page=buku&idBuku=<?= $row['ID_BUKU']?>" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
+                                    <a href="" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
+                                    <a href="" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -148,7 +144,7 @@
                                         <button type="submit" name="submit" class="btn btn-primary ms-2" aria-hidden="true"><i class="fa fa-floppy-o"></i> Simpan</button>
                                     </div>
                                 </div>
-                                
+
                             </form>
                         </div>
                     </div>

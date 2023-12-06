@@ -52,10 +52,9 @@ include("katalog.php");
             </div>
 
             <!-- Individual Team Members -->
-
             <div class="col-md-4">
                 <div class="team-member">
-                    <img src="path/to/team-member1.jpg" alt="Team Member 1" class="img-fluid">
+                    <img src="../../Assets/img/eddo.jpg" alt="Team Member 1" class="img-fluid" width="100px">
                     <h4 class="team-member-name">Eddo Dava A</h4>
                     <p class="team-member-role">Project Manager & Bug Fixer</p>
                 </div>
@@ -63,7 +62,7 @@ include("katalog.php");
 
             <div class="col-md-4">
                 <div class="team-member">
-                    <img src="path/to/team-member2.jpg" alt="Team Member 2" class="img-fluid">
+                    <img src="../../Assets/img/fathur.jpg" alt="Team Member 2" class="img-fluid" width="100px">
                     <h4 class="team-member-name">M. Fathurrozak A</h4>
                     <p class="team-member-role">Database Engineer </p>
                 </div>
@@ -71,7 +70,7 @@ include("katalog.php");
 
             <div class="col-md-4">
                 <div class="team-member">
-                    <img src="path/to/team-member1.jpg" alt="Team Member 3" class="img-fluid">
+                    <img src="../../Assets/img/yunila.jpg" alt="Team Member 3" class="img-fluid" width="100px">
                     <h4 class="team-member-name">Yayun Eldina </h4>
                     <p class="team-member-role">UI & UX Designer</p>
                 </div>
@@ -79,7 +78,7 @@ include("katalog.php");
 
             <div class="col-md-4">
                 <div class="team-member">
-                    <img src="path/to/team-member2.jpg" alt="Team Member 4" class="img-fluid">
+                    <img src="path/to/team-member2.jpg" alt="Team Member 4" class="img-fluid" width="100px">
                     <h4 class="team-member-name">Yunila Putmasari</h4>
                     <p class="team-member-role">Analyst</p>
                 </div>
@@ -87,7 +86,7 @@ include("katalog.php");
 
             <div class="col-md-4">
                 <div class="team-member">
-                    <img src="path/to/team-member1.jpg" alt="Team Member 5" class="img-fluid">
+                    <img src="path/to/team-member1.jpg" alt="Team Member 5" class="img-fluid" width="100px">
                     <h4 class="team-member-name">Achmad Syahrul</h4>
                     <p class="team-member-role">Front-End Developer</p>
                 </div>
@@ -95,7 +94,7 @@ include("katalog.php");
 
             <div class="col-md-4">
                 <div class="team-member">
-                    <img src="path/to/team-member2.jpg" alt="Team Member 6" class="img-fluid">
+                    <img src="path/to/team-member2.jpg" alt="Team Member 6" class="img-fluid" width="100px">
                     <h4 class="team-member-name">Ade Putro Wibowo</h4>
                     <p class="team-member-role">Back-End Developer</p>
                 </div>
