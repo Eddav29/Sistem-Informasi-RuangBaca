@@ -15,6 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
             } else {
                 include 'App/Admin/indexAdmin.php';
             }
+
         }elseif ($userLevel == "Member") {
             if (!empty($_GET['page'])) {
                 ob_start();
@@ -29,5 +30,6 @@ if (session_status() === PHP_SESSION_NONE) {
         }
     } else {
         header("Location: App/Katalog/index.php");
+    }
 }
-}
+
