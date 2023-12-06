@@ -7,6 +7,7 @@ $db = new Database();
 // Get the database connection
 $conn = $db->getConnection();
 
+<<<<<<< Updated upstream
 $bookCatalog = new Book($conn);
 
 // Handle form submission
@@ -162,3 +163,12 @@ $totalPages = ceil($totalBooks / $booksPerPage);
         </div>
     </div>
 </div>
+=======
+include("katalog.php");
+
+?>
+
+<section id="katalog" class="container">
+
+</section>
+>>>>>>> Stashed changes
