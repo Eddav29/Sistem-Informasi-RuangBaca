@@ -1,6 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <?php
+        include 'App/Admin/menu.php';
         include 'Functions/pesan_kilat.php';
         $db = new Database();
         $conn = $db->getConnection();
