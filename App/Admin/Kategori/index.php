@@ -18,24 +18,18 @@
             <div
                 class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Kategori</h1>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    data-bs-whatever="@mdo">
-                    <i class="fa fa-plus"></i> Tambah Kategori
-                </button>
             </div>
+
+            <!-- Tampilan Tabel Kategori -->
             <div class="row">
                 <div class="col-lg-2">
-
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        data-bs-whatever="@mdo">
+                        <i class="fa fa-plus"></i>Tambah Kategori
+                    </button>
                 </div>
-                <?php
-                // Sesuaikan logika PHP yang diperlukan untuk menampilkan pesan kesalahan atau sukses, jika ada
-                if(isset($_SESSION['_flashdata'])) {
-                    echo "<br>";
-                    foreach($_SESSION['_flashdata'] as $key => $val) {
-                        echo get_flashdata($key);
-                    }
-                }
-                ?>
+
+                <!-- ... Bagian PHP Tambah Kategori ... -->
 
                 <div class="table-responsive small">
                     <table class="table table-striped">
@@ -48,79 +42,38 @@
                         </thead>
                         <tbody>
                             <?php
-                            $no = 1;
-                            $query = "SELECT * FROM kategori order by ID_KATEGORI ASC";
-                            $result = mysqli_query($conn, $query);
-                            while($row = mysqli_fetch_assoc($result)) {
-                                ?>
-                                <tr>
-                                    <th scope="row">
-                                        <?= $no++ ?>
-                                    </th>
-                                    <td>
-                                        <?= $row['NAMA_KATEGORI'] ?>
-                                    </td>
-                                    <td>
-                                        <a href="#" data-bs-toggle="modal"
-                                            data-bs-target="#editModal<?= $row['ID_KATEGORI'] ?>"
-                                            class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"
-                                                aria-hidden="true"></i> Edit</a>
-                                        <!-- Modal untuk mengedit data kategori -->
-                                        <div class="modal fade" id="editModal<?= $row['ID_KATEGORI'] ?>" tabindex="-1"
-                                            role="dialog" aria-labelledby="editModalLabel<?= $row['ID_KATEGORI'] ?>"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
-                                                role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel">Edit Data Kategori
-                                                        </h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <form action="index.php?page=kategori" method="post">
-                                                        <div class="modal-body overflow-y-scroll">
-                                                            <!-- Input untuk ID Kategori yang akan diedit (disediakan dalam sebuah input tersembunyi) -->
-                                                            <input type="hidden" name="ID_KATEGORI"
-                                                                value="<?= $row['ID_KATEGORI'] ?>">
-                                                            <div class="mb-3">
-                                                                <label for="editNamaKategori" class="col-form-label">Nama
-                                                                    Kategori Baru:</label>
-                                                                <!-- Input untuk Nama Kategori yang akan diedit -->
-                                                                <input type="text" name="NAMA_KATEGORI" class="form-control"
-                                                                    id="editNamaKategori"
-                                                                    value="<?= $row['NAMA_KATEGORI'] ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Batal</button>
-                                                            <button type="submit" name="update"
-                                                                class="btn btn-primary">Simpan Perubahan</button>
-                                                        </div>
-                                                    </form>
+                            $sql_kategori = "SELECT * FROM KATEGORI";
+                            $result_kategori = $conn->query($sql_kategori);
 
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <a href="index.php?page=kategori&delete_id=<?= $row['ID_KATEGORI'] ?>"
-                                            onclick="return confirm('Hapus Data kategori?');" class="btn btn-danger btn-xs">
-                                            <i class="fa fa-trash"></i> Hapus
-                                        </a>
-
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                            if($result_kategori->num_rows > 0) {
+                                while($row_kategori = $result_kategori->fetch_assoc()) {
+                                    ?>
+                                    <tr>
+                                        <th scope="row">
+                                            <?= $row_kategori["ID_KATEGORI"] ?>
+                                        </th>
+                                        <td>
+                                            <?= $row_kategori["NAMA_KATEGORI"] ?>
+                                        </td>
+                                        <td>
+                                            <a href='indexKategori.php?action=edit&id=<?= $row_kategori["ID_KATEGORI"] ?>'
+                                                class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
+                                            <a href='indexKategori.php?action=hapus&id=<?= $row_kategori["ID_KATEGORI"] ?>'
+                                                onclick="javascript:return confirm('Hapus Data Kategori?');"
+                                                class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
+                            }
+                            ?>
                         </tbody>
-
                     </table>
                 </div>
 
-
-                <!-- Modal untuk menambahkan kategori baru -->
-
+                <!-- Modal Tambah Kategori -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static"
                     data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
@@ -131,28 +84,38 @@
                                     aria-label="Close"></button>
                             </div>
 
-                            <form action="" method="post">
+                            <<<<<<< HEAD <form action="" method="post">
 
                                 <div class="modal-body">
 
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Nama Kategori:</label>
-                                        <input type="text" name="nama_kategori" class="form-control"
-                                            id="recipient-name">
-                                    </div>
-                                    <div class="mb-3 d-flex justify-content-end">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                            aria-hidden="true"><i class="fa fa-times"></i> Close</button>
-                                        <button type="submit" name="submit" class="btn btn-primary ms-2"
-                                            aria-hidden="true"><i class="fa fa-floppy-o"></i> Simpan</button>
+                                        =======
+                                        <!-- ... Form Tambah Kategori ... -->
+                                        <form action="indexKategori.php" method="POST">
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="recipient-name" class="col-form-label">Nama Kategori
+                                                        :</label>
+                                                    >>>>>>> 141d9eb117a80b66d828f0cc899c0f066abd02d5
+                                                    <input type="text" name="nama_kategori" class="form-control"
+                                                        id="recipient-name">
+                                                </div>
+                                                <div class="mb-3 d-flex justify-content-end">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal" aria-hidden="true"><i
+                                                            class="fa fa-times"></i> Close</button>
+                                                    <button type="submit" name="submit" class="btn btn-primary ms-2"
+                                                        aria-hidden="true"><i class="fa fa-floppy-o"></i>
+                                                        Simpan</button>
+                                                </div>
+                                            </div>
+                                            <<<<<<< HEAD </div>
                                     </div>
                                 </div>
+
+
                         </div>
-                    </div>
-                </div>
-
-
-            </div>
         </main>
     </div>
 </div>
@@ -185,4 +148,13 @@
 </div>
 </main>
 </div>
+=======
+</form>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+>>>>>>> 141d9eb117a80b66d828f0cc899c0f066abd02d5
 </div>
