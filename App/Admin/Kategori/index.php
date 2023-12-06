@@ -5,6 +5,13 @@
         $db = new Database();
         $conn = $db->getConnection();
         require 'Functions/Kategori.php';
+        if (isset($_SESSION['_flashdata'])) {
+            echo "<br>";
+            foreach ($_SESSION['_flashdata'] as $key => $val) {
+                echo get_flashdata($key);
+            }
+        }
+
 
         $kategori = new Kategori($conn);
 
