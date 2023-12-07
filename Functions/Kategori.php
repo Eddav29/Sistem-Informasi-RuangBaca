@@ -61,7 +61,6 @@ class Kategori
                 pesan('danger', "Gagal Menambahkan kategori Karena: " . mysqli_error($this->conn));
             }
         }
-
     }
     public function editkategori($id_kategori, $nama_kategori)
     {
@@ -111,8 +110,8 @@ class Kategori
     }
     public function deleteKategoriFromForm()
     {
-        if (isset($_GET['delete_id'])) {
-            $id_kategori = $_GET['delete_id'];
+        if (isset($_GET['id'])) {
+            $id_kategori = $_GET['id'];
 
             $result = $this->hapusKategori($id_kategori);
 
@@ -126,7 +125,4 @@ class Kategori
             exit;
         }
     }
-
-
-
 }
