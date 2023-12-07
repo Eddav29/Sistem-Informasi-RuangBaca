@@ -42,6 +42,12 @@
         });
     });
 </Script>
+<script src="Assets/DataTables/datatables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.table').DataTable();
+    });
+</script>
 </body>
 
 </html>
