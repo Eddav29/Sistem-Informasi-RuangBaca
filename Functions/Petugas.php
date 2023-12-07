@@ -8,20 +8,20 @@ class Petugas
     }
 
     public function getpetugas()
-{
+    {
         $petugas_query = "SELECT * FROM MEMBER";
         $petugas_result = mysqli_query($this->conn, $petugas_query);
 
-        return $pet_result;
+        return $petugas_result;
     }
 
     public function getLastPetugas()
-{
-    $last_petugas_query = "SELECT * FROM MEMBER ORDER BY ID_MEMBER DESC LIMIT 1";
-    $last_petugas_result = mysqli_query($this->conn, $last_petugas_query);
+    {
+        $last_petugas_query = "SELECT * FROM MEMBER ORDER BY ID_MEMBER DESC LIMIT 1";
+        $last_petugas_result = mysqli_query($this->conn, $last_petugas_query);
 
-    return $last_petugas_result;
-}
+        return $last_petugas_result;
+    }
 
     public function searchpetugas($query)
     {
@@ -37,26 +37,26 @@ class Petugas
 
         return $result;
     }
-    
-    
-public function addpetugas($new_id, $username_petugas, $password_petugas, $nama_petugas, $jenis_identitas, $nomor_identitas, $alamat, $level)
-{
-    // Escape string values to prevent SQL injection
-    $username_petugas = mysqli_real_escape_string($this->conn, $username_petugas);
-    $password_petugas = mysqli_real_escape_string($this->conn, $password_petugas);
-    $nama_petugas = mysqli_real_escape_string($this->conn, $nama_petugas);
-    $jenis_identitas = mysqli_real_escape_string($this->conn, $jenis_identitas);
-    $nomor_identitas = mysqli_real_escape_string($this->conn, $nomor_identitas);
-    $alamat = mysqli_real_escape_string($this->conn, $alamat);
-    $level = mysqli_real_escape_string($this->conn, $level);
 
-    $insert_query = "INSERT INTO MEMBER (ID_MEMBER, USERNAME_MEMBER, PASSWORD_MEMBER, NAMA_MEMBER, JENIS_IDENTITAS, NOMOR_IDENTITAS, ALAMAT, level) 
+
+    public function addpetugas($new_id, $username_petugas, $password_petugas, $nama_petugas, $jenis_identitas, $nomor_identitas, $alamat, $level)
+    {
+        // Escape string values to prevent SQL injection
+        $username_petugas = mysqli_real_escape_string($this->conn, $username_petugas);
+        $password_petugas = mysqli_real_escape_string($this->conn, $password_petugas);
+        $nama_petugas = mysqli_real_escape_string($this->conn, $nama_petugas);
+        $jenis_identitas = mysqli_real_escape_string($this->conn, $jenis_identitas);
+        $nomor_identitas = mysqli_real_escape_string($this->conn, $nomor_identitas);
+        $alamat = mysqli_real_escape_string($this->conn, $alamat);
+        $level = mysqli_real_escape_string($this->conn, $level);
+
+        $insert_query = "INSERT INTO MEMBER (ID_MEMBER, USERNAME_MEMBER, PASSWORD_MEMBER, NAMA_MEMBER, JENIS_IDENTITAS, NOMOR_IDENTITAS, ALAMAT, level) 
                     VALUES ('$new_id', '$username_petugas', '$password_petugas', '$nama_petugas', '$jenis_identitas', '$nomor_identitas', '$alamat', '$level')";
 
-    $result = mysqli_query($this->conn, $insert_query);
+        $result = mysqli_query($this->conn, $insert_query);
 
-    return $result;
-}
+        return $result;
+    }
 
     // public function addPetugasFromForm()
     // {
@@ -105,100 +105,100 @@ public function addpetugas($new_id, $username_petugas, $password_petugas, $nama_
     // }
 
     // Menambah
-//     public function addPetugasFromForm()
-// {
-//     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-//         $username_petugas = $_POST['username_petugas'];
-//         $password_petugas = $_POST['password_petugas'];
-//         $nama_petugas = $_POST['nama_petugas'];
-//         $jenis_identitas = $_POST['jenis_identitas'];
-//         $nomor_identitas = $_POST['nomor_identitas'];
-//         $alamat = $_POST['alamat'];
-//         $level = $_POST['level'];
+    //     public function addPetugasFromForm()
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+    //         $username_petugas = $_POST['username_petugas'];
+    //         $password_petugas = $_POST['password_petugas'];
+    //         $nama_petugas = $_POST['nama_petugas'];
+    //         $jenis_identitas = $_POST['jenis_identitas'];
+    //         $nomor_identitas = $_POST['nomor_identitas'];
+    //         $alamat = $_POST['alamat'];
+    //         $level = $_POST['level'];
 
-//         $result = $this->addpetugas($username_petugas, $password_petugas, $nama_petugas, $jenis_identitas, $nomor_identitas, $alamat, $level);
+    //         $result = $this->addpetugas($username_petugas, $password_petugas, $nama_petugas, $jenis_identitas, $nomor_identitas, $alamat, $level);
 
-//         if ($result) {
-//             ob_start();
-//             pesan('success', "Petugas Baru Ditambahkan.");
-//             header("Location: index.php?page=petugas");
-//         } else {
-//             pesan('danger', "Gagal Menambahkan petugas Karena: " . mysqli_error($this->conn));
-//         }
-//     }
-// }
+    //         if ($result) {
+    //             ob_start();
+    //             pesan('success', "Petugas Baru Ditambahkan.");
+    //             header("Location: index.php?page=petugas");
+    //         } else {
+    //             pesan('danger', "Gagal Menambahkan petugas Karena: " . mysqli_error($this->conn));
+    //         }
+    //     }
+    // }
 
-public function addPetugasFromForm()
-{
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-        // Mendapatkan data terakhir
-        $last_petugas_data = $this->getLastPetugas();
-        $last_petugas = mysqli_fetch_assoc($last_petugas_data);
-        $last_id = $last_petugas['ID_MEMBER'];
+    public function addPetugasFromForm()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+            // Mendapatkan data terakhir
+            $last_petugas_data = $this->getLastPetugas();
+            $last_petugas = mysqli_fetch_assoc($last_petugas_data);
+            $last_id = $last_petugas['ID_MEMBER'];
 
-        // Menentukan ID baru untuk petugas yang akan ditambahkan
-        $new_id = intval($last_id) + 1;
+            // Menentukan ID baru untuk petugas yang akan ditambahkan
+            $new_id = intval($last_id) + 1;
 
-        // Data dari form
-        $username_petugas = $_POST['username_petugas'];
-        $password_petugas = $_POST['password_petugas'];
-        $nama_petugas = $_POST['nama_petugas'];
-        $jenis_identitas = $_POST['jenis_identitas'];
-        $nomor_identitas = $_POST['nomor_identitas'];
-        $alamat = $_POST['alamat'];
-        $level = $_POST['level'];
+            // Data dari form
+            $username_petugas = $_POST['username_petugas'];
+            $password_petugas = $_POST['password_petugas'];
+            $nama_petugas = $_POST['nama_petugas'];
+            $jenis_identitas = $_POST['jenis_identitas'];
+            $nomor_identitas = $_POST['nomor_identitas'];
+            $alamat = $_POST['alamat'];
+            $level = $_POST['level'];
 
-        // Menambahkan petugas baru dengan ID baru yang ditentukan
-        $result = $this->addpetugas($new_id, $username_petugas, $password_petugas, $nama_petugas, $jenis_identitas, $nomor_identitas, $alamat, $level);
+            // Menambahkan petugas baru dengan ID baru yang ditentukan
+            $result = $this->addpetugas($new_id, $username_petugas, $password_petugas, $nama_petugas, $jenis_identitas, $nomor_identitas, $alamat, $level);
 
-        if ($result) {
-            ob_start();
-            pesan('success', "Petugas Baru Ditambahkan.");
-            header("Location: index.php?page=petugas");
-        } else {
-            pesan('danger', "Gagal Menambahkan petugas Karena: " . mysqli_error($this->conn));
+            if ($result) {
+                ob_start();
+                pesan('success', "Petugas Baru Ditambahkan.");
+                header("Location: index.php?page=petugas");
+            } else {
+                pesan('danger', "Gagal Menambahkan petugas Karena: " . mysqli_error($this->conn));
+            }
         }
     }
-}
 
 
-//     public function editpetugas($id_petugas, $username_petugas, $password_petugas, $nama_petugas, $jenis_identitas, $nomor_identitas, $alamat, $level)
-//     {
-//     $id_petugas = mysqli_real_escape_string($this->conn, $id_petugas); // Escape ID
-//     $username_petugas = mysqli_real_escape_string($this->conn, $username_petugas);
-//     $password_petugas = mysqli_real_escape_string($this->conn, $password_petugas);
-//     $nama_petugas = mysqli_real_escape_string($this->conn, $nama_petugas);
-//     $jenis_identitas = mysqli_real_escape_string($this->conn, $jenis_identitas);
-//     $nomor_identitas = mysqli_real_escape_string($this->conn, $nomor_identitas);
-//     $alamat = mysqli_real_escape_string($this->conn, $alamat);
-//     $level = mysqli_real_escape_string($this->conn, $level);
+    //     public function editpetugas($id_petugas, $username_petugas, $password_petugas, $nama_petugas, $jenis_identitas, $nomor_identitas, $alamat, $level)
+    //     {
+    //     $id_petugas = mysqli_real_escape_string($this->conn, $id_petugas); // Escape ID
+    //     $username_petugas = mysqli_real_escape_string($this->conn, $username_petugas);
+    //     $password_petugas = mysqli_real_escape_string($this->conn, $password_petugas);
+    //     $nama_petugas = mysqli_real_escape_string($this->conn, $nama_petugas);
+    //     $jenis_identitas = mysqli_real_escape_string($this->conn, $jenis_identitas);
+    //     $nomor_identitas = mysqli_real_escape_string($this->conn, $nomor_identitas);
+    //     $alamat = mysqli_real_escape_string($this->conn, $alamat);
+    //     $level = mysqli_real_escape_string($this->conn, $level);
 
-//     $update_query = "UPDATE member SET 
-//                         USERNAME_MEMBER = '$username_petugas', 
-//                         PASSWORD_MEMBER = '$password_petugas', 
-//                         NAMA_MEMBER = '$nama_petugas', 
-//                         JENIS_IDENTITAS = '$jenis_identitas', 
-//                         NOMOR_IDENTITAS = '$nomor_identitas', 
-//                         ALAMAT = '$alamat', 
-//                         level = '$level'
-//                     WHERE ID_MEMBER = '$id_petugas' "; // Menggunakan klausa WHERE untuk memperbarui baris tertentu
+    //     $update_query = "UPDATE member SET 
+    //                         USERNAME_MEMBER = '$username_petugas', 
+    //                         PASSWORD_MEMBER = '$password_petugas', 
+    //                         NAMA_MEMBER = '$nama_petugas', 
+    //                         JENIS_IDENTITAS = '$jenis_identitas', 
+    //                         NOMOR_IDENTITAS = '$nomor_identitas', 
+    //                         ALAMAT = '$alamat', 
+    //                         level = '$level'
+    //                     WHERE ID_MEMBER = '$id_petugas' "; // Menggunakan klausa WHERE untuk memperbarui baris tertentu
 
-//     $result = mysqli_query($this->conn, $update_query);
+    //     $result = mysqli_query($this->conn, $update_query);
 
-//     return $result;
-// }
-public function editpetugas($id_petugas, $username_petugas, $password_petugas, $nama_petugas, $jenis_identitas, $nomor_identitas, $alamat, $level)
-{
-    $id_petugas = mysqli_real_escape_string($this->conn, $id_petugas);
-    $username_petugas = mysqli_real_escape_string($this->conn, $username_petugas);
-    $password_petugas = mysqli_real_escape_string($this->conn, $password_petugas);
-    $nama_petugas = mysqli_real_escape_string($this->conn, $nama_petugas);
-    $jenis_identitas = mysqli_real_escape_string($this->conn, $jenis_identitas);
-    $nomor_identitas = mysqli_real_escape_string($this->conn, $nomor_identitas);
-    $alamat = mysqli_real_escape_string($this->conn, $alamat);
-    $level = mysqli_real_escape_string($this->conn, $level);
+    //     return $result;
+    // }
+    public function editpetugas($id_petugas, $username_petugas, $password_petugas, $nama_petugas, $jenis_identitas, $nomor_identitas, $alamat, $level)
+    {
+        $id_petugas = mysqli_real_escape_string($this->conn, $id_petugas);
+        $username_petugas = mysqli_real_escape_string($this->conn, $username_petugas);
+        $password_petugas = mysqli_real_escape_string($this->conn, $password_petugas);
+        $nama_petugas = mysqli_real_escape_string($this->conn, $nama_petugas);
+        $jenis_identitas = mysqli_real_escape_string($this->conn, $jenis_identitas);
+        $nomor_identitas = mysqli_real_escape_string($this->conn, $nomor_identitas);
+        $alamat = mysqli_real_escape_string($this->conn, $alamat);
+        $level = mysqli_real_escape_string($this->conn, $level);
 
-    $update_query = "UPDATE MEMBER SET 
+        $update_query = "UPDATE MEMBER SET 
                         USERNAME_MEMBER = '$username_petugas', 
                         PASSWORD_MEMBER = '$password_petugas', 
                         NAMA_MEMBER = '$nama_petugas', 
@@ -208,10 +208,10 @@ public function editpetugas($id_petugas, $username_petugas, $password_petugas, $
                         level = '$level'
                     WHERE ID_MEMBER = '$id_petugas'";
 
-    $result = mysqli_query($this->conn, $update_query);
+        $result = mysqli_query($this->conn, $update_query);
 
-    return $result;
-}
+        return $result;
+    }
 
     public function editPetugasFromForm()
     {
@@ -243,15 +243,15 @@ public function editpetugas($id_petugas, $username_petugas, $password_petugas, $
 
 
     public function hapusPetugas($id_petugas)
-{
-    $id_petugas = mysqli_real_escape_string($this->conn, $id_petugas);
+    {
+        $id_petugas = mysqli_real_escape_string($this->conn, $id_petugas);
 
-    $delete_query = "DELETE FROM member WHERE ID_MEMBER = '$id_petugas'";
+        $delete_query = "DELETE FROM member WHERE ID_MEMBER = '$id_petugas'";
 
-    $result = mysqli_query($this->conn, $delete_query);
+        $result = mysqli_query($this->conn, $delete_query);
 
-    return $result;
-}
+        return $result;
+    }
 
     public function deletePetugasFromForm()
     {
@@ -270,7 +270,4 @@ public function editpetugas($id_petugas, $username_petugas, $password_petugas, $
             exit;
         }
     }
-
-
-
 }

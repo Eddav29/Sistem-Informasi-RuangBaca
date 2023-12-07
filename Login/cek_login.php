@@ -43,26 +43,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     exit();
                 } elseif ($userLevel === 'Member') {
-                    header("Location: ../App/member/index.php");
+                    header("Location: ../index.php?");
                     exit();
                 }
             } else {
                 // Incorrect password
-                header("Location: ../App/Katalog/katalog.php?error=incorrect_password");
+
+                header("Location: ../App/Katalog/index.php?error=incorrect_password");
                 exit();
             }
         } else {
             // Invalid username
-            header("Location: ../App/Katalog/katalog.php?error=invalid_username");
+            header("Location: ../App/Katalog/index.php?error=invalid_username");
             exit();
         }
     } else {
         // Database connection failed
-        header("Location: ../App/Katalog/katalog.php?error=db_connection_failed");
+        header("Location: ../App/Katalog/index.php?error=db_connection_failed");
         exit();
     }
 } else {
     // Redirect to login page if accessed directly
-    header("Location: App/Katalog/katalog.php");
+    header("Location: App/Katalog/index.php");
     exit();
 }

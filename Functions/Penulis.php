@@ -9,8 +9,8 @@ class Penulis
 
     public function getpenulis()
     {
-        $kategori_query = "SELECT * FROM PENULIS";
-        $kategori_result = mysqli_query($this->conn, $penulis_query);
+        $penulis_query = "SELECT * FROM PENULIS";
+        $penulis_result = mysqli_query($this->conn, $penulis_query);
 
         return $penulis_result;
     }
@@ -61,7 +61,6 @@ class Penulis
                 pesan('danger', "Gagal Menambahkan penulis Karena: " . mysqli_error($this->conn));
             }
         }
-
     }
     public function editpenulis($id_penulis, $nama_penulis)
     {
@@ -126,7 +125,4 @@ class Penulis
             exit;
         }
     }
-
-
-
 }
