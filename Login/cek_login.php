@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 header("Location: ../App/Katalog/index.php?error=incorrect_password");
                 exit();
-            }
+            }   
         } else {
             // Invalid username
             header("Location: ../App/Katalog/index.php?error=invalid_username");

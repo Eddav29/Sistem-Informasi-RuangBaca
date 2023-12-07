@@ -11,6 +11,10 @@
   <meta name="generator" content="Hugo 0.118.2">
   <title>Ruang Baca JTI</title>
 
+  <!-- Add these links to include DataTables CSS and JS files -->
+  <link rel="stylesheet" href="Assets/DataTables/datatables.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -20,6 +24,10 @@
   <link rel="stylesheet" href="Assets/DataTables/datatables.min.css">
 
   <style>
+
+    @media screen {
+      
+    }
     .custom-modal-body {
       border: 15px solid white;
       padding: 20px;
@@ -379,11 +387,8 @@
   </style>
 
 
-  <!-- Custom styles for this template -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-  <!-- Custom styles for this template -->
-  <!-- <link href="dashboard.css" rel="stylesheet"> -->
-  <link rel=" stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
   <link rel="stylesheet" href="Assets/styleSidebar.css">
   <script src="https://kit.fontawesome.com/b450899c31.js" crossorigin="anonymous"></script>
 </head>
@@ -399,7 +404,7 @@
             <a href="#"> <img src="Assets/img/logo.jpg" alt="logo" width="100px"></a>
           </div>
         </div>
-        <li class="nav-item"><a href="index.php"><i class="fa-solid fa-gauge"></i> Home</a></li>
+        <li class="nav-item"><a href="index.php"><i class="fa-solid fa-house"></i> Home</a></li>
         <li class="nav-item"><a href="index.php?page=Buku"><i class="fa-solid fa-book"></i> Buku</a></li>
         <li class="nav-item"><a href="index.php?page=Kategori"><i class="fa-solid fa-list"></i> Kategori</a></li>
         <li class="nav-item"><a href="index.php?page=Penulis"><i class="fa-solid fa-user-pen"></i> Penulis</a></li>
@@ -419,7 +424,7 @@
         <span class="hamb-middle"></span>
         <span class="hamb-bottom"></span>
       </button>
-      <div class="container ms-5 ">
+      <div class="container ms-5">
         <div class="row">
 
 

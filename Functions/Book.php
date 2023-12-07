@@ -147,9 +147,9 @@ class Book
     }
 
 
-    public function edit($judul, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_terbit, $penerbit, $rak, $img, $status_buku, $id)
+    public function edit($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_terbit, $penerbit, $rak, $img, $status_buku, $id)
     {
-        $judul_buku = mysqli_real_escape_string($this->conn, $judul);
+        $judul_buku = mysqli_real_escape_string($this->conn, $judul_buku);
         $deskripsi = mysqli_real_escape_string($this->conn, $deskripsi);
         $ketersediaan = mysqli_real_escape_string($this->conn, $ketersediaan);
         $tanggal_pengadaan = mysqli_real_escape_string($this->conn, $tanggal_pengadaan);
@@ -179,34 +179,36 @@ class Book
 
     public function editBookFromForm()
     {
-        if (isset($_POST['save'])) {
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])){
+            if (isset($_POST['update'])) {
 
-            $id = $_POST['bookId'];  // Remove the # symbol
-            $judul_buku = $_POST['judul_buku1'];
-            $deskripsi = $_POST['deskripsi1'];
-            $ketersediaan = $_POST['ketersediaan1'];
-            $tanggal_pengadaan = $_POST['tanggal_pengadaan1'];
-            $tahun_terbit = $_POST['tahun_terbit1'];
-            $penerbit = $_POST['penerbit1'];
-            $rak = $_POST['rak1'];
-            $img = $_POST['img1'];
-            $status_buku = $_POST['status_buku1'];
-
-
-
-            // Assuming $book is an instance of your Book class
-            $result = $this->edit($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_terbit, $penerbit, $rak, $img, $status_buku, $id);
-
-            if ($result) {
-                ob_start();
-
-                pesan('success', "Buku Telah Diupdate.");
-                header("Location: index.php?page=Buku");
+                $id = $_POST['bookId'];  // Remove the # symbol
+                $judul_buku = $_POST['judul_buku1'];
+                $deskripsi = $_POST['deskripsi1'];
+                $ketersediaan = $_POST['ketersediaan1'];
+                $tanggal_pengadaan = $_POST['tanggal_pengadaan1'];
+                $tahun_terbit = $_POST['tahun_terbit1'];
+                $penerbit = $_POST['penerbit1'];
+                $rak = $_POST['rak1'];
+                $img = $_POST['img1'];
+                $status_buku = $_POST['status_buku1'];
+    
+    
+    
+                // Assuming $book is an instance of your Book class
+                $result = $this->edit($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_terbit, $penerbit, $rak, $img, $status_buku, $id);
+    
+                if ($result) {
+                    ob_start();
+    
+                    pesan('success', "Buku Telah Diupdate.");
+                    header("Location: index.php?page=Buku");
+                } else {
+                    pesan('danger', "Gagal Edit Buku Karena: " . mysqli_error($this->conn));
+                }
             } else {
-                pesan('danger', "Gagal Edit Buku Karena: " . mysqli_error($this->conn));
+                echo "err";
             }
-        } else {
-            echo "err";
         }
     }
 
@@ -240,4 +242,5 @@ class Book
             exit;
         }
     }
+    
 }

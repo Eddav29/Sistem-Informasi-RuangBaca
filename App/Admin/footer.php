@@ -45,7 +45,7 @@
 <script src="Assets/DataTables/datatables.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('.table').DataTable();
+        $('.table-data').DataTable();
     });
 </script>
 </body>

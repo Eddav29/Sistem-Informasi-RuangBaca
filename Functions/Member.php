@@ -11,6 +11,9 @@ class Member
     }
 
 
+
+
+
     public function addMember($id, $username, $password, $nama, $jenisIdentitas, $noIdentitas, $alamat, $level)
     {
         $id = mysqli_real_escape_string($this->conn, $id);
@@ -42,9 +45,10 @@ class Member
             $alamat = $_POST['alamat'];
             $level = $_POST['level'];
 
+            $hashed_password = md5($password);
 
             // Assuming $book is an instance of your Book class
-            $result = $this->addMember($id, $username, $password, $nama, $jenisIdentitas, $noIdentitas, $alamat, $level);
+            $result = $this->addMember($id, $username, $hashed_password, $nama, $jenisIdentitas, $noIdentitas, $alamat, $level);
 
             if ($result) {
                 ob_start();
@@ -105,10 +109,7 @@ class Member
 
                 if ($result) {
                     ob_start();
-                    // Book added successfully
-                    // You can redirect to a success page or perform any other actions
-                    // For example, you can use header("Location: success.php");
-                    pesan('success', "Member Baru Telah Diedit.");
+                    pesan('success', "Member Telah Diedit.");
                     header("Location: index.php?page=Member");
                 } else {
                     pesan('danger', "Gagal Edit Member Karena: " . mysqli_error($this->conn));
