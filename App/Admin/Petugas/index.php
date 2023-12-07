@@ -36,7 +36,7 @@
                 ?>
 
                 <div class="table-responsive small">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-data">
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
@@ -67,8 +67,11 @@
                                     <td><?= $row['ALAMAT'] ?></td>
                                     <td><?= $row['level'] ?></td>
                                     <td>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#editModal<?= $row['ID_MEMBER'] ?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
-
+                                        <div class="d-flex">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#editModal<?= $row['ID_MEMBER'] ?>" class="btn btn-warning btn-xs m-1"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                                        <a href="index.php?page=petugas&delete_id=<?= $row['ID_MEMBER'] ?>" onclick="return confirm('Hapus Data petugas?');" class="btn btn-danger btn-xs m-1">
+                                            <i class="fa fa-trash"></i> Hapus</a>
+                                        </div>
                                         <!-- Modal untuk mengedit data petugas -->
                                         <div class="modal fade" id="editModal<?= $row['ID_MEMBER'] ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?= $row['ID_MEMBER'] ?>" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
@@ -135,9 +138,7 @@
                                             </div>
                                         </div>
 
-                                        <a href="index.php?page=petugas&delete_id=<?= $row['ID_MEMBER'] ?>" onclick="return confirm('Hapus Data petugas?');" class="btn btn-danger btn-xs">
-                                            <i class="fa fa-trash"></i> Hapus
-                                        </a>
+                                        
 
                                     </td>
                                 </tr>
