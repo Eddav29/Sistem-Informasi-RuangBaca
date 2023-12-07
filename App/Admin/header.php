@@ -17,32 +17,39 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <!-- <link rel="stylesheet" href="../../Assets2/font-awesome/css/font-awesome.css" rel="stylesheet"> -->
   <link href="Assets/Bootstraps/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="Assets/DataTables/datatables.min.css">
 
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <style>
-.custom-modal-body {
-        border: 15px solid white;
-        padding: 20px; /* Adjust the padding as needed */
-        background-color: #f2f2f2; /* Set the desired background color */
-        border-radius: 30px;
+    .custom-modal-body {
+      border: 15px solid white;
+      padding: 20px;
+      /* Adjust the padding as needed */
+      background-color: #f2f2f2;
+      /* Set the desired background color */
+      border-radius: 30px;
     }
 
     .btn-close-style {
-  background-color: black; /* Warna latar belakang hitam */
-  color: white; /* Warna teks putih */
-  border: none; /* Hilangkan border */
-  padding: 0.375rem 0.75rem; /* Sesuaikan padding sesuai kebutuhan */
-  font-size: 1.25rem; /* Sesuaikan ukuran font sesuai kebutuhan */
-  line-height: 1.5; /* Sesuaikan line height sesuai kebutuhan */
-  border-radius: 0.25rem; /* Sesuaikan border radius sesuai kebutuhan */
-}
+      background-color: black;
+      /* Warna latar belakang hitam */
+      color: white;
+      /* Warna teks putih */
+      border: none;
+      /* Hilangkan border */
+      padding: 0.375rem 0.75rem;
+      /* Sesuaikan padding sesuai kebutuhan */
+      font-size: 1.25rem;
+      /* Sesuaikan ukuran font sesuai kebutuhan */
+      line-height: 1.5;
+      /* Sesuaikan line height sesuai kebutuhan */
+      border-radius: 0.25rem;
+      /* Sesuaikan border radius sesuai kebutuhan */
+    }
 
-.btn-close-style:hover {
-  background-color: #333; /* Warna latar belakang hitam saat hover */
-}
+    .btn-close-style:hover {
+      background-color: #333;
+      /* Warna latar belakang hitam saat hover */
+    }
 
     body {
       position: relative;
