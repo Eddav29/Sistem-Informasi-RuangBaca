@@ -24,6 +24,10 @@
   <link rel="stylesheet" href="Assets/DataTables/datatables.min.css">
 
   <style>
+
+    @media screen {
+      
+    }
     .custom-modal-body {
       border: 15px solid white;
       padding: 20px;

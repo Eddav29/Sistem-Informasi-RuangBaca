@@ -169,7 +169,7 @@ while ($rowKategori = mysqli_fetch_assoc($resultKategori)) {
 document.addEventListener("DOMContentLoaded", function () {
     var ctx = document.getElementById('kategoriChart').getContext('2d');
     var kategoriChart = new Chart(ctx, {
-        type: 'pie',
+        type: 'doughnut',
         data: {
             labels: ['Total Inventaris', 'Buku Dipinjam', 'Buku Dirak'],
             datasets: [{
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <h5 class="card-title"><i class="fa fa-users"></i> MEMBER</h5>
                             <a href="index.php?page=Member" class="btn btn-primary"> Lihat Selengkapnya >></a>
                         </div>
-                        <div class="table-responsive small">
+                        <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
 
                         </div>
-                        <div class="table-responsive small">
+                        <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -312,7 +312,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <h5 class="card-title"><i class="fa fa-user-tie"></i> PETUGAS</h5>
                             <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
                         </div>
-                        <div class="table-responsive small">
+                        <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -358,7 +358,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
 
                         </div>
-                        <div class="table-responsive small">
+                        <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -400,14 +400,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             </div>
             <br></br>
+
             <div class="row">
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h5 class="card-title"><i class="fa-solid fa-list"></i> KATEGORI</h5>
-                            <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
+                            <a href="index.php?page=Buku" class="btn btn-primary" width="75px"> Lihat Selengkapnya >></a>
                         </div>
-                        <div class="table-responsive small">
+                        <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -448,7 +449,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
 
                         </div>
-                        <div class="table-responsive small">
+                        <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>

@@ -34,7 +34,7 @@
                 ?>
 
                 <div class="table-responsive small">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-data">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
@@ -69,8 +69,10 @@
                                     <td><?= $row['IMG'] ?></td>
                                     <td><?= $row['STATUS_BUKU'] ?></td>
                                     <td>
-                                        <a href='index.php?page=edit&id=<?= $row_kategori["ID_BUKU"] ?>' data-bs-toggle="modal" data-bs-target="#myModal<?= $row['ID_BUKU']; ?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i></a>
-                                        <a href="index.php?page=buku&idBuku=<?= $row['ID_BUKU'] ?>" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                        <div class="d-flex ">
+                                        <a href='index.php?page=edit&id=<?= $row_kategori["ID_BUKU"] ?>' data-bs-toggle="modal" data-bs-target="#myModal<?= $row['ID_BUKU']; ?>" class="btn btn-warning btn-xs m-1"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a href="index.php?page=buku&idBuku=<?= $row['ID_BUKU'] ?>" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs m-1"><i class="fa fa-trash"></i></a>
+                                        </div>
                                         <div id="myModal<?= $row['ID_BUKU']?>" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true" tabindex="-1">
                                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                 <div class="modal-content">
@@ -170,7 +172,7 @@
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="myModalLabel"><i class="fa fa-users"></i> Tambah Member</h5>
+                                <h5 class="modal-title" id="myModalLabel"><i class="fa fa-users"></i> Tambah Buku</h5>
                                 <button type="button" class="btn-close-style " data-bs-dismiss="modal" aria-label="Close">
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
@@ -211,6 +213,12 @@
                                         <label for="recipient-name" class="col-sm-3 col-form-label">Tahun Terbit</label>
                                         <div class="col-sm-9">
                                             <input type="number" class="form-control" id="tahun_terbit" name="tahun_terbit">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row form-group">
+                                        <label for="penerbit1" class="col-sm-3 col-form-label">Penerbit</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="penerbit" name="penerbit">
                                         </div>
                                     </div>
                                     <div class="mb-3 row form-group">

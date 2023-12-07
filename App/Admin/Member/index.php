@@ -38,7 +38,7 @@
                 ?>
 
                 <div class="table-responsive small">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-data">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
@@ -70,8 +70,10 @@
                                     <td><?= $row['ALAMAT'] ?></td>
                                     <td><?= $row['level'] ?></td>
                                     <td>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#myModal<?= $row['ID_MEMBER']; ?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i></a>
-                                        <a href="index.php?page=member&idMember=<?= $row['ID_MEMBER'] ?>" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                        <div class="d-flex">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#myModal<?= $row['ID_MEMBER']; ?>" class="btn btn-warning btn-xs m-1"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a href="index.php?page=member&idMember=<?= $row['ID_MEMBER'] ?>" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs m-1"><i class="fa fa-trash"></i></a>    
+                                        </div>
                                         <div id="myModal<?= $row['ID_MEMBER'] ?>" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="myModalLabel<?= $row['ID_MEMBER'] ?>" aria-hidden="true" tabindex="-1">
                                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                 <div class="modal-content">
@@ -134,10 +136,7 @@
                                                             <div class="mb-3">
                                                                 <label for="recipient-name" class="col-form-label">Level</label>
                                                                 <br>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input type="radio" class="form-check-input" name="level1" id="level1" value="Admin" <?= ($row['level'] === 'Admin') ? 'checked' : '' ?>>
-                                                                    <label class="form-check-label" for="inlineRadio1">Admin</label>
-                                                                </div>
+
                                                                 <div class="form-check form-check-inline">
                                                                     <input type="radio" class="form-check-input" name="level1" id="level1" value="Member" <?= ($row['level'] === 'Member') ? 'checked' : '' ?>>
                                                                     <label class="form-check-label" for="inlineRadio2">Member</label>
