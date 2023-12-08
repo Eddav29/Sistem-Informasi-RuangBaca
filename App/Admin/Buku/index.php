@@ -13,9 +13,11 @@
         ?>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Buku</h1>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    data-bs-whatever="@mdo">
                     <i class="fa fa-plus"></i> Tambah Data
                 </button>
             </div>
@@ -56,21 +58,44 @@
                             $query = "SELECT * FROM buku";
                             $result = mysqli_query($conn, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
-                            ?>
+                                ?>
                                 <tr id="<?= $row['ID_BUKU'] ?>">
-                                    <th scope="row"><?= $no++ ?></th>
-                                    <td data-target="judul_buku"><?= $row['JUDUL_BUKU'] ?></td>
-                                    <td data-target="deskripsi"><?= $row['DESKRIPSI'] ?></td>
-                                    <td data-target="ketersediaan"><?= $row['KETERSEDIAAN'] ?></td>
-                                    <td data-target="tanggal_pengadaan"><?= $row['TANGGAL_PENGADAAN'] ?></td>
-                                    <td data-target="tahun_terbit"><?= date('Y', strtotime($row['TAHUN_TERBIT'])) ?></td>
-                                    <td data-target="penerbit"><?= $row['PENERBIT'] ?></td>
-                                    <td data-target="rak"><?= $row['RAK'] ?></td>
-                                    <td data-target="img"><?= $row['IMG'] ?></td>
-                                    <td data-target="status_buku"><?= $row['STATUS_BUKU'] ?></td>
+                                    <th scope="row">
+                                        <?= $no++ ?>
+                                    </th>
+                                    <td data-target="judul_buku">
+                                        <?= $row['JUDUL_BUKU'] ?>
+                                    </td>
+                                    <td data-target="deskripsi">
+                                        <?= $row['DESKRIPSI'] ?>
+                                    </td>
+                                    <td data-target="ketersediaan">
+                                        <?= $row['KETERSEDIAAN'] ?>
+                                    </td>
+                                    <td data-target="tanggal_pengadaan">
+                                        <?= $row['TANGGAL_PENGADAAN'] ?>
+                                    </td>
+                                    <td data-target="tahun_terbit">
+                                        <?= date('Y', strtotime($row['TAHUN_TERBIT'])) ?>
+                                    </td>
+                                    <td data-target="penerbit">
+                                        <?= $row['PENERBIT'] ?>
+                                    </td>
+                                    <td data-target="rak">
+                                        <?= $row['RAK'] ?>
+                                    </td>
+                                    <td data-target="img">
+                                        <?= $row['IMG'] ?>
+                                    </td>
+                                    <td data-target="status_buku">
+                                        <?= $row['STATUS_BUKU'] ?>
+                                    </td>
                                     <td>
-                                        <a href="#" data-role="update" data-id="<?= $row['ID_BUKU']; ?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
-                                        <a href="index.php?page=buku&idBuku=<?= $row['ID_BUKU'] ?>" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
+                                        <a href="#" data-role="update" data-id="<?= $row['ID_BUKU']; ?>"
+                                            class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
+                                        <a href="index.php?page=buku&idBuku=<?= $row['ID_BUKU'] ?>"
+                                            onclick="javascript:return confirm('Hapus Data Buku?');"
+                                            class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -79,12 +104,14 @@
                     </table>
                 </div>
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static"
+                    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm " role="document">
                         <div class="modal-content h-100 ">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Data Buku</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <form action="" method="post" class="vh-100" style="padding-bottom: 10rem;">
                                 <div class="modal-body overflow-y-scroll h-100 ">
@@ -100,21 +127,25 @@
                                         <label for="recipient-name" class="col-form-label">Ketersediaan :</label>
                                         <br>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" name="ketersediaan" value="Tersedia">
+                                            <input type="radio" class="form-check-input" name="ketersediaan"
+                                                value="Tersedia">
                                             <label class="form-check-label" for="tersedia">Tersedia</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" name="ketersediaan" value="Tidak Tersedia">
+                                            <input type="radio" class="form-check-input" name="ketersediaan"
+                                                value="Tidak Tersedia">
                                             <label class="form-check-label" for="tidak-tersedia">Tidak Tersedia</label>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Tanggal Pengadaan:</label>
-                                        <input type="date" name="tanggal_pengadaan" class="form-control" id="recipient-name">
+                                        <input type="date" name="tanggal_pengadaan" class="form-control"
+                                            id="recipient-name">
                                     </div>
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Tahun Penerbit:</label>
-                                        <input type="text" name="tahun_penerbit" class="form-control" id="recipient-name">
+                                        <input type="text" name="tahun_penerbit" class="form-control"
+                                            id="recipient-name">
                                     </div>
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Penerbit :</label>
@@ -132,17 +163,21 @@
                                         <label for="recipient-name" class="col-form-label">Status :</label>
                                         <br>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" name="status_buku" value="Rusak">
+                                            <input type="radio" class="form-check-input" name="status_buku"
+                                                value="Rusak">
                                             <label class="form-check-label" for="inlineRadio1">Rusak</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" name="status_buku" value="Bagus">
+                                            <input type="radio" class="form-check-input" name="status_buku"
+                                                value="Bagus">
                                             <label class="form-check-label" for="inlineRadio2">Bagus</label>
                                         </div>
                                     </div>
                                     <div class="mb-3 d-flex justify-content-end">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i> Close</button>
-                                        <button type="submit" name="submit" class="btn btn-primary ms-2" aria-hidden="true"><i class="fa fa-floppy-o"></i> Simpan</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                            aria-hidden="true"><i class="fa fa-times"></i> Close</button>
+                                        <button type="submit" name="submit" class="btn btn-primary ms-2"
+                                            aria-hidden="true"><i class="fa fa-floppy-o"></i> Simpan</button>
                                     </div>
                                 </div>
 
@@ -150,12 +185,15 @@
                         </div>
                     </div>
                 </div>
-                <div id="myModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true" tabindex="-1">
+                <div id="myModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+                    aria-labelledby="modalTitleId" aria-hidden="true" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel"><i class="fa fa-book"></i> Edit Buku</h5>
-                                <button type="button" class="btn-close-style " data-bs-dismiss="modal" aria-label="Close">
+                                <h5 class="modal-title" id="staticBackdropLabel"><i class="fa fa-book"></i> Edit Buku
+                                </h5>
+                                <button type="button" class="btn-close-style " data-bs-dismiss="modal"
+                                    aria-label="Close">
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
@@ -179,9 +217,11 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row form-group">
-                                    <label for="tanggal_pengadaan" class="col-sm-3 col-form-label">Tanggal Pengadaann</label>
+                                    <label for="tanggal_pengadaan" class="col-sm-3 col-form-label">Tanggal
+                                        Pengadaann</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="tanggal_pengadaan1" name="tanggal_pengadaan1">
+                                        <input type="text" class="form-control" id="tanggal_pengadaan1"
+                                            name="tanggal_pengadaan1">
                                     </div>
                                 </div>
                                 <div class="mb-3 row form-group">
@@ -228,8 +268,8 @@
                 </div>
 
                 <script>
-                    $(document).ready(function() {
-                        $(document).on('click', 'a[data-role=update]', function() {
+                    $(document).ready(function () {
+                        $(document).on('click', 'a[data-role=update]', function () {
                             var id = $(this).data('id');
                             var judul_buku = $('#' + id).find('td[data-target=judul_buku]').text();
                             var deskripsi = $('#' + id).find('td[data-target=deskripsi]').text();
@@ -254,7 +294,7 @@
                             $('#myModal').modal('show');
                         });
 
-                        $('#save').click(function() {
+                        $('#save').click(function () {
                             var id = $('#bookId').val();
                             var judul_buku = $('#judul_buku1').val();
                             var deskripsi = $('#deskripsi1').val();
@@ -282,7 +322,7 @@
                                     bookId: id // Include the bookId in the data
 
                                 },
-                                success: function(response) {
+                                success: function (response) {
                                     $('#' + id).children('td[data-target=judul_buku]').text(judul_buku);
                                     $('#' + id).children('td[data-target=deskripsi]').text(deskripsi);
                                     $('#' + id).children('td[data-target=tanggal_pengadaan]').text(tanggal_pengadaan);

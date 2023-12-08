@@ -62,37 +62,38 @@ class Kategori
             }
         }
     }
-    public function editkategori($id_kategori, $nama_kategori)
+    // Kategori.php
+
+    public function editKategori($id_kategori, $nama_kategori)
     {
-        $id_kategori = mysqli_real_escape_string($this->conn, $id_kategori); // Escape ID
+        $id_kategori = mysqli_real_escape_string($this->conn, $id_kategori);
         $nama_kategori = mysqli_real_escape_string($this->conn, $nama_kategori);
 
-        $update_query = "UPDATE kategori SET NAMA_KATEGORI = '$nama_kategori' WHERE ID_KATEGORI = '$id_kategori'"; // Tambahkan klausa WHERE
-
+        $update_query = "UPDATE kategori SET NAMA_KATEGORI = '$nama_kategori' WHERE ID_KATEGORI = '$id_kategori'";
         $result = mysqli_query($this->conn, $update_query);
 
         return $result;
     }
 
-
     public function editKategoriFromForm()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
-            if (!empty($_POST['ID_KATEGORI']) && !empty($_POST['NAMA_KATEGORI'])) {
-                $id_kategori = $_POST['ID_KATEGORI'];
-                $nama_kategori = $_POST['NAMA_KATEGORI'];
+            if (!empty($_POST['id_kategori']) && !empty($_POST['nama_kategori'])) {
+                $id_kategori = $_POST['id_kategori'];
+                $nama_kategori = $_POST['nama_kategori'];
 
-                $result = $this->editkategori($id_kategori, $nama_kategori);
+                $result = $this->editKategori($id_kategori, $nama_kategori);
 
                 if ($result) {
-                    pesan('success', 'Kategori Telah Diubah.');
+                    // Jika berhasil, kirim pesan atau respons ke frontend jika diperlukan
+                    echo 'success'; // Mengirim respons sukses ke JavaScript
+                    exit; // Keluar agar tidak ada output tambahan dari PHP
                 } else {
-                    pesan('danger', 'Gagal Mengubah Kategori: ' . mysqli_error($this->conn));
+                    // Jika gagal, kirim pesan atau respons ke frontend jika diperlukan
+                    echo 'error'; // Mengirim respons error ke JavaScript
+                    exit; // Keluar agar tidak ada output tambahan dari PHP
                 }
             }
-
-            header("Location: index.php?page=kategori");
-            exit;
         }
     }
 
