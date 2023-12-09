@@ -78,22 +78,23 @@ class Kategori
     public function editKategoriFromForm()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
-            if (!empty($_POST['id_kategori']) && !empty($_POST['nama_kategori'])) {
-                $id_kategori = $_POST['id_kategori'];
-                $nama_kategori = $_POST['nama_kategori'];
+            if (!empty($_POST['ID_KATEGORI']) && !empty($_POST['NAMA_KATEGORI'])) {
+                $id_kategori = $_POST['ID_KATEGORI'];
+                $nama_kategori = $_POST['NAMA_KATEGORI'];
 
                 $result = $this->editKategori($id_kategori, $nama_kategori);
 
                 if ($result) {
-                    // Jika berhasil, kirim pesan atau respons ke frontend jika diperlukan
-                    echo 'success'; // Mengirim respons sukses ke JavaScript
-                    exit; // Keluar agar tidak ada output tambahan dari PHP
+                    ob_start();
+                    pesan('success', 'kategori Telah Diubah.');
+                    header("Location: index.php?page=kategori");
                 } else {
-                    // Jika gagal, kirim pesan atau respons ke frontend jika diperlukan
-                    echo 'error'; // Mengirim respons error ke JavaScript
-                    exit; // Keluar agar tidak ada output tambahan dari PHP
+                    pesan('danger', 'Gagal Mengubah kategori: ' . mysqli_error($this->conn));
                 }
             }
+
+            header("Location: index.php?page=Kategori");
+            exit;
         }
     }
 
@@ -117,6 +118,7 @@ class Kategori
             $result = $this->hapusKategori($id_kategori);
 
             if ($result) {
+                ob_start();
                 pesan('success', 'Kategori Telah Dihapus.');
             } else {
                 pesan('danger', 'Gagal Menghapus Kategori: ' . mysqli_error($this->conn));
