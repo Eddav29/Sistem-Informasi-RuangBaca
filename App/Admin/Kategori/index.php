@@ -141,7 +141,7 @@
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="myModalLabel"><i class="fa-solid fa-list"></i> Tambah
+                                <h5 class="modal-title" id="myModalLabel "><i class="fa-solid fa-list"></i> Tambah
                                     Kategori
                                 </h5>
                                 <button type="button" class="btn-close-style " data-bs-dismiss="modal"

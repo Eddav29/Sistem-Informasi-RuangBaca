@@ -31,37 +31,23 @@ class peminjaman
 
         return $result;
     }
-    public function addPeminjaman($id_member, $id_buku, $jumlah_buku, $tanggal_peminjaman, $tanggal_pengembalian)
+    public function addPeminjaman($id_member, $id_buku, $tanggal_peminjaman, $tanggal_pengembalian)
     {
         $id_member = mysqli_real_escape_string($this->conn, $id_member);
         $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
-        $jumlah_buku = mysqli_real_escape_string($this->conn, $jumlah_buku);
         $tanggal_peminjaman = mysqli_real_escape_string($this->conn, $tanggal_peminjaman);
         $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
 
         // Query untuk menambahkan peminjaman
-        $insert_query_peminjaman = "INSERT INTO PEMINJAMAN (ID_MEMBER, ID_BUKU, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, ATTRIBSTATUSUTE_26, DENDA)
-                                    VALUES ('$id_member', '$id_buku', '$tanggal_peminjaman', '$tanggal_pengembalian', 'Dipinjam', 0)";
+        $insert_query_peminjaman = "INSERT INTO PEMINJAMAN (ID_MEMBER, ID_BUKU, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, 
+        ATTRIBSTATUSUTE_26, DENDA)
+                            VALUES ('$id_member', '$id_buku', '$tanggal_peminjaman', '$tanggal_pengembalian', 'Dipinjam', 0)";
+
 
         $result_peminjaman = mysqli_query($this->conn, $insert_query_peminjaman);
 
-        // Ambil ID_PEMINJAMAN yang baru saja di-generate
-        $new_peminjaman_id = mysqli_insert_id($this->conn);
-
-        // Cek apakah peminjaman berhasil ditambahkan
-        if ($result_peminjaman) {
-            // Ubah status peminjaman menjadi 'Kembali' jika ada logika pengembalian
-            $update_status_query = "UPDATE PEMINJAMAN SET ATTRIBSTATUSUTE_26 = 'Kembali' WHERE ID_PEMINJAMAN = '$new_peminjaman_id'";
-            $result_update_status = mysqli_query($this->conn, $update_status_query);
-
-        } else {
-
-
-
-        }
+        return $result_peminjaman;
     }
-
-
 
 
     public function addPeminjamanFromForm()
@@ -70,22 +56,22 @@ class peminjaman
             // Ambil data dari form
             $id_member = $_POST['ID_MEMBER'];
             $id_buku = $_POST['ID_BUKU'];
-            $jumlah_buku = $_POST['JUMLAH_BUKU'];
+            // $judul_buku = $_POST['JUDUL_BUKU'];
+            // $jumlah_buku = $_POST['JUMLAH_BUKU'];
             $tanggal_peminjaman = $_POST['TANGGAL_PEMINJAMAN'];
             $tanggal_pengembalian = $_POST['TANGGAL_PENGEMBALIAN'];
 
             // Panggil fungsi untuk menyimpan ke database
-            $result_peminjaman = $this->addPeminjaman($id_member, $id_buku, $jumlah_buku, $tanggal_peminjaman, $tanggal_pengembalian);
+            $result_peminjaman = $this->addPeminjaman($id_member, $id_buku, $tanggal_peminjaman, $tanggal_pengembalian);
 
             if ($result_peminjaman) {
-                // Tampilkan pesan sukses atau redirect ke halaman lain
+                ob_start();
                 pesan('success', "Peminjaman Berhasil Ditambahkan.");
 
                 // Tambahkan data ke tabel PENGEMBALIAN jika diperlukan
                 // Contoh: $this->addPengembalian($id_member, $tanggal_pengembalian);
-
                 header("Location: index.php?page=peminjaman");
-                exit(); // Pastikan untuk menambahkan exit() setelah header redirect
+                exit();
             } else {
                 pesan('danger', "Gagal Menambahkan Peminjaman Karena: " . mysqli_error($this->conn));
             }
@@ -136,17 +122,17 @@ class peminjaman
                 }
             }
 
-            header("Location: index.php?page=kategori");
+            header("Location: index.php?page=peminjaman");
             exit;
         }
     }
 
 
-    public function hapusPeminjaman($id_member)
+    public function hapusPeminjaman($id_peminjaman)
     {
-        $id_member = mysqli_real_escape_string($this->conn, $id_member); // Escape ID
+        $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman); // Escape ID
 
-        $delete_query = "DELETE FROM PEMINJAMAN WHERE ID_MEMBER = '$id_member'"; // Query hapus peminjaman
+        $delete_query = "DELETE FROM PEMINJAMAN WHERE ID_PEMINJAMAN = '$id_peminjaman'"; // Query hapus peminjaman
 
         $result = mysqli_query($this->conn, $delete_query);
 
@@ -156,9 +142,9 @@ class peminjaman
     public function deletePeminjamanFromForm()
     {
         if (isset($_GET['delete_id'])) {
-            $id_member = $_GET['delete_id']; // Ambil ID peminjaman
+            $id_peminjaman = $_GET['delete_id']; // Ambil ID peminjaman
 
-            $result = $this->hapusPeminjaman($id_member); // Panggil fungsi hapusPeminjaman
+            $result = $this->hapusPeminjaman($id_peminjaman); // Panggil fungsi hapusPeminjaman
 
             if ($result) {
                 pesan('success', 'Data Peminjaman Telah Dihapus.');
