@@ -177,7 +177,7 @@
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
-                            <form action="" method="post">
+                            <form action="" method="post" enctype="multipart/form-data">
                                 <div class="modal-body custom-modal-body">
                                     <div class="mb-3 row form-group">
                                         <label for="recipient-name" class="col-sm-3 col-form-label">Judul</label>
@@ -230,7 +230,7 @@
                                     <div class="mb-3 row form-group">
                                         <label for="recepient-name" class="col-sm-3 col-form-label">Image</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="img" name="img">
+                                            <input type="file" class="form-control" name="file">
                                         </div>
                                     </div>
                                     <div class="mb-3">
