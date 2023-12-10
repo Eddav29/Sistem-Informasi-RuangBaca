@@ -10,7 +10,20 @@
             width: auto;
             padding: 20px;
             box-sizing: border-box;
-            /* Untuk mempertahankan total lebar termasuk padding */
+            margin: 0 auto;
+            /* Menengahkan kotak luar dengan nilai auto untuk sisi kiri dan kanan */
+            text-align: center;
+            /* Untuk memastikan konten di dalamnya berada di tengah secara horizontal */
+        }
+
+        .container-fluid {
+            width: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            margin: 0 auto;
+            /* Menengahkan kotak luar dengan nilai auto untuk sisi kiri dan kanan */
+            text-align: center;
+            /* Untuk memastikan konten di dalamnya berada di tengah secara horizontal */
         }
 
         body {
@@ -24,18 +37,19 @@
 
         }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 95%;
-            /* Mengatur lebar kotak paling dalam */
-            margin: 0 auto;
-            border: 10px;
-        }
+        /* .container {
+            
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    border: 10px;
+} */
 
 
         .table-container {
+            width: 200%;
             display: flexbox;
             margin-top: 20px;
             padding: 20px;
@@ -48,6 +62,7 @@
         }
 
         .table-peminjaman {
+
             margin-top: 15px;
             display: flex;
             background-color: #36ABFF;
@@ -56,6 +71,8 @@
             color: #fff;
             margin-bottom: 20px;
             padding: 0 10px;
+            margin-right: ;
+
             /* Tambahkan padding agar teks tidak terlalu dekat dengan tepi */
         }
 
@@ -71,14 +88,17 @@
         }
 
         table {
+            width: 80%;
+            /* Mengatur lebar tabel menjadi 80% dari lebar parent atau container */
 
             display: flexbox;
-            width: 100%;
+
             border-collapse: collapse;
         }
 
         th,
         td {
+
             border: 1px solid black;
             padding: 10px;
             text-align: left;
@@ -86,6 +106,7 @@
         }
 
         th {
+
             background-color: #D9D9D9;
         }
 
@@ -111,10 +132,17 @@
             float: right;
             /* Menggunakan float untuk meletakkan tombol di sebelah kanan */
             margin-top: -10px;
+            margin-bottom: 20px;
             /* Sesuaikan margin agar posisinya di atas tabel */
-            margin-right: 20px;
+            /* margin-right: 20px; */
             /* Beri margin untuk penempatan yang lebih baik */
         }
+
+        .space-above-button {
+            margin-top: 10px;
+            /* Sesuaikan nilai margin-top sesuai kebutuhan Anda */
+        }
+    
     </style>
     <!-- Sertakan CSS DataTables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
@@ -123,8 +151,8 @@
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
     <!-- Sertakan script DataTables -->
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js">
+    </script>
 
 </head>
 
@@ -153,13 +181,15 @@
             SELECT
             PEMINJAMAN.ID_PEMINJAMAN AS 'ID Peminjaman',
             PEMINJAMAN.ID_MEMBER AS 'ID Member',
+           
             BUKU.ID_BUKU,
             MEMBER.NAMA_MEMBER AS 'Nama Peminjam',
             PEMINJAMAN.TANGGAL_PEMINJAMAN AS 'Tanggal Pinjam',
             PEMINJAMAN.TANGGAL_PENGEMBALIAN AS 'Tanggal Kembali',
             BUKU.JUDUL_BUKU AS 'Judul Buku',
             COUNT(DETAILPEMINJAMAN.ID_BUKU) AS 'Jumlah Buku',
-            ATTRIBSTATUSUTE_26 AS 'Status'
+            ATTRIBSTATUSUTE_26 AS 'Status',
+            PEMINJAMAN.DENDA AS 'Denda'
             FROM
             PEMINJAMAN
             LEFT JOIN
@@ -186,7 +216,8 @@
             PEMINJAMAN.TANGGAL_PEMINJAMAN AS 'Tanggal Pinjam',
             PEMINJAMAN.TANGGAL_PENGEMBALIAN AS 'Tanggal Kembali',
             BUKU.JUDUL_BUKU AS 'Judul Buku',
-            COUNT(DETAILPEMINJAMAN.ID_BUKU) AS 'Jumlah Buku'
+            COUNT(DETAILPEMINJAMAN.ID_BUKU) AS 'Jumlah Buku',
+            PEMINJAMAN.DENDA AS 'Denda'
             FROM
             PEMINJAMAN
             LEFT JOIN
@@ -211,6 +242,7 @@
 
                     <div class="table-peminjaman">Tabel Peminjaman</div>
                     <!-- Tombol "Tambah" untuk menambahkan data -->
+
                     <button type="button" class="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal"
                         data-bs-whatever="@mdo">
                         <i class="fa fa-plus"></i>Tambah Peminjam</button>
@@ -228,6 +260,7 @@
                                         <th>Tanggal Kembali</th>
                                         <th>Judul Buku</th>
                                         <th>status</th>
+                                        <th>Denda</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -242,9 +275,10 @@
                                             echo "<td>" . $row["Nama Peminjam"] . "</td>";
                                             echo "<td>" . $row["Tanggal Pinjam"] . "</td>";
                                             echo "<td>" . $row["Tanggal Kembali"] . "</td>";
-                                            echo "<td>" . ($row["Judul Buku"] ?? 'Belum ada') . "</td>"; // Gunakan operator null coalescing untuk menampilkan pesan jika nilai NULL
-                                    
+                                            echo "<td>" . ($row["Judul Buku"] ?? 'Belum ada') . "</td>"; // Gunakan operator null coalescing untuk menampilkan pesan jika nilai NULL                                    
                                             echo "<td>" . $row["Status"] . "</td>";
+                                            echo "<td>" . $row["Denda"] . "</td>";
+
                                             echo "<td>";
 
                                             ?>
@@ -253,10 +287,12 @@
 
                                             <!-- HTML & PHP -->
                                             <div class="d-flex">
-                                                <button type="button" class="btn btn-warning btn-xs" data-bs-toggle="modal"
-                                                    data-bs-target="#myModal<?= $row["ID Peminjaman"]; ?>">
-                                                    <i class="fa fa-pencil-square-o"></i> Edit
-                                                </button>
+
+                                                <a href='index.php?page=edit&id=<?= $row["ID Peminjaman"] ?>'
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#myModal<?= $row['ID Peminjaman']; ?>"
+                                                    class="btn btn-warning btn-xs m-1"><i
+                                                        class="fa fa-pencil-square-o"></i>Edit</a>
 
 
                                                 <!-- Modal untuk Edit -->
@@ -277,19 +313,24 @@
                                                                     <i class="fa-solid fa-xmark"></i>
                                                                 </button>
                                                             </div>
+
+
+
                                                             <!-- Form untuk Edit -->
-                                                            <form action="Functions/kategori.php" method="post">
+                                                            <form action="index.php?page=peminjaman" method="post"
+                                                                id="editForm">
                                                                 <div class="modal-body custom-modal-body">
-                                                                    <div class="mb-3">
-                                                                        <label for="recipient-name" class="col-form-label">ID
-                                                                            Peminjam:</label>
-                                                                        <input type="text" name="ID_MEMBER" class="form-control"
-                                                                            method="post" id="recipient-name">
+                                                                    <!-- <div class="mb-3 row form-group">
+                                                                    <label for="id_member1" class="col-form-label">ID Member</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="text" class="form-control" 
+                                                                            name="ID_MEMBER" value="<?= $row['ID_MEMBER'] ?>" id="id_member1">
                                                                     </div>
-                                                                    <div class="mb-3">
+                                                                </div> -->
+                                                                    <div>
 
                                                                         <input type="hidden" name="ID_BUKU" class="form-control"
-                                                                            method="post" id="recipient-name">
+                                                                            method="post" id="ID_BUKU">
                                                                     </div>
 
                                                                     <div class="mb-3 row form-group">
@@ -317,6 +358,15 @@
                                                                                 ?>
                                                                             </select>
                                                                             <div class="mb-3 row form-group">
+                                                                                <div class="space-above-button">
+
+                                                                                    <input type="button" value="Tambahkan"
+                                                                                        onclick="addSelectedBooks()">
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="mb-3 row form-group">
                                                                                 <label for="selectedBooks"
                                                                                     class="col-form-label">Buku yang
                                                                                     Dipilih:</label>
@@ -324,10 +374,7 @@
                                                                                     class="form-select" multiple>
                                                                                 </select>
                                                                             </div>
-                                                                            <div class="mb-3 row form-group">
-                                                                                <input type="button" value="Tambahkan"
-                                                                                    onclick="addSelectedBooks()">
-                                                                            </div>
+
 
                                                                         </form>
 
@@ -335,7 +382,8 @@
                                                                             function addSelectedBooks() {
                                                                                 var select = document.getElementById("ID_BUKU");
                                                                                 var selectedItems = [];
-                                                                                var selectedBooks = document.getElementById("selectedBooks");
+                                                                                var selectedBooks = document.getElementById(
+                                                                                    "selectedBooks");
 
                                                                                 for (var i = 0; i < select.options.length; i++) {
                                                                                     if (select.options[i].selected) {
@@ -344,7 +392,8 @@
                                                                                 }
 
                                                                                 selectedItems.forEach(function (item) {
-                                                                                    selectedBooks.appendChild(item.cloneNode(true));
+                                                                                    selectedBooks.appendChild(item
+                                                                                        .cloneNode(true));
                                                                                 });
                                                                             }
                                                                         </script>
@@ -353,49 +402,97 @@
                                                                     </div>
 
 
+                                                                    <div class="mb-3 row form-group">
+                                                                        <label for="tanggal_peminjaman1"
+                                                                            class="col-sm-3 col-form-label">Tanggal
+                                                                            Peminjaman</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="date" class="form-control"
+                                                                                id="tanggal_peminjaman1"
+                                                                                name="tanggal_peminjaman1"
+                                                                                value="<?= $row['TANGGAL_PEMINJAMAN'] ?>">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mb-3 row form-group">
+                                                                        <label for="tanggal_pengembalian1"
+                                                                            class="col-sm-3 col-form-label">Tanggal
+                                                                            Pengembalian</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="date" class="form-control"
+                                                                                id="tanggal_pengembalian1"
+                                                                                name="tanggal_pengembalian1"
+                                                                                value="<?= $row['TANGGAL_PENGEMBALIAN'] ?>">
+                                                                        </div>
+                                                                    </div>
 
-                                                                    <div class="mb-3">
-                                                                        <label for="TANGGAL_PEMINJAMAN"
-                                                                            class="col-form-label">Tanggal
-                                                                            Peminjaman:</label>
-                                                                        <input type="date" name="TANGGAL_PEMINJAMAN"
-                                                                            class="form-control" id="TANGGAL_PEMINJAMAN">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label for="TANGGAL_PENGEMBALIAN"
-                                                                            class="col-form-label">Tanggal
-                                                                            Pengembalian:</label>
-                                                                        <input type="date" name="TANGGAL_PENGEMBALIAN"
-                                                                            class="form-control" id="TANGGAL_PENGEMBALIAN">
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label for="ATTRIBSTATUSUTE_26"
-                                                                            class="col-form-label">Status:</label><br>
+
+
+                                                                    <!-- <div class="mb-3">
+                                                                        <label for="status1"
+                                                                            class="col-sm-3 col-form-label">Status</label><br>
                                                                         <div class="form-check form-check-inline">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="ATTRIBSTATUSUTE_26" id="kembali"
-                                                                                value="Kembali">
+                                                                            <input type="radio" class="form-check-input"
+                                                                                id="status1" name="status1" value="Dipinjam"
+                                                                                <?= ($row['ATTRIBSTATUSUTE_26'] === 'Dipinjam') ? 'checked' : '' ?>>
                                                                             <label class="form-check-label"
-                                                                                for="kembali">Kembali</label>
+                                                                                for="status1">Dipinjam</label>
                                                                         </div>
                                                                         <div class="form-check form-check-inline">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="ATTRIBSTATUSUTE_26" id="dipinjam"
-                                                                                value="Dipinjam">
+                                                                            <input type="radio" class="form-check-input"
+                                                                                id="status2" name="status1" value="Kembali"
+                                                                                <?= ($row['ATTRIBSTATUSUTE_26'] === 'Kembali') ? 'checked' : '' ?>>
                                                                             <label class="form-check-label"
-                                                                                for="dipinjam">Dipinjam</label>
+                                                                                for="status2">Kembali</label>
+                                                                        </div>
+                                                                    </div> -->
+
+                                                                    <?php
+                                                                    // Pastikan $row memiliki nilai yang valid sebelum mengakses elemen array di dalamnya
+                                                                    if (isset($row) && isset($row['ATTRIBSTATUSUTE_26'])) {
+                                                                        $statusValue = $row['ATTRIBSTATUSUTE_26'];
+                                                                    } else {
+                                                                        $statusValue = ''; // Atur nilai default jika $row tidak terdefinisi atau elemen array-nya tidak ada
+                                                                    }
+                                                                    ?>
+                                                                    <div class="mb-3">
+                                                                        <label for="status1"
+                                                                            class="col-sm-3 col-form-label">Status</label><br>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input type="radio" class="form-check-input"
+                                                                                id="status1" name="status1" value="Dipinjam"
+                                                                                <?= ($statusValue === 'Dipinjam') ? 'checked' : '' ?>>
+                                                                            <label class="form-check-label"
+                                                                                for="status1">Dipinjam</label>
+                                                                        </div>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input type="radio" class="form-check-input"
+                                                                                id="status2" name="status1" value="Kembali"
+                                                                                <?= ($statusValue === 'Kembali') ? 'checked' : '' ?>>
+                                                                            <label class="form-check-label"
+                                                                                for="status2">Kembali</label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="mb-3 row form-group">
+                                                                        <label for="Denda1" class="col-sm-3 col-form-label">
+                                                                            Denda</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="number" class="form-control"
+                                                                                id="Denda1" name="Denda1"
+                                                                                value="<?= $row['DENDA'] ?>">
                                                                         </div>
                                                                     </div>
 
                                                                     <!-- Input tersembunyi untuk ID member -->
-                                                                    <input type="hidden" name="ID_MEMBER"
-                                                                        value="<?= $row['ID_Member'] ?>">
+                                                                    <input type="hidden" id="idPeminjaman1" name="idPeminjaman1"
+                                                                        value="<?= $row['ID_PEMINJAMAN'] ?>">
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="reset" class="btn btn-primary"
                                                                         onclick="resetData()">Reset</button>
-                                                                    <button type="submit" name="update"
-                                                                        class="btn btn-success">Save
+
+                                                                    <button type="submit" name="update" class="btn btn-success"
+                                                                        onclick="saveChanges(<?= $row['ID_PEMINJAMAN'] ?>)">Save
                                                                         Changes</button>
                                                                 </div>
                                                             </form>
@@ -445,8 +542,8 @@
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
-
-                            <form action="Functions/kategori.php" method="post">
+                            <form action="proses_simpan.php" method="post">
+                                <!-- <form action="Functions/peminjaman.php" method="post"> -->
                                 <div class="modal-body custom-modal-body">
                                     <div class="mb-3 row form-group">
                                         <label for="recipient-name" class="col-form-label">ID Peminjam:</label>
@@ -459,9 +556,8 @@
                                             id="recipient-name">
                                     </div>
 
-
                                     <div class="mb-3 row form-group">
-                                        <form action="Functions/kategori.php" method="post">
+                                        <form action="proses_simpan.php" method="post">
                                             <label for="ID_BUKU_TAMBAH" class="col-form-label">Pilih Buku:</label>
                                             <select name="ID_BUKU_TAMBAH[]" class="form-select" id="ID_BUKU_TAMBAH"
                                                 multiple>
@@ -483,16 +579,20 @@
                                                 ?>
                                             </select>
                                             <div class="mb-3 row form-group">
+                                                <div class="space-above-button">
+
+                                                    <input type="button" value="Tambahkan"
+                                                        onclick="addSelectedBooksTambah()">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row form-group">
                                                 <label for="selectedBooksTambah" class="col-form-label">Buku yang
                                                     Dipilih:</label>
                                                 <select name="selectedBooksTambah" id="selectedBooksTambah"
                                                     class="form-select" multiple>
                                                 </select>
                                             </div>
-                                            <div class="mb-3 row form-group">
-                                                <input type="button" value="Tambahkan"
-                                                    onclick="addSelectedBooksTambah()">
-                                            </div>
+
                                         </form>
 
                                         <script>
@@ -514,11 +614,6 @@
                                         </script>
                                     </div>
 
-
-                                    <!-- <div class="mb-3 row form-group">
-                                        <label for="JUMLAH_BUKU" class="col-form-label">Jumlah Buku:</label>
-                                        <input type="number" name="JUMLAH_BUKU" class="form-control" id="JUMLAH_BUKU">
-                                    </div> -->
                                     <div class="mb-3 row form-group">
                                         <label for="TANGGAL_PEMINJAMAN" class="col-form-label">Tanggal
                                             Peminjaman:</label>
@@ -532,13 +627,23 @@
                                             id="TANGGAL_PENGEMBALIAN">
                                     </div>
                                 </div>
+                                <div class="mb-3 row form-group">
+
+                                    <input type="hidden" name="ID_MEMBER" class="form-control"
+                                        id="ID_MEMBER">
+                                </div>
                                 <div class="modal-footer">
                                     <button type="reset" class="btn btn-primary" onclick="resetData()">Reset</button>
                                     <button type="submit" name="submit" class="btn btn-success ms-2"
                                         aria-hidden="true"><i class="fa fa-floppy-o"></i> Submit</button>
-
                                 </div>
                             </form>
+
+                            <!-- <script>
+                            function resetForm() {
+                                document.getElementById("exampleModal").reset(); // Reset form dengan id "exampleModal"
+                            }
+                            </script> -->
                         </div>
                     </div>
                 </div>
@@ -564,8 +669,8 @@
                                         <th>Nama Peminjam</th>
                                         <th>Tanggal Pinjam</th>
                                         <th>Tanggal Kembali</th>
-                                        <th>Judul Buku</th>
-                                        <th>Jumlah Buku</th>
+                                        <!-- <th>Denda</th> -->
+
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -580,14 +685,20 @@
                                             echo "<td>" . $row["Nama Peminjam"] . "</td>";
                                             echo "<td>" . $row["Tanggal Pinjam"] . "</td>";
                                             echo "<td>" . $row["Tanggal Kembali"] . "</td>";
-                                            echo "<td>" . ($row["Judul Buku"] ?? 'Belum ada') . "</td>"; // Gunakan operator null coalescing untuk menampilkan pesan jika nilai NULL
-                                            echo "<td>" . ($row["Jumlah Buku"] ?? '0') . "</td>"; // Gunakan operator null coalescing untuk menampilkan pesan jika nilai NULL atau 0
+                                            // echo "<td>" . $row["Denda"] . "</td>";
+                                    
                                             echo "<td>";
                                             ?>
                                             <!-- Tombol Hapus dalam bentuk button -->
-                                            <button type="button" class="btn btn-danger btn-xs"
+                                            <!-- <button type="button" class="btn btn-danger btn-xs"
                                                 onclick="deleteConfirmation(<?= $row['ID Pengembalian'] ?>)"><i
-                                                    class="fa fa-trash"></i>Hapus</button>
+                                                    class="fa fa-trash"></i>Hapus</button> -->
+
+                                            <a href="index.php?page=peminjaman&delete=<?= $row['ID Pengembalian'] ?>"
+                                                onclick="javascript:return confirm('Hapus Data Pengembalian?');"
+                                                class="btn btn-danger btn-xs">
+                                                <i class="fa fa-trash"></i> Hapus
+                                            </a>
                                             <?php
                                             echo "</td>";
                                             echo "</tr>";
@@ -596,7 +707,6 @@
                                         echo "<tr><td colspan='8'>Tidak ada data pengembalian</td></tr>";
                                     }
                                     ?>
-
                                 </tbody>
                             </div>
                         </table>

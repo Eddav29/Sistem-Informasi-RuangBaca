@@ -158,12 +158,12 @@
                                         <input type="text" name="nama_kategori" class="form-control"
                                             id="recipient-name">
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="reset" class="btn btn-primary"
-                                            onclick="resetData()">Reset</button>
-                                        <button type="submit" name="submit" class="btn btn-success ms-2"
-                                            aria-hidden="true"><i class="fa fa-floppy-o"></i> Submit</button>
-                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-primary" onclick="resetData()">Reset</button>
+                                    <button type="submit" name="submit" class="btn btn-success ms-2"
+                                        aria-hidden="true"><i class="fa fa-floppy-o"></i> Submit</button>
+                                </div>
                             </form>
                         </div>
                     </div>
