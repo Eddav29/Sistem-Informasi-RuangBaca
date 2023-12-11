@@ -1,5 +1,5 @@
 <?php
-class peminjaman
+class Peminjaman
 {
     private $conn;
     public function __construct($conn)
@@ -31,46 +31,54 @@ class peminjaman
 
         return $result;
     }
-    public function addPeminjaman($id_member, $id_buku, $tanggal_peminjaman, $tanggal_pengembalian, $id_peminjaman)
+
+    public function addPeminjaman($id_member, $id_buku_tambah, $tanggal_peminjaman, $tanggal_pengembalian)
     {
-        $id_member = mysqli_real_escape_string($this->conn, $id_member); // Escape ID
-        $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
+        $id_member = mysqli_real_escape_string($this->conn, $id_member);
         $tanggal_peminjaman = mysqli_real_escape_string($this->conn, $tanggal_peminjaman);
         $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
-        $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman);
 
-        $insert_query_peminjaman = "INSERT INTO peminjaman (ID_MEMBER, ID_BUKU, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN,  ID_PEMINJAMAN)
-        VALUES ('$id_member', '$id_buku', '$tanggal_peminjaman', '$tanggal_pengembalian',' $id_peminjaman')";
-
-
+        // Insert into PEMINJAMAN table
+        $insert_query_peminjaman = "INSERT INTO PEMINJAMAN (ID_MEMBER, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, ATTRIBSTATUSUTE_26, DENDA)
+                                    VALUES ('$id_member', '$tanggal_peminjaman', '$tanggal_pengembalian', 'Dipinjam', 0)";
         $result_peminjaman = mysqli_query($this->conn, $insert_query_peminjaman);
+
+        // Get the last inserted ID_PEMINJAMAN
+        $id_peminjaman = mysqli_insert_id($this->conn);
+
+        // Insert into DETAILPEMINJAMAN table for each selected book
+        foreach ($id_buku_tambah as $id_buku) {
+            $insert_query_detail = "INSERT INTO DETAILPEMINJAMAN (ID_PEMINJAMAN, ID_BUKU, STATUS_PEMINJAMAN, STATUS_BUKU)
+                                    VALUES ($id_peminjaman, $id_buku, 'Dipinjam', 'Bagus')";
+            mysqli_query($this->conn, $insert_query_detail);
+        }
 
         return $result_peminjaman;
     }
+
 
 
     public function addPeminjamanFromForm()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
             // Ambil data dari form
-
             $id_member = $_POST['ID_MEMBER'];
-            $id_buku = $_POST['ID_BUKU'];
+            $id_buku_tambah = $_POST['ID_BUKU_TAMBAH']; // Assuming this is an array of selected books
             $tanggal_peminjaman = $_POST['TANGGAL_PEMINJAMAN'];
             $tanggal_pengembalian = $_POST['TANGGAL_PENGEMBALIAN'];
-            $id_peminjaman = $_POST[' ID_PEMINJAMAN'];
 
             // Panggil fungsi untuk menyimpan ke database
-            $result_peminjaman = $this->addPeminjaman($id_member, $id_buku, $tanggal_peminjaman, $tanggal_pengembalian, $id_peminjaman);
+            $result_peminjaman = $this->addPeminjaman($id_member, $id_buku_tambah, $tanggal_peminjaman, $tanggal_pengembalian);
 
             if ($result_peminjaman) {
-                ob_start();
+                // Tampilkan pesan sukses atau redirect ke halaman lain
                 pesan('success', "Peminjaman Berhasil Ditambahkan.");
 
                 // Tambahkan data ke tabel PENGEMBALIAN jika diperlukan
                 // Contoh: $this->addPengembalian($id_member, $tanggal_pengembalian);
+
                 header("Location: index.php?page=peminjaman");
-                exit();
+                exit(); // Pastikan untuk menambahkan exit() setelah header redirect
             } else {
                 pesan('danger', "Gagal Menambahkan Peminjaman Karena: " . mysqli_error($this->conn));
             }
@@ -79,37 +87,26 @@ class peminjaman
 
 
 
-    // public function addPengembalian($id_member, $tanggal_pengembalian)
-    // {
-    //     // Simpan data pengembalian ke tabel PENGEMBALIAN
-    //     $id_member = mysqli_real_escape_string($this->conn, $id_member);
-    //     $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
 
-    //     $insert_query_pengembalian = "INSERT INTO PENGEMBALIAN (ID_MEMBER, TANGGAL_PENGEMBALIAN) VALUES ('$id_member', '$tanggal_pengembalian')";
-    //     $result_pengembalian = mysqli_query($this->conn, $insert_query_pengembalian);
+    public function addPengembalian($id_member, $tanggal_pengembalian)
+    {
+        // Simpan data pengembalian ke tabel PENGEMBALIAN
+        $id_member = mysqli_real_escape_string($this->conn, $id_member);
+        $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
 
-    //     return $result_pengembalian;
-    // }
+        $insert_query_pengembalian = "INSERT INTO PENGEMBALIAN (ID_MEMBER, TANGGAL_PENGEMBALIAN) VALUES ('$id_member', '$tanggal_pengembalian')";
+        $result_pengembalian = mysqli_query($this->conn, $insert_query_pengembalian);
+
+        return $result_pengembalian;
+    }
 
 
-    public function editPeminjaman($id_member, $id_buku, $tanggal_peminjaman, $tanggal_pengembalian, $denda, $status, $id_peminjaman)
+    public function editPeminjaman($id_member, $judul_buku)
     {
         $id_member = mysqli_real_escape_string($this->conn, $id_member); // Escape ID
-        $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
-        $tanggal_peminjaman = mysqli_real_escape_string($this->conn, $tanggal_peminjaman);
-        $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
-        $status = mysqli_real_escape_string($this->conn, $status);
-        $denda = mysqli_real_escape_string($this->conn, $denda);
-        $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman);
+        $judul_buku = mysqli_real_escape_string($this->conn, $judul_buku);
 
-        $update_query = "UPDATE peminjaman SET 
-    ID_MEMBER = '$id_member',
-    ID_BUKU = '$id_buku',
-    TANGGAL_PEMINJAMAN = '$tanggal_peminjaman',
-    TANGGAL_PENGEMBALIAN = '$tanggal_pengembalian',
-     ATTRIBSTATUSUTE_26 = '$status',
-     DENDA = '$denda'
-    WHERE ID_PEMINJAMAN = '$id_peminjaman'";
+        $update_query = "UPDATE peminjaman SET JUDUL_BUKU = '$judul_buku' WHERE ID_MEMBER = '$id_member'"; // Tambahkan klausa WHERE
 
         $result = mysqli_query($this->conn, $update_query);
 
@@ -121,17 +118,10 @@ class peminjaman
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             if (!empty($_POST['ID_MEMBER']) && !empty($_POST['JUDUL_BUKU'])) {
-                $id_member = $_POST['id_member1'];
-                $id_buku = $_POST['id_buku1'];
+                $id_member = $_POST['ID_MEMBER'];
+                $judul_buku = $_POST['JUDUL_BUKU'];
 
-                $tanggal_peminjaman = $_POST['tanggal_peminjaman1'];
-                $tanggal_pengembalian = $_POST['tanggal_pengembalian1'];
-                $status = $_POST['status2'];
-
-                $id_peminjaman = $_POST['idPeminjaman1'];
-
-
-                $result = $this->editPeminjaman($id_member, $id_buku, $tanggal_peminjaman, $tanggal_pengembalian, $status, $id_peminjaman);
+                $result = $this->editPeminjaman($id_member, $judul_buku);
 
                 if ($result) {
                     pesan('success', 'Kategori Telah Diubah.');
@@ -140,17 +130,17 @@ class peminjaman
                 }
             }
 
-            header("Location: index.php?page=peminjaman");
+            header("Location: index.php?page=kategori");
             exit;
         }
     }
 
 
-    public function hapusPeminjaman($id_peminjaman)
+    public function hapusPeminjaman($id_member)
     {
-        $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman); // Escape ID
+        $id_member = mysqli_real_escape_string($this->conn, $id_member); // Escape ID
 
-        $delete_query = "DELETE FROM PEMINJAMAN WHERE ID Peminjaman = '$id_peminjaman'"; // Query hapus peminjaman
+        $delete_query = "DELETE FROM PEMINJAMAN WHERE ID_MEMBER = '$id_member'"; // Query hapus peminjaman
 
         $result = mysqli_query($this->conn, $delete_query);
 
@@ -160,42 +150,11 @@ class peminjaman
     public function deletePeminjamanFromForm()
     {
         if (isset($_GET['delete_id'])) {
-            $id_peminjaman = $_GET['delete_id']; // Ambil ID peminjaman
+            $id_member = $_GET['delete_id']; // Ambil ID peminjaman
 
-            $result = $this->hapusPeminjaman($id_peminjaman); // Panggil fungsi hapusPeminjaman
-
-            if ($result) {
-                ob_start();
-                pesan('success', 'Data Peminjaman Telah Dihapus.');
-            } else {
-                pesan('danger', 'Gagal Menghapus Data Peminjaman: ' . mysqli_error($this->conn));
-            }
-
-            header("Location: index.php?page=peminjaman");
-            exit;
-        }
-    }
-
-    public function hapusPengembalian($id_peminjaman)
-    {
-        $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman); // Escape ID
-
-        $delete_query = "DELETE FROM PEMINJAMAN WHERE ID Peminjaman = '$id_peminjaman'"; // Query hapus peminjaman
-
-        $result = mysqli_query($this->conn, $delete_query);
-
-        return $result;
-    }
-
-    public function deletePengembalianFromForm()
-    {
-        if (isset($_GET['delete'])) {
-            $id_peminjaman = $_GET['delete']; // Ambil ID peminjaman
-
-            $result = $this->hapusPengembalian($id_peminjaman); // Panggil fungsi hapusPeminjaman
+            $result = $this->hapusPeminjaman($id_member); // Panggil fungsi hapusPeminjaman
 
             if ($result) {
-                ob_start();
                 pesan('success', 'Data Peminjaman Telah Dihapus.');
             } else {
                 pesan('danger', 'Gagal Menghapus Data Peminjaman: ' . mysqli_error($this->conn));

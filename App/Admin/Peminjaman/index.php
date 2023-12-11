@@ -549,22 +549,22 @@
                                 </button>
                             </div>
                             <div style="height: 700px; overflow-y: auto;">
-                                <form action="proses_simpan.php" method="post">
-                                    <!-- <form action="Functions/peminjaman.php" method="post"> -->
+                                <!-- <form action="proses_simpan.php" method="post"> -->
+                                    <form action="" method="post">
                                     <div class="modal-body custom-modal-body">
                                         <div class="mb-3 row form-group">
                                             <label for="recipient-name" class="col-form-label">ID Peminjam:</label>
                                             <input type="text" name="ID_MEMBER" class="form-control" method="post"
-                                                id="recipient-name">
+                                                id="ID_MEMBER">
                                         </div>
                                         <div class="mb-3 row form-group">
 
                                             <input type="hidden" name="ID_BUKU" class="form-control" method="post"
-                                                id="recipient-name">
+                                                id="ID_BUKU">
                                         </div>
 
                                         <div class="mb-3 row form-group">
-                                            <form action="proses_simpan.php" method="post">
+                                        
                                                 <label for="ID_BUKU_TAMBAH" class="col-form-label">Pilih Buku:</label>
                                                 <select name="ID_BUKU_TAMBAH[]" class="form-select" id="ID_BUKU_TAMBAH"
                                                     multiple>
@@ -600,24 +600,25 @@
                                                     </select>
                                                 </div>
 
-                                            </form>
+                                           
 
                                             <script>
-                                                function addSelectedBooksTambah() {
-                                                    var select = document.getElementById("ID_BUKU_TAMBAH");
-                                                    var selectedItems = [];
-                                                    var selectedBooks = document.getElementById("selectedBooksTambah");
+                                               function addSelectedBooksTambah() {
+    var select = document.getElementById("ID_BUKU_TAMBAH");
+    var selectedItems = [];
+    var selectedBooks = document.getElementById("selectedBooksTambah");
 
-                                                    for (var i = 0; i < select.options.length; i++) {
-                                                        if (select.options[i].selected) {
-                                                            selectedItems.push(select.options[i]);
-                                                        }
-                                                    }
+    for (var i = 0; i < select.options.length; i++) {
+        if (select.options[i].selected) {
+            selectedItems.push(select.options[i]);
+        }
+    }
 
-                                                    selectedItems.forEach(function (item) {
-                                                        selectedBooks.appendChild(item.cloneNode(true));
-                                                    });
-                                                }
+    selectedItems.forEach(function (item) {
+        selectedBooks.appendChild(item.cloneNode(true));
+    });
+}
+
                                             </script>
                                         </div>
 
@@ -636,7 +637,7 @@
                                     </div>
                                     <div class="mb-3 row form-group">
 
-                                        <input type="hidden" name="ID_MEMBER" class="form-control" id="ID_MEMBER">
+                                        <!-- <input type="hidden" name="ID_MEMBER" class="form-control" id="ID_MEMBER"> -->
                                     </div>
                                     <div class="modal-footer">
                                         <button type="reset" class="btn btn-primary"
