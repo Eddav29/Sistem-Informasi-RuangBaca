@@ -79,17 +79,17 @@ class peminjaman
 
 
 
-    public function addPengembalian($id_member, $tanggal_pengembalian)
-    {
-        // Simpan data pengembalian ke tabel PENGEMBALIAN
-        $id_member = mysqli_real_escape_string($this->conn, $id_member);
-        $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
+    // public function addPengembalian($id_member, $tanggal_pengembalian)
+    // {
+    //     // Simpan data pengembalian ke tabel PENGEMBALIAN
+    //     $id_member = mysqli_real_escape_string($this->conn, $id_member);
+    //     $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
 
-        $insert_query_pengembalian = "INSERT INTO PENGEMBALIAN (ID_MEMBER, TANGGAL_PENGEMBALIAN) VALUES ('$id_member', '$tanggal_pengembalian')";
-        $result_pengembalian = mysqli_query($this->conn, $insert_query_pengembalian);
+    //     $insert_query_pengembalian = "INSERT INTO PENGEMBALIAN (ID_MEMBER, TANGGAL_PENGEMBALIAN) VALUES ('$id_member', '$tanggal_pengembalian')";
+    //     $result_pengembalian = mysqli_query($this->conn, $insert_query_pengembalian);
 
-        return $result_pengembalian;
-    }
+    //     return $result_pengembalian;
+    // }
 
 
     public function editPeminjaman($id_member, $id_buku, $tanggal_peminjaman, $tanggal_pengembalian, $denda, $status, $id_peminjaman)
