@@ -18,7 +18,7 @@
 
         <main class="col-md-9 col-lg-12 px-md-4 m=0 ms-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1><h5<i class="fa-solid fa-user fa-2x" aria-hidden="true"></i></h5>
+                <h1 class="h2">Dashboard</h1><h5<i class="fa-solid fa-clover fa-2x" aria-hidden="true"></i></h5>
             </div>
             <div class="row">
                 <div class="col-sm-3 m-auto">
