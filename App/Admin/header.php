@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="auto">
 
 <head>
-  <script src="Assets2/js/color-modes.js"></script>
+  <script src="Assets/js/color-modes.js"></script>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,12 +11,54 @@
   <meta name="generator" content="Hugo 0.118.2">
   <title>Ruang Baca JTI</title>
 
+  <!-- Add these links to include DataTables CSS and JS files -->
+  <link rel="stylesheet" href="Assets/DataTables/datatables.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-  <link rel="stylesheet" href="../../Assets2/font-awesome/css/font-awesome.css" rel="stylesheet">
-  <link href="Assets2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="Assets2/dist/css/dashboard.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- <link rel="stylesheet" href="../../Assets2/font-awesome/css/font-awesome.css" rel="stylesheet"> -->
+  <link href="Assets/Bootstraps/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="Assets/DataTables/datatables.min.css">
+
   <style>
+
+    @media screen {
+      
+    }
+    .custom-modal-body {
+      border: 15px solid white;
+      padding: 20px;
+      /* Adjust the padding as needed */
+      background-color: #f2f2f2;
+      /* Set the desired background color */
+      border-radius: 30px;
+    }
+
+    .btn-close-style {
+      background-color: black;
+      /* Warna latar belakang hitam */
+      color: white;
+      /* Warna teks putih */
+      border: none;
+      /* Hilangkan border */
+      padding: 0.375rem 0.75rem;
+      /* Sesuaikan padding sesuai kebutuhan */
+      font-size: 1.25rem;
+      /* Sesuaikan ukuran font sesuai kebutuhan */
+      line-height: 1.5;
+      /* Sesuaikan line height sesuai kebutuhan */
+      border-radius: 0.25rem;
+      /* Sesuaikan border radius sesuai kebutuhan */
+    }
+
+    .btn-close-style:hover {
+      background-color: #333;
+      /* Warna latar belakang hitam saat hover */
+    }
+
     body {
       position: relative;
       overflow-x: hidden;
@@ -215,7 +257,7 @@
     .hamburger {
       position: fixed;
       top: 20px;
-      z-index: 999;
+      z-index: 1001;
       display: block;
       width: 32px;
       height: 32px;
@@ -345,16 +387,67 @@
   </style>
 
 
-  <!-- Custom styles for this template -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-  <!-- Custom styles for this template -->
-  <link href="dashboard.css" rel="stylesheet">
-  <link rel=" stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
   <link rel="stylesheet" href="Assets/styleSidebar.css">
   <script src="https://kit.fontawesome.com/b450899c31.js" crossorigin="anonymous"></script>
-</head>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        .id-ididid {
+    background-color: #808080;
+    color: white;
+    padding: 20px;
+    text-align: right;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Set a higher z-index value */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.id-ididid a {
+    color: black;
+    text-decoration: none;
+    margin: 0 10px;
+    display: inline;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.profile-info i {
+    font-size: 2em; /* Adjust the font size as needed */
+    margin-right: 5px; /* Adjust the margin as needed */
+}
+
+
+
+    </style>
+</head>
 <body>
+
+<div class="id-ididid">
+    <div class="profile-info" style="color: black; margin-left: 10px;">
+        <?php
+          echo $_SESSION["user"];
+        ?>
+        Who Am I?  
+    </div>
+    <i class="fa fa-circle-user fa-2x" style="color: black;"></i>
+</div>
+
+
   <div id="wrapper">
     <div class="overlay"></div>
     <!-- Sidebar -->
@@ -365,7 +458,7 @@
             <a href="#"> <img src="Assets/img/logo.jpg" alt="logo" width="100px"></a>
           </div>
         </div>
-        <li class="nav-item"><a href="index.php"><i class="fa-solid fa-gauge"></i> Home</a></li>
+        <li class="nav-item"><a href="index.php"><i class="fa-solid fa-house"></i> Home</a></li>
         <li class="nav-item"><a href="index.php?page=Buku"><i class="fa-solid fa-book"></i> Buku</a></li>
         <li class="nav-item"><a href="index.php?page=Kategori"><i class="fa-solid fa-list"></i> Kategori</a></li>
         <li class="nav-item"><a href="index.php?page=Penulis"><i class="fa-solid fa-user-pen"></i> Penulis</a></li>
@@ -378,6 +471,7 @@
     </nav>
 
     <!-- Page Content -->
+    <div class="page-header navbar navbar-fixed-top"></div>
     <div id="page-content-wrapper">
 
       <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
@@ -385,7 +479,7 @@
         <span class="hamb-middle"></span>
         <span class="hamb-bottom"></span>
       </button>
-      <div class="container ms-0 ">
+      <div class="container ms-5">
         <div class="row">
 
 
