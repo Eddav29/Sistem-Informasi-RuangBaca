@@ -1,44 +1,60 @@
 <div class="container-fluid ">
     <div class="row">
-        <?php
+    <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-        //include "menu.php";
-        // $query_total = "SELECT count(id) as jml from buku";
-        // $result_total = mysqli_query($koneksi,$query_total);
-        // $row_total = mysqli_fetch_assoc($result_total);
-        $db = new Database();
-        $conn = $db->getConnection();
+// Check if the user is logged in
+if (!isset($_SESSION["userID"]) || !isset($_SESSION["userLevel"])) {
+    header("Location: App/Katalog/index.php");
+    exit();
+}
 
-        // $query_dipinjam = "SELECT count(id) as jml from detail_peminjaman";
-        // $result_dipinjam = mysqli_query($koneksi, $query_dipinjam);
-        // $row_dipinjam = mysqli_fetch_assoc($result_dipinjam);
+// Retrieve ID_MEMBER from the session
+$userID = $_SESSION["userID"];
+$userLevel = $_SESSION["userLevel"];
 
+// Include your database connection file or establish a connection here
 
-        ?>
+$database = new Database();
+$conn = $database->getConnection();
 
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch counts for history and notifications
+$query_history = "SELECT COUNT(*) AS history_count FROM PEMINJAMAN";
+$result_history = mysqli_query($conn, $query_history);
+$row_history = mysqli_fetch_assoc($result_history);
+
+$query_notifications = "SELECT COUNT(*) AS notification_count FROM BUKU";
+$result_notifications = mysqli_query($conn, $query_notifications);
+$row_notifications = mysqli_fetch_assoc($result_notifications);
+?>
         <main class="col-md-9 col-lg-12 px-md-4 m=0 ms-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1><h5<i class="fa-solid fa-clover fa-2x" aria-hidden="true"></i></h5>
+                <h1 class="h2">Dashboard</h1>
+                <h5<i class="fa-solid fa-clover fa-2x" aria-hidden="true"></i></h5>
             </div>
             <div class="row">
                 <div class="col-sm-3 m-auto">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5>121</h5>
+                            <h5><?= $row_history['history_count'] ?></h5>
                             <h5><i class="fa-solid fa-clock-rotate-left fa-2x" aria-hidden="true"></i></h5>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">History</h5>
                             <p class="card-text">Total jumlah history</p>
-
-
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3 m-auto">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5>4</h5>
+                            <h5><?= $row_notifications['notification_count'] ?></h5>
                             <h5><i class="fa-solid fa-bell fa-2x" aria-hidden="true"></i></h5>
                         </div>
                         <div class="card-body">
@@ -89,7 +105,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                    <th scope="col">No</th>
+                                        <th scope="col">No</th>
                                         <th scope="col">JUDUL BUKU</th>
                                         <th scope="col">TGL PEMINJAMAN</th>
                                         <th scope="col">TGL PENGEMBALIAN</th>
@@ -131,7 +147,7 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                        <h5 class="card-title"><i class="fa-solid fa-bell"></i> NOTIFIKASI</h5>
+                            <h5 class="card-title"><i class="fa-solid fa-bell"></i> NOTIFIKASI</h5>
                             <a href="index.php?page=Notifikasi" class="btn btn-primary"> Lihat Selengkapnya >></a>
 
                         </div>
@@ -139,7 +155,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                    <th scope="col">#</th>
+                                        <th scope="col">#</th>
                                         <th scope="col">ID</th>
                                         <th scope="col">Judul</th>
                                         <th scope="col">Penulis</th>
@@ -173,14 +189,14 @@
 
             </div>
             <br></br>
-                
 
-                </div>
-                    </div>
 
-                </div>
-
-            </div>
-        </main>
     </div>
+</div>
+
+</div>
+
+</div>
+</main>
+</div>
 </div>
