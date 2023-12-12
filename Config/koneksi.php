@@ -4,7 +4,7 @@ class Database
     private $host = "localhost";
     private $username = "root";
     private $password = "";
-    private $database = "ruangbaca";
+    private $database = "db_ruangbaca";
     private $conn;
 
     public function __construct()
