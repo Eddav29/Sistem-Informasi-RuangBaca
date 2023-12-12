@@ -135,31 +135,25 @@ class Peminjaman
     public function editPeminjamanFromForm()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
-            // Pastikan kunci array tersedia sebelum mengaksesnya
-            if (isset($_POST['ID_PEMINJAMAN'], $_POST['ID_MEMBER'], $_POST['ID_BUKU_EDIT'], $_POST['tanggal_peminjaman1'], $_POST['tanggal_pengembalian1'], $_POST['STATUS'], $_POST['DENDA'])) {
+            // Memastikan kunci array tersedia sebelum mengaksesnya
+            if (isset($_POST['ID_PEMINJAMAN'], $_POST['ID_MEMBER'], $_POST['STATUS'], $_POST['DENDA'])) {
                 // Ambil data dari form
                 $id_peminjaman = $_POST['ID_PEMINJAMAN'];
                 $id_member = $_POST['ID_MEMBER'];
-                $id_buku_edit = $_POST['ID_BUKU_EDIT']; // Ini diasumsikan sebagai array buku yang dipilih
-                $tanggal_peminjaman = $_POST['tanggal_peminjaman1'];
-                $tanggal_pengembalian = $_POST['tanggal_pengembalian1'];
                 $status = $_POST['STATUS'];
                 $denda = $_POST['DENDA'];
+                // $id_buku_edit = $_POST['ID_BUKU_EDIT']; // Jika perlu, tambahkan pemrosesan untuk ID buku
 
                 // Panggil fungsi untuk menyimpan ke database
                 $result_peminjaman = $this->editPeminjaman($id_peminjaman, $id_member, $id_buku_edit, $tanggal_peminjaman, $tanggal_pengembalian, $status, $denda);
 
                 if ($result_peminjaman) {
                     // Tampilkan pesan sukses atau redirect ke halaman lain
-                    pesan('success', "Peminjaman Berhasil Ditambahkan.");
-
-                    // Tambahkan data ke tabel PENGEMBALIAN jika diperlukan
-                    // Contoh: $this->addPengembalian($id_member, $tanggal_pengembalian);
-
+                    pesan('success', "Peminjaman Berhasil Diubah.");
                     header("Location: index.php?page=peminjaman");
-                    exit(); // Pastikan untuk menambahkan exit() setelah header redirect
+                    exit();
                 } else {
-                    pesan('danger', "Gagal Menambahkan Peminjaman Karena: " . mysqli_error($this->conn));
+                    pesan('danger', "Gagal Mengubah Peminjaman Karena: " . mysqli_error($this->conn));
                 }
             } else {
                 // Jika kunci array tidak tersedia
@@ -167,7 +161,6 @@ class Peminjaman
             }
         }
     }
-
     // public function editPeminjamanFromForm()
     // {
     //     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
@@ -210,13 +203,23 @@ class Peminjaman
     //     }
     // }
 
-
     public function hapusPeminjaman($id_peminjaman)
     {
         $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman); // Escape ID
 
-        $delete_query = "DELETE FROM PEMINJAMAN WHERE ID_PEMINJAMAN = '$id_peminjaman'"; // Query hapus peminjaman
+        // First delete related records in detailpeminjaman table
+        $delete_detail_query = "DELETE FROM detailpeminjaman WHERE ID_PEMINJAMAN = '$id_peminjaman'";
+        $result_detail = mysqli_query($this->conn, $delete_detail_query);
 
+        if (!$result_detail) {
+            // Handle error in deleting dependent records
+            // This might involve logging the error or taking appropriate action
+            // Return or handle this error as needed
+            return false;
+        }
+
+        // Then delete the record in the peminjaman table
+        $delete_query = "DELETE FROM PEMINJAMAN WHERE ID_PEMINJAMAN = '$id_peminjaman'"; // Query hapus peminjaman
         $result = mysqli_query($this->conn, $delete_query);
 
         return $result;
@@ -240,17 +243,59 @@ class Peminjaman
         }
     }
 
-    public function addPengembalian($id_member, $tanggal_pengembalian)
-    {
-        // Simpan data pengembalian ke tabel PENGEMBALIAN
-        $id_member = mysqli_real_escape_string($this->conn, $id_member);
-        $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
+    // public function addPengembalian($id_member, $tanggal_pengembalian)
+    // {
+    //     // Simpan data pengembalian ke tabel PENGEMBALIAN
+    //     $id_member = mysqli_real_escape_string($this->conn, $id_member);
+    //     $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
 
-        $insert_query_pengembalian = "INSERT INTO PENGEMBALIAN (ID_MEMBER, TANGGAL_PENGEMBALIAN) VALUES ('$id_member', '$tanggal_pengembalian')";
-        $result_pengembalian = mysqli_query($this->conn, $insert_query_pengembalian);
+    //     $insert_query_pengembalian = "INSERT INTO PENGEMBALIAN (ID_MEMBER, TANGGAL_PENGEMBALIAN) VALUES ('$id_member', '$tanggal_pengembalian')";
+    //     $result_pengembalian = mysqli_query($this->conn, $insert_query_pengembalian);
 
-        return $result_pengembalian;
-    }
+    //     return $result_pengembalian;
+    // }
+
+    // Fungsi untuk menambahkan data peminjaman ke tabel pengembalian
+    // public function tambahKeTabelPengembalian($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $denda)
+    // {
+    //     // Lakukan operasi INSERT ke tabel pengembalian
+    //     $insert_query_pengembalian = "INSERT INTO pengembalian (ID_PEMINJAMAN, ID_MEMBER, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, DENDA) 
+    //                               VALUES ('$id_peminjaman', '$id_member', '$tanggal_peminjaman', '$tanggal_pengembalian', '$denda')";
+
+    //     $result_pengembalian = mysqli_query($this->conn, $insert_query_pengembalian);
+
+    //     return $result_pengembalian;
+    // }
+
+    // Fungsi untuk mengubah status peminjaman menjadi Kembali
+    // public function ubahStatusPeminjamanMenjadiKembali($id_peminjaman)
+    // {
+    //     // Lakukan operasi UPDATE untuk mengubah status peminjaman menjadi Kembali
+    //     $update_query_peminjaman = "UPDATE PEMINJAMAN SET ATTRIBSTATUSUTE_26 = 'Kembali' WHERE ID_PEMINJAMAN = '$id_peminjaman'";
+    //     $result_peminjaman = mysqli_query($this->conn, $update_query_peminjaman);
+
+    //     return $result_peminjaman;
 
 
+    //     // Bagian logika aplikasi Anda untuk menambahkan data ke tabel pengembalian saat status peminjaman berubah menjadi Kembali
+    //     if ($status_peminjaman == 'Kembali') {
+    //         // Panggil fungsi untuk menambahkan data ke tabel pengembalian
+    //         $result_pengembalian = $this->tambahKeTabelPengembalian($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $denda);
+
+    //         if ($result_pengembalian) {
+    //             // Jika berhasil ditambahkan ke tabel pengembalian, ubah status peminjaman menjadi Kembali
+    //             $result_status_peminjaman = $this->ubahStatusPeminjamanMenjadiKembali($id_peminjaman);
+
+    //             if ($result_status_peminjaman) {
+    //                 // Tampilkan pesan sukses atau lakukan tindakan lain setelah berhasil mengubah status peminjaman
+    //                 pesan('success', 'Data Peminjaman Berhasil Dikembalikan dan Ditambahkan ke Tabel Pengembalian');
+    //             } else {
+    //                 pesan('danger', 'Gagal Mengubah Status Peminjaman Menjadi Kembali');
+    //             }
+    //         } else {
+    //             pesan('danger', 'Gagal Menambahkan Data Peminjaman ke Tabel Pengembalian');
+    //         }
+    //     }
+
+    // }
 }
