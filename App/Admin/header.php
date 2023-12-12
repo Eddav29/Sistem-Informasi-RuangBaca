@@ -257,7 +257,7 @@
     .hamburger {
       position: fixed;
       top: 20px;
-      z-index: 999;
+      z-index: 1001;
       display: block;
       width: 32px;
       height: 32px;
@@ -391,9 +391,63 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
   <link rel="stylesheet" href="Assets/styleSidebar.css">
   <script src="https://kit.fontawesome.com/b450899c31.js" crossorigin="anonymous"></script>
-</head>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        .id-ididid {
+    background-color: #808080;
+    color: white;
+    padding: 20px;
+    text-align: right;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Set a higher z-index value */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.id-ididid a {
+    color: black;
+    text-decoration: none;
+    margin: 0 10px;
+    display: inline;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.profile-info i {
+    font-size: 2em; /* Adjust the font size as needed */
+    margin-right: 5px; /* Adjust the margin as needed */
+}
+
+
+
+    </style>
+</head>
 <body>
+
+<div class="id-ididid">
+    <div class="profile-info" style="color: black; margin-left: 10px;">
+        <?php
+          echo $_SESSION["user"];
+        ?>
+        Who Am I?  
+    </div>
+    <i class="fa fa-circle-user fa-2x" style="color: black;"></i>
+</div>
+
+
   <div id="wrapper">
     <div class="overlay"></div>
     <!-- Sidebar -->
@@ -417,6 +471,7 @@
     </nav>
 
     <!-- Page Content -->
+    <div class="page-header navbar navbar-fixed-top"></div>
     <div id="page-content-wrapper">
 
       <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">

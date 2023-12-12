@@ -118,33 +118,53 @@ class Book
     }
 
     public function addBookFromForm()
-    {
-        if (isset($_POST['submit'])) {
-            $judul_buku = $_POST['judul_buku'];
-            $deskripsi = $_POST['deskripsi'];
-            $ketersediaan = $_POST['ketersediaan'];
-            $tanggal_pengadaan = $_POST['tanggal_pengadaan'];
-            $tahun_penerbit = $_POST['tahun_penerbit'];
-            $penerbit = $_POST['penerbit'];
-            $rak = $_POST['rak'];
-            $img = $_POST['img'];
-            $status_buku = $_POST['status_buku'];
+{
+    $statusMsg = '';
+    $dir = "Assets/img/";
 
-            // Assuming $book is an instance of your Book class
-            $result = $this->addBook($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_penerbit, $penerbit, $rak, $img, $status_buku);
+    if (isset($_POST['submit'])) {
+        if (!empty($_FILES["file"]["name"])) {
+            $namaFile = ($_FILES["file"]["name"]);
+            $filePath = $dir . $namaFile;
+            $tipeFile = pathinfo($filePath, PATHINFO_EXTENSION);
 
-            if ($result) {
-                ob_start();
-                // Book added successfully
-                // You can redirect to a success page or perform any other actions
-                // For example, you can use header("Location: success.php");
-                pesan('success', "Jabatan Baru Ditambahkan.");
-                header("Location: index.php?page=Buku");
+            $allowedExtensions = array('jpg', 'png', 'jpeg');
+            if (in_array($tipeFile, $allowedExtensions)) {
+                if (move_uploaded_file($_FILES["file"]["tmp_name"], $filePath)) {
+                    $judul_buku = $_POST['judul_buku'];
+                    $deskripsi = $_POST['deskripsi'];
+                    $ketersediaan = $_POST['ketersediaan'];
+                    $tanggal_pengadaan = $_POST['tanggal_pengadaan'];
+                    $tahun_penerbit = $_POST['tahun_penerbit'];
+                    $penerbit = $_POST['penerbit'];
+                    $rak = $_POST['rak'];
+                    $img = $namaFile;
+                    $status_buku = $_POST['status_buku'];
+
+                    // Assuming $this is an instance of your class containing the addBook method
+                    $result = $this->addBook($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_penerbit, $penerbit, $rak, $img, $status_buku);
+
+                    if ($result) {
+                        // Book added successfully
+                        // You can redirect to a success page or perform any other actions
+                        // For example, you can use header("Location: success.php");
+                        pesan('success', "Jabatan Baru Ditambahkan.");
+                        header("Location: index.php?page=Buku");
+                        exit(); 
+                    } else {
+                        pesan('danger', "Gagal Menambahkan Buku Karena: " . mysqli_error($this->conn));
+                    }
+                } else {
+                    pesan('danger', "Gagal Memindahkan File.");
+                }
             } else {
-                pesan('danger', "Gagal Menambahkan Jabatan Karena: " . mysqli_error($this->conn));
+                pesan('danger', "Tipe file tidak valid: " . implode(', ', $allowedExtensions));
             }
+        } else {
+            pesan('danger', "File tidak terupload.");
         }
     }
+}
 
 
     public function edit($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_terbit, $penerbit, $rak, $img, $status_buku, $id)
