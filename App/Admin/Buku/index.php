@@ -82,7 +82,7 @@
                                                             <i class="fa-solid fa-xmark"></i>
                                                         </button>
                                                     </div>
-                                                    <form action="index.php?page=buku" method="post" id="editForm">
+                                                    <form action="index.php?page=buku" method="post" id="editForm" class="overflow-y-scroll ">
                                                     <div class="modal-body custom-modal-body">
                                                         <div class="mb-3 row form-group">
                                                             <label for="judul_buku1" class="col-sm-3 col-form-label">Judul Buku</label>
@@ -177,7 +177,7 @@
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
-                            <form action="" method="post">
+                            <form action="" method="post" class="overflow-y-scroll ">
                                 <div class="modal-body custom-modal-body">
                                     <div class="mb-3 row form-group">
                                         <label for="recipient-name" class="col-sm-3 col-form-label">Judul</label>
