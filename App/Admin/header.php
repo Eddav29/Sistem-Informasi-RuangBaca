@@ -440,12 +440,16 @@
 <div class="id-ididid">
     <div class="profile-info" style="color: black; margin-left: 10px;">
         <?php
-          echo $_SESSION["user"];
+        // Check if the username is set in the session
+        if (isset($_SESSION["namaMember"])) {
+            // Display the username
+            echo "Welcome, " . $_SESSION["namaMember"];
+        }
         ?>
-        Who Am I?  
     </div>
     <i class="fa fa-circle-user fa-2x" style="color: black;"></i>
 </div>
+
 
 
   <div id="wrapper">

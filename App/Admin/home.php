@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h5 class="card-title"><i class="fa fa-user-tie"></i> PETUGAS</h5>
-                            <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
+                            <a href="index.php?page=Petugas" class="btn btn-primary"> Lihat Selengkapnya >></a>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped">
@@ -356,7 +356,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h5 class="card-title"><i class="fa-solid fa-truck-ramp-box"> PEMINJAMAN</i></h5>
-                            <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
+                            <a href="index.php?page=Peminjaman" class="btn btn-primary"> Lihat Selengkapnya >></a>
 
                         </div>
                         <div class="table-responsive">
@@ -407,7 +407,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h5 class="card-title"><i class="fa-solid fa-list"></i> KATEGORI</h5>
-                            <a href="index.php?page=Buku" class="btn btn-primary" width="75px"> Lihat Selengkapnya >></a>
+                            <a href="index.php?page=Kategori" class="btn btn-primary" width="75px"> Lihat Selengkapnya >></a>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped">
@@ -447,7 +447,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <h5 class="card-title"><i class="fa-solid fa-user-pen"> PENULIS</i></h5>
-                            <a href="index.php?page=Buku" class="btn btn-primary"> Lihat Selengkapnya >></a>
+                            <a href="index.php?page=Penulis" class="btn btn-primary"> Lihat Selengkapnya >></a>
 
                         </div>
                         <div class="table-responsive">
