@@ -1,38 +1,57 @@
 <div class="container-fluid ">
     <div class="row">
-    <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+        <?php
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-// Check if the user is logged in
-if (!isset($_SESSION["userID"]) || !isset($_SESSION["userLevel"])) {
-    header("Location: App/Katalog/index.php");
-    exit();
-}
+        // Check if the user is logged in
+        if (!isset($_SESSION["userID"]) || !isset($_SESSION["userLevel"])) {
+            header("Location: App/Katalog/index.php");
+            exit();
+        }
 
-// Retrieve ID_MEMBER from the session
-$userID = $_SESSION["userID"];
-$userLevel = $_SESSION["userLevel"];
+        // Retrieve ID_MEMBER from the session
+        $userID = $_SESSION["userID"];
+        $userLevel = $_SESSION["userLevel"];
 
-// Include your database connection file or establish a connection here
+        // Include your database connection file or establish a connection here
 
-$database = new Database();
-$conn = $database->getConnection();
+        $database = new Database();
+        $conn = $database->getConnection();
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
-// Fetch counts for history and notifications
-$query_history = "SELECT COUNT(*) AS history_count FROM PEMINJAMAN";
-$result_history = mysqli_query($conn, $query_history);
-$row_history = mysqli_fetch_assoc($result_history);
+        // Fetch counts for history and notifications
+        $query_history = "SELECT COUNT(*) AS history_count FROM PEMINJAMAN";
+        $result_history = mysqli_query($conn, $query_history);
+        $row_history = mysqli_fetch_assoc($result_history);
 
-$query_notifications = "SELECT COUNT(*) AS notification_count FROM BUKU";
-$result_notifications = mysqli_query($conn, $query_notifications);
-$row_notifications = mysqli_fetch_assoc($result_notifications);
-?>
+        // Query the database for notification count
+        $query_notifications_count = "SELECT COUNT(*) AS notification_count FROM peminjaman p
+                              JOIN DETAILPEMINJAMAN dp ON p.ID_PEMINJAMAN = dp.ID_PEMINJAMAN
+                              WHERE p.ID_MEMBER = ? AND p.TANGGAL_PENGEMBALIAN >= CURDATE()";
+
+        $stmt_notifications_count = mysqli_prepare($conn, $query_notifications_count);
+
+        if ($stmt_notifications_count) {
+            mysqli_stmt_bind_param($stmt_notifications_count, "s", $userID);
+            mysqli_stmt_execute($stmt_notifications_count);
+
+            $result_notifications_count = mysqli_stmt_get_result($stmt_notifications_count);
+            $row_notifications_count = mysqli_fetch_assoc($result_notifications_count);
+
+            $notificationCount = $row_notifications_count['notification_count'];
+
+            // Close the statement
+            mysqli_stmt_close($stmt_notifications_count);
+        } else {
+            echo "Error in the query: " . mysqli_error($conn);
+        }
+
+        ?>
         <main class="col-md-9 col-lg-12 px-md-4 m=0 ms-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Dashboard</h1>
@@ -54,7 +73,7 @@ $row_notifications = mysqli_fetch_assoc($result_notifications);
                 <div class="col-sm-3 m-auto">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5><?= $row_notifications['notification_count'] ?></h5>
+                            <h5><?= $notificationCount ?></h5>
                             <h5><i class="fa-solid fa-bell fa-2x" aria-hidden="true"></i></h5>
                         </div>
                         <div class="card-body">
@@ -63,6 +82,7 @@ $row_notifications = mysqli_fetch_assoc($result_notifications);
                         </div>
                     </div>
                 </div>
+
             </div>
             <br>
             <div class="row">
