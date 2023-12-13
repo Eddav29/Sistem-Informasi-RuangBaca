@@ -155,6 +155,7 @@ while ($rowKategori = mysqli_fetch_assoc($resultKategori)) {
             <h5 class="card-title"><i class="bi bi-bar-chart-line-fill" aria-hidden="true"></i> STATISTIK</h5>
             <div class="d-flex justify-content-between">
                 <div>
+                    <br>
                     <p class="card-text">Total Inventaris:<?= $totalInventaris?></p>
                     <p class="card-text">Buku Dipinjam:<?= $totalBukuDipinjam?></p>
                     <p class="card-text">Buku Dirak:<?= $totalBukuDirak?></p>

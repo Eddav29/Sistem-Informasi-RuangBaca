@@ -230,7 +230,7 @@
                                     <div class="mb-3 row form-group">
                                         <label for="recepient-name" class="col-sm-3 col-form-label">Image</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="img" name="img">
+                                            <input type="file" class="form-control" name="file">
                                         </div>
                                     </div>
                                     <div class="mb-3">
