@@ -102,7 +102,9 @@ class Peminjaman
         $update_query_peminjaman = "UPDATE PEMINJAMAN 
                             SET ID_MEMBER = '$id_member', 
                                 TANGGAL_PEMINJAMAN = '$tanggal_peminjaman', 
-                                TANGGAL_PENGEMBALIAN = '$tanggal_pengembalian' 
+                                TANGGAL_PENGEMBALIAN = '$tanggal_pengembalian',
+                                STATUS_PEMINJAMAN = '$status',
+                                DENDA = '$denda'
                             WHERE ID_PEMINJAMAN = $id_peminjaman";
         $result_peminjaman = mysqli_query($this->conn, $update_query_peminjaman);
 
@@ -114,8 +116,11 @@ class Peminjaman
             // Insert into DETAILPEMINJAMAN table for each selected book
             foreach ($id_buku_edit as $id_buku) {
                 $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
-                $insert_query_detail = "INSERT INTO DETAILPEMINJAMAN (ID_PEMINJAMAN, ID_BUKU, STATUS_PEMINJAMAN, STATUS_BUKU)
-                                VALUES ($id_peminjaman, $id_buku, '$status', 'Bagus')";
+                $insert_query_detail = "UPDATE DETAILPEMINJAMAN 
+                SET STATUS_PEMINJAMAN = '$status', 
+                    STATUS_BUKU = 'Bagus'
+                WHERE ID_PEMINJAMAN = $id_peminjaman AND ID_BUKU = $id_buku
+                ";
                 mysqli_query($this->conn, $insert_query_detail);
             }
 
@@ -136,16 +141,18 @@ class Peminjaman
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             // Memastikan kunci array tersedia sebelum mengaksesnya
-            if (isset($_POST['ID_PEMINJAMAN'], $_POST['ID_MEMBER'], $_POST['STATUS'], $_POST['DENDA'])) {
+            if (isset($_POST['ID_PEMINJAMAN'], $_POST['ID_MEMBER'], $_POST['STATUS_PEMINJAMAN'], $_POST['TANGGAL_PEMINJAMAN'], $_POST['TANGGAL_PENGEMBALIAN'], $_POST['ID_BUKU_EDIT'], $_POST['DENDA'])) {
                 // Ambil data dari form
                 $id_peminjaman = $_POST['ID_PEMINJAMAN'];
                 $id_member = $_POST['ID_MEMBER'];
-                $status = $_POST['STATUS'];
+                $status = $_POST['STATUS_PEMINJAMAN'];
+                $tanggal_peminjaman = $_POST['TANGGAL_PEMINJAMAN'];
+                $tanggal_pengembalian = $_POST['TANGGAL_PENGEMBALIAN'];
+                $id_buku_edit = $_POST['ID_BUKU_EDIT']; // Jika perlu, tambahkan pemrosesan untuk ID buku
                 $denda = $_POST['DENDA'];
-                // $id_buku_edit = $_POST['ID_BUKU_EDIT']; // Jika perlu, tambahkan pemrosesan untuk ID buku
 
                 // Panggil fungsi untuk menyimpan ke database
-                $result_peminjaman = $this->editPeminjaman($id_peminjaman, $id_member, $id_buku_edit, $tanggal_peminjaman, $tanggal_pengembalian, $status, $denda);
+                $result_peminjaman = $this->editPeminjaman($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $status, $id_buku_edit, $denda);
 
                 if ($result_peminjaman) {
                     // Tampilkan pesan sukses atau redirect ke halaman lain

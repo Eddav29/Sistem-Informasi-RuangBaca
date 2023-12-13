@@ -211,7 +211,7 @@
             $stmtPengembalian = $conn->prepare("
             SELECT ID_PEMINJAMAN, ID_BUKU, STATUS_PEMINJAMAN, STATUS_BUKU
             FROM DETAILPEMINJAMAN
-            WHERE STATUS_PEMINJAMAN = 'Kembali'
+        
             GROUP BY ID_PEMINJAMAN;
             
         ");
@@ -742,14 +742,14 @@
                                 // Query untuk mengambil data dari tabel DETAILPEMINJAMAN
                                 
                                 // Query untuk mengambil data dari tabel DETAILPEMINJAMAN dengan status 'Kembali'
-                                // $query_detail_peminjaman = "SELECT dp.ID_PEMINJAMAN, dp.ID_BUKU, dp.STATUS_PEMINJAMAN, dp.STATUS_BUKU
-                                //                             FROM DETAILPEMINJAMAN dp
-                                //                             INNER JOIN PEMINJAMAN p ON dp.ID_PEMINJAMAN = p.ID_PEMINJAMAN
-                                //                             WHERE dp.STATUS_PEMINJAMAN = 'Kembali'";
-                                
-                                $query_detail_peminjaman = "SELECT ID_PEMINJAMAN, ID_BUKU, STATUS_PEMINJAMAN, STATUS_BUKU FROM DETAILPEMINJAMAN 
-                                          WHERE STATUS_PEMINJAMAN = 'Kembali'";
+                                $query_detail_peminjaman = "SELECT dp.ID_PEMINJAMAN, dp.ID_BUKU, dp.STATUS_PEMINJAMAN, dp.STATUS_BUKU
+                                                            FROM DETAILPEMINJAMAN dp
+                                                            INNER JOIN PEMINJAMAN p ON dp.ID_PEMINJAMAN = p.ID_PEMINJAMAN
+                                                            WHERE dp.STATUS_PEMINJAMAN = 'Kembali'";
 
+                                // $query_detail_peminjaman = "SELECT ID_PEMINJAMAN, ID_BUKU, STATUS_PEMINJAMAN, STATUS_BUKU FROM DETAILPEMINJAMAN 
+                                //           WHERE STATUS_PEMINJAMAN = 'Kembali'";
+                                
                                 $result_detail_peminjaman = mysqli_query($conn, $query_detail_peminjaman);
 
                                 if ($result_detail_peminjaman && mysqli_num_rows($result_detail_peminjaman) > 0) {
