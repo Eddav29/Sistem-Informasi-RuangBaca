@@ -88,14 +88,13 @@ class Peminjaman
 
 
 
-
-
-    public function editPeminjaman($id_peminjaman, $id_member, $id_buku_edit, $tanggal_peminjaman, $tanggal_pengembalian, $status, $denda)
+    public function editPeminjaman($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $status, $denda, $id_buku_edit)
     {
+        $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman);
         $id_member = mysqli_real_escape_string($this->conn, $id_member);
         $tanggal_peminjaman = mysqli_real_escape_string($this->conn, $tanggal_peminjaman);
         $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
-        $status = mysqli_real_escape_string($this->conn, $status);
+        $status_peminjaman = mysqli_real_escape_string($this->conn, $status);
         $denda = mysqli_real_escape_string($this->conn, $denda);
 
         // Update PEMINJAMAN table
@@ -103,71 +102,59 @@ class Peminjaman
                             SET ID_MEMBER = '$id_member', 
                                 TANGGAL_PEMINJAMAN = '$tanggal_peminjaman', 
                                 TANGGAL_PENGEMBALIAN = '$tanggal_pengembalian',
-                                STATUS_PEMINJAMAN = '$status',
+                                ATTRIBSTATUSUTE_26 = '$status_peminjaman',
                                 DENDA = '$denda'
                             WHERE ID_PEMINJAMAN = $id_peminjaman";
         $result_peminjaman = mysqli_query($this->conn, $update_query_peminjaman);
 
+        // if ($result_peminjaman) {
+        //     foreach ($id_buku_edit as $index => $id_buku) {
+        //         $status_buku = mysqli_real_escape_string($this->conn, $status[$index]);
+        //         $status_peminjaman_buku = mysqli_real_escape_string($this->conn, $status);
+        //         $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
+
         if ($result_peminjaman) {
-            // Delete existing entries in DETAILPEMINJAMAN table for the given ID_PEMINJAMAN
-            $delete_query_detail = "DELETE FROM DETAILPEMINJAMAN WHERE ID_PEMINJAMAN = $id_peminjaman";
-            mysqli_query($this->conn, $delete_query_detail);
-
-            // Insert into DETAILPEMINJAMAN table for each selected book
-            foreach ($id_buku_edit as $id_buku) {
+            foreach ($id_buku_edit as $index => $id_buku) {
+                // Kode pengamanan terhadap SQL Injection
+                $status_buku = mysqli_real_escape_string($this->conn, $status[$index]);
                 $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
-                $insert_query_detail = "UPDATE DETAILPEMINJAMAN 
-                SET STATUS_PEMINJAMAN = '$status', 
-                    STATUS_BUKU = 'Bagus'
-                WHERE ID_PEMINJAMAN = $id_peminjaman AND ID_BUKU = $id_buku
-                ";
-                mysqli_query($this->conn, $insert_query_detail);
+
+                // Menambahkan logika untuk mengubah status peminjaman buku menjadi 'Selesai'
+                $update_detail_query = "UPDATE DETAILPEMINJAMAN 
+                                            SET STATUS_PEMINJAMAN = '$status'
+                                            WHERE ID_PEMINJAMAN = $id_peminjaman AND ID_BUKU = $id_buku";
+                mysqli_query($this->conn, $update_detail_query);
             }
-
-            // Update PEMINJAMAN table with status and denda
-            $update_status_denda_query = "UPDATE PEMINJAMAN 
-    SET ATTRIBSTATUSUTE_26 = '$status', 
-    DENDA = $denda 
-    WHERE ID_PEMINJAMAN = $id_peminjaman";
-
-            mysqli_query($this->conn, $update_status_denda_query);
-
-            return true;
+            return true; // Return true if the update was successful
         }
         return false;
     }
-
     public function editPeminjamanFromForm()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
-            // Memastikan kunci array tersedia sebelum mengaksesnya
-            if (isset($_POST['ID_PEMINJAMAN'], $_POST['ID_MEMBER'], $_POST['STATUS_PEMINJAMAN'], $_POST['TANGGAL_PEMINJAMAN'], $_POST['TANGGAL_PENGEMBALIAN'], $_POST['ID_BUKU_EDIT'], $_POST['DENDA'])) {
-                // Ambil data dari form
-                $id_peminjaman = $_POST['ID_PEMINJAMAN'];
-                $id_member = $_POST['ID_MEMBER'];
-                $status = $_POST['STATUS_PEMINJAMAN'];
-                $tanggal_peminjaman = $_POST['TANGGAL_PEMINJAMAN'];
-                $tanggal_pengembalian = $_POST['TANGGAL_PENGEMBALIAN'];
-                $id_buku_edit = $_POST['ID_BUKU_EDIT']; // Jika perlu, tambahkan pemrosesan untuk ID buku
-                $denda = $_POST['DENDA'];
+        if (isset($_POST['update'])) {
+            $id_peminjaman = mysqli_real_escape_string($this->conn, $_POST['ID_PEMINJAMAN']);
+            $id_member = mysqli_real_escape_string($this->conn, $_POST['ID_MEMBER']);
+            $status = $_POST['STATUS'];
+            $tanggal_peminjaman = mysqli_real_escape_string($this->conn, $_POST['tanggal_peminjaman1']);
+            $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $_POST['tanggal_pengembalian1']);
+            $id_buku_edit = $_POST['ID_BUKU_EDIT'];
+            $denda = mysqli_real_escape_string($this->conn, $_POST['DENDA']);
 
-                // Panggil fungsi untuk menyimpan ke database
-                $result_peminjaman = $this->editPeminjaman($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $status, $id_buku_edit, $denda);
+            // Call the function to save to the database
+            $result_peminjaman = $this->editPeminjaman($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $status, $denda, $id_buku_edit);
 
-                if ($result_peminjaman) {
-                    // Tampilkan pesan sukses atau redirect ke halaman lain
-                    pesan('success', "Peminjaman Berhasil Diubah.");
-                    header("Location: index.php?page=peminjaman");
-                    exit();
-                } else {
-                    pesan('danger', "Gagal Mengubah Peminjaman Karena: " . mysqli_error($this->conn));
-                }
+            if ($result_peminjaman) {
+                pesan('success', "Peminjaman Berhasil Diubah.");
+                header("Location: index.php?page=peminjaman");
+                exit();
             } else {
-                // Jika kunci array tidak tersedia
-                pesan('danger', "Data tidak lengkap.");
+                pesan('danger', "Gagal Mengubah Peminjaman Karena: " . mysqli_error($this->conn));
             }
         }
     }
+
+
+
     // public function editPeminjamanFromForm()
     // {
     //     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {

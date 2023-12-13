@@ -306,33 +306,11 @@
                                                             </div>
 
 
-                                                            <!-- <div class="modal fade" id="editModal<?= $row['ID Peminjaman'] ?>"
-                                                                data-bs-backdrop="static" tabindex="-1" role="dialog"
-                                                                data-bs-keyboard="false"
-                                                                aria-labelledby="editModalLabel<?= $row['ID Peminjaman'] ?>"
-                                                                aria-hidden="true">
-                                                                <div
-                                                                    class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title"
-                                                                                id="editModalLabel<?= $row['ID Peminjaman']; ?>">
-                                                                                <i class="fa-solid fa-list"></i> Edit peminjaman
-                                                                            </h5>
-                                                                            <button type="button" class="btn-close-style"
-                                                                                data-bs-dismiss="modal" aria-label="Close">
-                                                                                <i class="fa-solid fa-xmark"></i>
-                                                                            </button>
-                                                                        </div> -->
-
-
 
                                                             <!-- Form untuk Edit -->
                                                             <div style="height: 400px; overflow-y: auto;">
                                                                 <form action="" method="post">
                                                                     <div class="modal-body custom-modal-body">
-
-
                                                                         <div class="mb-3 row form-group">
                                                                             <input type="hidden" name="ID_PEMINJAMAN"
                                                                                 class="form-control" id="ID_PEMINJAMAN"
@@ -343,33 +321,27 @@
                                                                                 Member:</label>
                                                                             <input type="text" name="ID_MEMBER"
                                                                                 class="form-control" id="ID_MEMBER"
-                                                                                value="<?= isset($row['ID_MEMBER']) ? $row['ID_MEMBER'] : '' ?>">
+                                                                                value="<?= isset($row['ID Member']) ? $row['ID Member'] : '' ?>">
                                                                         </div>
-
                                                                         <div class="mb-3 row form-group">
-
-
                                                                             <input type="hidden" name="ID_BUKU"
                                                                                 class="form-control" method="post" id="ID_BUKU">
                                                                         </div>
-
                                                                         <div class="mb-3 row form-group">
-
-                                                                            <label for="ID_BUKU_EDIT"
-                                                                                class="col-form-label">Pilih
-                                                                                Buku:</label>
-                                                                            <select name="ID_BUKU_EDIT[]" class="form-select"
-                                                                                id="ID_BUKU_EDIT" multiple>
+                                                                            <label for="ID_BUKU_TAMBAH1"
+                                                                                class="col-form-label">Pilih Buku:</label>
+                                                                            <select name="ID_BUKU_TAMBAH1[]" class="form-select"
+                                                                                id="ID_BUKU_TAMBAH1" multiple>
                                                                                 <?php
                                                                                 // Query untuk mengambil data buku dari tabel 'BUKU'
-                                                                                $query = "SELECT ID_BUKU,JUDUL_BUKU FROM BUKU";
-                                                                                $result = mysqli_query($conn, $query);
+                                                                                $queryBuku = "SELECT ID_BUKU, JUDUL_BUKU FROM BUKU";
+                                                                                $resultBuku = mysqli_query($conn, $queryBuku);
 
                                                                                 // Periksa apakah query berhasil dijalankan
-                                                                                if ($result) {
+                                                                                if ($resultBuku) {
                                                                                     // Loop melalui setiap baris hasil query dan tampilkan sebagai option dalam select
-                                                                                    while ($row = mysqli_fetch_assoc($result)) {
-                                                                                        echo '<option value="' . $row['ID_BUKU'] . '">' . $row['JUDUL_BUKU'] . '</option>';
+                                                                                    while ($rowBuku = mysqli_fetch_assoc($resultBuku)) {
+                                                                                        echo '<option value="' . $rowBuku['ID_BUKU'] . '">' . $rowBuku['JUDUL_BUKU'] . '</option>';
                                                                                     }
                                                                                 } else {
                                                                                     // Tampilkan pesan jika terjadi kesalahan saat mengambil data
@@ -379,55 +351,40 @@
                                                                             </select>
                                                                             <div class="mb-3 row form-group">
                                                                                 <div class="space-above-button">
-
                                                                                     <input type="button" value="Tambahkan"
-                                                                                        onclick="addSelectedBooks()">
+                                                                                        onclick="addSelectedBooksTambah()">
                                                                                 </div>
                                                                             </div>
-
-
                                                                             <div class="mb-3 row form-group">
-                                                                                <label for="selectedBooks"
+                                                                                <label for="selectedBooksTambah1"
                                                                                     class="col-form-label">Buku yang
                                                                                     Dipilih:</label>
-                                                                                <select name="selectedBooks" id="selectedBooks"
-                                                                                    class="form-select" multiple>
-                                                                                </select>
+                                                                                <select name="selectedBooksTambah1[]"
+                                                                                    id="selectedBooksTambah1"
+                                                                                    class="form-select" multiple></select>
                                                                             </div>
-
                                                                             <script>
-                                                                                function addSelectedBooks() {
-                                                                                    var select = document
-                                                                                        .getElementById(
-                                                                                            "ID_BUKU_EDIT");
+                                                                                function addSelectedBooksTambah() {
+                                                                                    var select = document.getElementById(
+                                                                                        "ID_BUKU_TAMBAH1");
                                                                                     var selectedItems = [];
-                                                                                    var selectedBooks = document
-                                                                                        .getElementById(
-                                                                                            "selectedBooks");
+                                                                                    var selectedBooks = document.getElementById(
+                                                                                        "selectedBooksTambah1");
 
                                                                                     for (var i = 0; i < select.options
                                                                                         .length; i++) {
-                                                                                        if (select.options[i]
-                                                                                            .selected) {
-                                                                                            selectedItems.push(select
-                                                                                                .options[i]);
+                                                                                        if (select.options[i].selected) {
+                                                                                            selectedItems.push(select.options[i]);
                                                                                         }
                                                                                     }
 
-                                                                                    selectedItems.forEach(function (
-                                                                                        item) {
-                                                                                        selectedBooks
-                                                                                            .appendChild(item
-                                                                                                .cloneNode(true)
-                                                                                            );
+                                                                                    selectedItems.forEach(function (item) {
+                                                                                        selectedBooks.appendChild(item
+                                                                                            .cloneNode(true));
                                                                                     });
                                                                                 }
                                                                             </script>
-
-
                                                                         </div>
-
-
                                                                         <div class="mb-3 row form-group">
                                                                             <label for="tanggal_peminjaman1"
                                                                                 class="col-sm-3 col-form-label">Tanggal
@@ -436,7 +393,7 @@
                                                                                 <input type="date" class="form-control"
                                                                                     id="tanggal_peminjaman1"
                                                                                     name="tanggal_peminjaman1"
-                                                                                    value="<?= $row['TANGGAL_PEMINJAMAN'] ?>">
+                                                                                    value="<?= $row['Tanggal Pinjam'] ?>">
                                                                             </div>
                                                                         </div>
                                                                         <div class="mb-3 row form-group">
@@ -447,13 +404,13 @@
                                                                                 <input type="date" class="form-control"
                                                                                     id="tanggal_pengembalian1"
                                                                                     name="tanggal_pengembalian1"
-                                                                                    value="<?= $row['TANGGAL_PENGEMBALIAN'] ?>">
+                                                                                    value="<?= $row['Tanggal Kembali'] ?>">
                                                                             </div>
                                                                         </div>
                                                                         <?php
                                                                         // Pastikan $row memiliki nilai yang valid sebelum mengakses elemen array di dalamnya
-                                                                        if (isset($row) && isset($row['ATTRIBSTATUSUTE_26'])) {
-                                                                            $statusValue = $row['ATTRIBSTATUSUTE_26'];
+                                                                        if (isset($row) && isset($row['Status'])) {
+                                                                            $statusValue = $row['Status'];
                                                                         } else {
                                                                             $statusValue = ''; // Atur nilai default jika $row tidak terdefinisi atau elemen array-nya tidak ada
                                                                         }
@@ -471,24 +428,19 @@
                                                                             </div>
                                                                             <div class="form-check form-check-inline">
                                                                                 <input type="radio" class="form-check-input"
-                                                                                    id="STATUS" name="STATUS" value="Kembali"
-                                                                                    <?= ($statusValue === 'Kembali') ? 'checked' : '' ?>>
+                                                                                    id="STATUS" name="STATUS" value="Selesai"
+                                                                                    <?= ($statusValue === 'Selesai') ? 'checked' : '' ?>>
                                                                                 <label class="form-check-label"
-                                                                                    for="STATUS">Kembali</label>
+                                                                                    for="STATUS">Selesai</label>
                                                                             </div>
                                                                         </div>
-
-
-
-
-
                                                                         <div class="mb-3 row form-group">
-                                                                            <label for="DENDA" class="col-sm-3 col-form-label">
-                                                                                Denda</label>
+                                                                            <label for="DENDA"
+                                                                                class="col-sm-3 col-form-label">Denda</label>
                                                                             <div class="col-sm-9">
                                                                                 <input type="number" class="form-control"
                                                                                     id="DENDA" name="DENDA"
-                                                                                    value="<?= $row['DENDA'] ?>">
+                                                                                    value="<?= $row['Denda'] ?>">
                                                                             </div>
                                                                         </div>
 
@@ -496,7 +448,6 @@
                                                                     <div class="modal-footer">
                                                                         <button type="reset" class="btn btn-primary"
                                                                             onclick="resetData()">Reset</button>
-
                                                                         <button type="update" name="update"
                                                                             class="btn btn-success"
                                                                             onclick="saveChanges(<?= $row['ID Peminjaman'] ?>)">Save
@@ -506,76 +457,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <script>
-                                                        $(document).ready(function () {
-                                                            $(document).on('click', 'a[data-role=update]', function () {
-                                                                var id = $(this).data('id');
-                                                                var ID_PEMINJAMAN = $('#' + id).find(
-                                                                    'td[data-target=ID_PEMINJAMAN]').text();
-                                                                var ID_MEMBER = $('#' + id).find(
-                                                                    'td[data-target=ID_MEMBER]').text();
-                                                                var tanggal_peminjaman1 = $('#' + id).find(
-                                                                    'td[data-target=tanggal_peminjaman1]')
-                                                                    .text();
-                                                                var tanggal_pengembalian1 = $('#' + id).find(
-                                                                    'td[data-target=tanggal_pengembalian1]')
-                                                                    .text();
-                                                                var STATUS = $('#' + id).find(
-                                                                    'td[data-target=STATUS]').text();
-                                                                var DENDA = $('#' + id).find(
-                                                                    'td[data-target=DENDA]').text();
-
-                                                                $('#ID_PEMINJAMAN').val(ID_PEMINJAMAN);
-                                                                $('#ID_MEMBER').val(ID_MEMBER);
-                                                                $('#tanggal_peminjaman1').val(tanggal_peminjaman1);
-                                                                $('#tanggal_pengembalian1').val(
-                                                                    tanggal_pengembalian1);
-                                                                $('input[name="STATUS"][value="' + STATUS + '"]')
-                                                                    .prop('checked', true);
-                                                                $('#DENDA').val(DENDA);
-                                                                $('#editModal').modal('show');
-                                                            });
-
-                                                            $('#update').click(function () {
-                                                                var ID_PEMINJAMAN = $('#ID_PEMINJAMAN').val();
-                                                                var ID_MEMBER = $('#ID_MEMBER').val();
-                                                                var tanggal_peminjaman1 = $('#tanggal_peminjaman1')
-                                                                    .val();
-                                                                var tanggal_pengembalian1 = $(
-                                                                    '#tanggal_pengembalian1').val();
-                                                                var STATUS = $('input[name="STATUS"]:checked')
-                                                                    .val();
-                                                                var DENDA = $('#DENDA').val();
-
-                                                                $.ajax({
-                                                                    url: 'Functin/Peminjaman.php',
-                                                                    method: 'post',
-                                                                    data: {
-                                                                        ID_PEMINJAMAN: ID_PEMINJAMAN,
-                                                                        ID_MEMBER: ID_MEMBER,
-                                                                        tanggal_peminjaman1: tanggal_peminjaman1,
-                                                                        tanggal_pengembalian1: tanggal_pengembalian1,
-                                                                        STATUS: STATUS,
-                                                                        DENDA: DENDA
-                                                                    },
-                                                                    success: function (response) {
-                                                                        // Tambahkan logika sesuai respons yang diterima
-                                                                        // Misalnya, perbarui elemen HTML jika respons sukses
-                                                                    },
-                                                                    error: function () {
-                                                                        alert(
-                                                                            'Gagal memperbarui data.'
-                                                                        );
-                                                                    }
-                                                                });
-                                                            });
-                                                        });
-                                                    </script>
-
                                                 </div>
-
-
                                             <?php } ?>
                                     </tbody>
                                     <?php
@@ -745,7 +627,7 @@
                                 $query_detail_peminjaman = "SELECT dp.ID_PEMINJAMAN, dp.ID_BUKU, dp.STATUS_PEMINJAMAN, dp.STATUS_BUKU
                                                             FROM DETAILPEMINJAMAN dp
                                                             INNER JOIN PEMINJAMAN p ON dp.ID_PEMINJAMAN = p.ID_PEMINJAMAN
-                                                            WHERE dp.STATUS_PEMINJAMAN = 'Kembali'";
+                                                            WHERE dp.STATUS_PEMINJAMAN = 'Selesai'";
 
                                 // $query_detail_peminjaman = "SELECT ID_PEMINJAMAN, ID_BUKU, STATUS_PEMINJAMAN, STATUS_BUKU FROM DETAILPEMINJAMAN 
                                 //           WHERE STATUS_PEMINJAMAN = 'Kembali'";
@@ -789,4 +671,4 @@
     </div>
 </body>
 
-</html>
+</html>a
