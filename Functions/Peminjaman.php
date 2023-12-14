@@ -108,26 +108,46 @@ class Peminjaman
         $result_peminjaman = mysqli_query($this->conn, $update_query_peminjaman);
 
         if ($result_peminjaman) {
-            foreach ($status_buku as $index => $id_buku) {
-                $status_buku = mysqli_real_escape_string($this->conn, $status_buku[$index]);
-                $status_peminjaman_buku = mysqli_real_escape_string($this->conn, $status);
-                $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
+            // Perbarui status peminjaman di DETAILPEMINJAMAN berdasarkan status peminjaman PEMINJAMAN
+            $status_peminjaman_buku = mysqli_real_escape_string($this->conn, $status);
+            $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman);
 
-                // if ($result_peminjaman) {
-                //     foreach ($id_buku_edit as $index => $id_buku) {
-                //         // Kode pengamanan terhadap SQL Injection
-                //         $status_buku = mysqli_real_escape_string($this->conn, $status[$index]);
-                //         $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
+            $update_detail_query = "UPDATE DETAILPEMINJAMAN 
+                                    SET STATUS_PEMINJAMAN = '$status_peminjaman_buku'
+                                    WHERE ID_PEMINJAMAN = $id_peminjaman";
+            mysqli_query($this->conn, $update_detail_query);
 
-                // Menambahkan logika untuk mengubah status peminjaman buku menjadi 'Selesai'
-                $update_detail_query = "UPDATE DETAILPEMINJAMAN 
-                                            SET STATUS_PEMINJAMAN = '$status_peminjaman_buku'
-                                            WHERE ID_PEMINJAMAN = $id_peminjaman AND ID_BUKU = $id_buku";
-                mysqli_query($this->conn, $update_detail_query);
+            foreach ($status_buku as $id_buku) {
+                // ... (kode lainnya tetap sama)
             }
             return true; // Return true if the update was successful
         }
         return false;
+        if ($result_peminjaman) {
+            // Update STATUS_PEMINJAMAN pada DETAILPEMINJAMAN
+            $status_peminjaman_buku = mysqli_real_escape_string($this->conn, $status);
+            $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman);
+
+            $update_detail_query = "UPDATE DETAILPEMINJAMAN 
+                                    SET STATUS_PEMINJAMAN = '$status_peminjaman_buku'
+                                    WHERE ID_PEMINJAMAN = $id_peminjaman";
+            mysqli_query($this->conn, $update_detail_query);
+
+            // Lakukan iterasi untuk perbarui status buku sesuai status baru
+            foreach ($status_buku as $id_buku) {
+                $status_buku = mysqli_real_escape_string($this->conn, $status); // Sesuaikan ini dengan status buku yang sesuai
+                $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
+
+                $update_buku_query = "UPDATE DETAILPEMINJAMAN 
+                                      SET STATUS_PEMINJAMAN = '$status_buku'
+                                      WHERE ID_PEMINJAMAN = $id_peminjaman AND ID_BUKU = $id_buku";
+                mysqli_query($this->conn, $update_buku_query);
+            }
+
+            return true; // Berhasil jika update berhasil
+        }
+        return false; // Gagal jika ada masalah saat update
+
     }
     public function editPeminjamanFromForm()
     {
@@ -152,6 +172,7 @@ class Peminjaman
             }
         }
     }
+
 
 
 
@@ -237,59 +258,52 @@ class Peminjaman
         }
     }
 
-    // public function addPengembalian($id_member, $tanggal_pengembalian)
-    // {
-    //     // Simpan data pengembalian ke tabel PENGEMBALIAN
-    //     $id_member = mysqli_real_escape_string($this->conn, $id_member);
-    //     $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
+    public function editPengembalian($id_pengembalian, $status_buku)
+    {
+        $id_pengembalian = mysqli_real_escape_string($this->conn, $id_pengembalian);
+        $status_buku = mysqli_real_escape_string($this->conn, $status_buku);
 
-    //     $insert_query_pengembalian = "INSERT INTO PENGEMBALIAN (ID_MEMBER, TANGGAL_PENGEMBALIAN) VALUES ('$id_member', '$tanggal_pengembalian')";
-    //     $result_pengembalian = mysqli_query($this->conn, $insert_query_pengembalian);
+        $update_query = "UPDATE DETAILPEMINJAMAN SET STATUS_BUKU = '$status_buku' WHERE ID_PEMINJAMAN = '$id_pengembalian'";
+        $result = mysqli_query($this->conn, $update_query);
 
-    //     return $result_pengembalian;
-    // }
+        return $result;
+    }
 
-    // Fungsi untuk menambahkan data peminjaman ke tabel pengembalian
-    // public function tambahKeTabelPengembalian($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $denda)
-    // {
-    //     // Lakukan operasi INSERT ke tabel pengembalian
-    //     $insert_query_pengembalian = "INSERT INTO pengembalian (ID_PEMINJAMAN, ID_MEMBER, TANGGAL_PEMINJAMAN, TANGGAL_PENGEMBALIAN, DENDA) 
-    //                               VALUES ('$id_peminjaman', '$id_member', '$tanggal_peminjaman', '$tanggal_pengembalian', '$denda')";
+    public function editPengembalianFromForm()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
+            if (!empty($_POST['ID_PEMINJAMAN']) && !empty($_POST['STATUS_BUKU'])) {
+                $id_pengembalian = $_POST['ID_PEMINJAMAN'];
+                $status_buku = $_POST['STATUS_BUKU'];
 
-    //     $result_pengembalian = mysqli_query($this->conn, $insert_query_pengembalian);
+                $result = $this->editPengembalian($id_pengembalian, $status_buku);
 
-    //     return $result_pengembalian;
-    // }
+                if ($result) {
+                    ob_start();
+                    pesan('success', 'Pengembalian Telah Diubah.');
+                    header("Location: index.php?page=Peminjaman");
+                } else {
+                    pesan('danger', 'Gagal Mengubah status buku: ' . mysqli_error($this->conn));
+                }
+            }
 
-    // Fungsi untuk mengubah status peminjaman menjadi Kembali
-    // public function ubahStatusPeminjamanMenjadiKembali($id_peminjaman)
-    // {
-    //     // Lakukan operasi UPDATE untuk mengubah status peminjaman menjadi Kembali
-    //     $update_query_peminjaman = "UPDATE PEMINJAMAN SET ATTRIBSTATUSUTE_26 = 'Kembali' WHERE ID_PEMINJAMAN = '$id_peminjaman'";
-    //     $result_peminjaman = mysqli_query($this->conn, $update_query_peminjaman);
+            header("Location: index.php?page=Peminjaman");
+            exit;
+        }
 
-    //     return $result_peminjaman;
+    }
 
+    // function openEditModal(idPeminjaman, statusBuku) {
+    //     document.getElementById('editID').value = idPeminjaman;
 
-    //     // Bagian logika aplikasi Anda untuk menambahkan data ke tabel pengembalian saat status peminjaman berubah menjadi Kembali
-    //     if ($status_peminjaman == 'Kembali') {
-    //         // Panggil fungsi untuk menambahkan data ke tabel pengembalian
-    //         $result_pengembalian = $this->tambahKeTabelPengembalian($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $denda);
-
-    //         if ($result_pengembalian) {
-    //             // Jika berhasil ditambahkan ke tabel pengembalian, ubah status peminjaman menjadi Kembali
-    //             $result_status_peminjaman = $this->ubahStatusPeminjamanMenjadiKembali($id_peminjaman);
-
-    //             if ($result_status_peminjaman) {
-    //                 // Tampilkan pesan sukses atau lakukan tindakan lain setelah berhasil mengubah status peminjaman
-    //                 pesan('success', 'Data Peminjaman Berhasil Dikembalikan dan Ditambahkan ke Tabel Pengembalian');
-    //             } else {
-    //                 pesan('danger', 'Gagal Mengubah Status Peminjaman Menjadi Kembali');
-    //             }
-    //         } else {
-    //             pesan('danger', 'Gagal Menambahkan Data Peminjaman ke Tabel Pengembalian');
-    //         }
+    //     // Memeriksa status buku untuk menentukan radio button yang harus dicentang
+    //     if (statusBuku === 'Bagus') {
+    //         document.getElementById('bagus').checked = true;
+    //     } else if (statusBuku === 'Rusak') {
+    //         document.getElementById('rusak').checked = true;
     //     }
 
+    //     document.getElementById('editModal').style.display = 'block';
     // }
+
 }

@@ -1,16 +1,17 @@
 <div class="container-fluid">
     <div class="row">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
         <?php
+
         include 'Functions/pesan_kilat.php';
         $db = new Database();
         $conn = $db->getConnection();
         require 'Functions/Penulis.php';
-
         $penulis = new Penulis($conn);
-
         $add = $penulis->addPenulisFromForm();
+        $delete = $penulis->hapusPenulisFromForm();
         $edit = $penulis->editPenulisFromForm();
-        $hapus = $penulis->deletePenulisFromForm();
 
         ?>
 
@@ -27,8 +28,8 @@
                 <div class="col-lg-2">
 
                 </div>
+
                 <?php
-                // Sesuaikan logika PHP yang diperlukan untuk menampilkan pesan kesalahan atau sukses, jika ada
                 if (isset($_SESSION['_flashdata'])) {
                     echo "<br>";
                     foreach ($_SESSION['_flashdata'] as $key => $val) {
@@ -49,8 +50,12 @@
                         <tbody>
                             <?php
                             $no = 1;
-                            $query = "SELECT * FROM penulis order by ID_PENULIS ASC";
+                            $query = "SELECT * FROM penulis order by id_penulis asc";
+                            // $result = mysqli_query($conn, $query);
                             $result = mysqli_query($conn, $query);
+                            if (!$result) {
+                                die("Query error: " . mysqli_error($conn));
+                            }
                             while ($row = mysqli_fetch_assoc($result)) {
                                 ?>
                                 <tr>
@@ -91,16 +96,32 @@
                                                                     id="editNamaPenulis"
                                                                     value="<?= $row['NAMA_PENULIS'] ?>">
                                                             </div>
+                                                            <div class="mb-3 row form-group">
+                                                                <label for="judul_buku" class="col-sm-3 col-form-label">Nama
+                                                                    Penulis</label>
+                                                                <div class="col-sm-9">
+                                                                    <input type="text" class="form-control"
+                                                                        id="namapenulis1" name="namapenulis1"
+                                                                        value="<?= $row['NAMA_PENULIS'] ?>">
+                                                                </div>
+                                                            </div>
+                                                            <!-- <input type="hidden" id="penulisId" class="form-control"> -->
+
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Batal</button>
                                                             <button type="submit" name="update"
                                                                 class="btn btn-primary">Simpan Perubahan</button>
+
+                                                            <button type="reset" class="btn btn-primary"
+                                                                onclick="resetData()">Reset</button>
+                                                            <button type="submit" name="update" class="btn btn-success">Save
+                                                                Changes</button>
+
+
                                                         </div>
                                                     </form>
-
-
                                                 </div>
                                             </div>
                                         </div>
@@ -119,33 +140,79 @@
                 </div>
 
 
-                <!-- Modal untuk menambahkan kategori baru -->
-
-                <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static"
-                    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                <div id="exampleModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
+                    role="dialog" aria-labelledby="modalTitleId" aria-hidden="true" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Data Penulis</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <h5 class="modal-title" id="myModalLabel"><i class="fa fa-users"></i> Tambah Penulis
+                                </h5>
+                                <button type="button" class="btn-close-style " data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
                             </div>
-
                             <form action="" method="post">
-                                <form action="indexKategori.php" method="POST">
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="recipient-name" class="col-form-label">Nama Penulis:</label>
-                                            <input type="text" name="nama_penulis" class="form-control"
-                                                id="recipient-name">
-                                        </div>
-                                        <div class="mb-3 d-flex justify-content-end">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                                aria-hidden="true"><i class="fa fa-times"></i> Close</button>
-                                            <button type="submit" name="submit" class="btn btn-primary ms-2"
-                                                aria-hidden="true"><i class="fa fa-floppy-o"></i> Simpan</button>
+                                <div class="modal-body custom-modal-body">
+                                    <div class="mb-3 row form-group">
+                                        <label for="judul_buku" class="col-sm-3 col-form-label">ID Penulis</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="id_penulis" class="form-control" id="id_penulis">
                                         </div>
                                     </div>
+                                    <div class="mb-3 row form-group">
+                                        <label for="judul_buku" class="col-sm-3 col-form-label">Nama Penulis</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="namapenulis" class="form-control" id="namapenulis">
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="penulisId" class="form-control">
+
+                                    <!-- Modal untuk menambahkan kategori baru -->
+
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static"
+                                        data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+                                            role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Data Penulis
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+
+                                                <form action="" method="post">
+                                                    <form action="indexKategori.php" method="POST">
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label for="recipient-name" class="col-form-label">Nama
+                                                                    Penulis:</label>
+                                                                <input type="text" name="nama_penulis"
+                                                                    class="form-control" id="recipient-name">
+                                                            </div>
+                                                            <div class="mb-3 d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal" aria-hidden="true"><i
+                                                                        class="fa fa-times"></i> Close</button>
+                                                                <button type="submit" name="submit"
+                                                                    class="btn btn-primary ms-2" aria-hidden="true"><i
+                                                                        class="fa fa-floppy-o"></i> Simpan</button>
+                                                            </div>
+                                                        </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-primary" onclick="resetData()">Reset</button>
+                                    <button type="submit" name="submit" class="btn btn-success ms-2"
+                                        aria-hidden="true"><i class="fa fa-floppy-o"></i> Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -155,8 +222,6 @@
         </main>
     </div>
 </div>
-
-
 <!-- Modal untuk Hapus -->
 <div class="modal fade" id="deleteModal<?= $row['ID_PENULIS'] ?>" tabindex="-1"
     aria-labelledby="deleteModalLabel<?= $row['ID_PENULIS'] ?>" aria-hidden="true">

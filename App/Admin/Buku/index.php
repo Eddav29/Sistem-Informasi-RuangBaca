@@ -112,111 +112,119 @@
                                                             <i class="fa-solid fa-xmark"></i>
                                                         </button>
                                                     </div>
-                                                    <form action="index.php?page=buku" method="post" id="editForm">
+                                                    <form action="index.php?page=buku" method="post" id="editForm"
+                                                        class="overflow-y-scroll ">
                                                         <div class="modal-body custom-modal-body">
                                                             <div class="mb-3 row form-group">
                                                                 <label for="judul_buku1"
                                                                     class="col-sm-3 col-form-label">Judul Buku</label>
                                                                 <div class="col-sm-9">
                                                                     <input type="text" class="form-control" id="judul_buku1"
-                                                                        name="judul_buku1"
-                                                                        value="<?= $row['JUDUL_BUKU'] ?>">
+                                                                        name="judul_buku1" value="<?= $row['JUDUL_BUKU'] ?>">
                                                                 </div>
-                                                            </div>
-                                                            <div class="mb-3 row form-group">
-                                                                <label for="deskripsi1"
-                                                                    class="col-sm-3 col-form-label">Deskripsi</label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" id="deskripsi1"
-                                                                        name="deskripsi1" value="<?= $row['DESKRIPSI'] ?>">
+                                                                <div class="mb-3 row form-group">
+                                                                    <label for="deskripsi1"
+                                                                        class="col-sm-3 col-form-label">Deskripsi</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="text" class="form-control"
+                                                                            id="deskripsi1" name="deskripsi1"
+                                                                            value="<?= $row['DESKRIPSI'] ?>">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="ketersediaan1"
-                                                                    class="col-sm-3 col-form-label">Ketersediaan</label>
-                                                                <br>
-                                                                <div class="form-check form-check-inline"">
+                                                                <div class="mb-3">
+                                                                    <label for="ketersediaan1"
+                                                                        class="col-sm-3 col-form-label">Ketersediaan</label>
+                                                                    <br>
+                                                                    <div class="form-check form-check-inline"">
                                                                 <input type=" radio" class="form-check-input"
-                                                                    id="ketersediaan1" name="ketersediaan1" value="Tersedia"
-                                                                    <?= ($row['KETERSEDIAAN'] === 'Tersedia') ? 'checked' : '' ?>>
-                                                                    <label class="form-check-label"
-                                                                        for="inlineradio1">Tersedia</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline"">
+                                                                        id="ketersediaan1" name="ketersediaan1"
+                                                                        value="Tersedia"
+                                                                        <?= ($row['KETERSEDIAAN'] === 'Tersedia') ? 'checked' : '' ?>>
+                                                                        <label class="form-check-label"
+                                                                            for="inlineradio1">Tersedia</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline"">
                                                                 <input type=" radio" class="form-check-input"
-                                                                    id="ketersediaan1" name="ketersediaan1"
-                                                                    value="Tidak Tersedia" <?= ($row['KETERSEDIAAN'] === 'Tidak Tersedia') ? 'checked' : '' ?>>
-                                                                    <label class="form-check-label" for="inlineradio1">Tidak
-                                                                        Tersedia</label>
+                                                                        id="ketersediaan1" name="ketersediaan1"
+                                                                        value="Tidak Tersedia"
+                                                                        <?= ($row['KETERSEDIAAN'] === 'Tidak Tersedia') ? 'checked' : '' ?>>
+                                                                        <label class="form-check-label"
+                                                                            for="inlineradio1">Tidak
+                                                                            Tersedia</label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="mb-3 row form-group">
-                                                                <label for="tanggal_pengadaan1"
-                                                                    class="col-sm-3 col-form-label">Tanggal
-                                                                    Pengadaann</label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="date" class="form-control"
-                                                                        id="tanggal_pengadaan1" name="tanggal_pengadaan1"
-                                                                        value="<?= $row['TANGGAL_PENGADAAN'] ?>">
+                                                                <div class="mb-3 row form-group">
+                                                                    <label for="tanggal_pengadaan1"
+                                                                        class="col-sm-3 col-form-label">Tanggal
+                                                                        Pengadaann</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="date" class="form-control"
+                                                                            id="tanggal_pengadaan1"
+                                                                            name="tanggal_pengadaan1"
+                                                                            value="<?= $row['TANGGAL_PENGADAAN'] ?>">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="mb-3 row form-group">
-                                                                <label for="tahun_terbit1"
-                                                                    class="col-sm-3 col-form-label">Tahun Terbit</label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="number" class="form-control"
-                                                                        id="tahun_terbit1" name="tahun_terbit1"
-                                                                        value="<?= $row['TAHUN_TERBIT'] ?>">
+                                                                <div class="mb-3 row form-group">
+                                                                    <label for="tahun_terbit1"
+                                                                        class="col-sm-3 col-form-label">Tahun Terbit</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="number" class="form-control"
+                                                                            id="tahun_terbit1" name="tahun_terbit1"
+                                                                            value="<?= $row['TAHUN_TERBIT'] ?>">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="mb-3 row form-group">
-                                                                <label for="penerbit1"
-                                                                    class="col-sm-3 col-form-label">Penerbit</label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" id="penerbit1"
-                                                                        name="penerbit1" value="<?= $row['PENERBIT'] ?>">
+                                                                <div class="mb-3 row form-group">
+                                                                    <label for="penerbit1"
+                                                                        class="col-sm-3 col-form-label">Penerbit</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="text" class="form-control"
+                                                                            id="penerbit1" name="penerbit1"
+                                                                            value="<?= $row['PENERBIT'] ?>">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="mb-3 row form-group">
-                                                                <label for="rak1"
-                                                                    class="col-sm-3 col-form-label">Rak</label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" id="rak1"
-                                                                        name="rak1" value="<?= $row['RAK'] ?>">
+                                                                <div class="mb-3 row form-group">
+                                                                    <label for="rak1"
+                                                                        class="col-sm-3 col-form-label">Rak</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="text" class="form-control" id="rak1"
+                                                                            name="rak1" value="<?= $row['RAK'] ?>">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="mb-3 row form-group">
-                                                                <label for="img1"
-                                                                    class="col-sm-3 col-form-label">Img</label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" id="img1"
-                                                                        name="img1" value="<?= $row['IMG'] ?>">
+                                                                <div class="mb-3 row form-group">
+                                                                    <label for="img1"
+                                                                        class="col-sm-3 col-form-label">Img</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="text" class="form-control" id="img1"
+                                                                            name="img1" value="<?= $row['IMG'] ?>">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="status_buku1"
-                                                                    class="col-sm-3 col-form-label">Status</label>
-                                                                <select name="status_buku1" class="form-select"
-                                                                    aria-label="Default select example">
-                                                                    <option selected>Pilih Status</option>
-                                                                    <option value="Bagus" <?= ($row['STATUS_BUKU'] == 'Bagus') ? 'selected' : '' ?>>Bagus</option>
-                                                                    <option value="Rusak" <?= ($row['STATUS_BUKU'] == 'Rusak') ? 'selected' : '' ?>>Rusak</option>
-                                                                    <option value="Hilang"
-                                                                        <?= ($row['STATUS_BUKU'] == 'Hilang') ? 'selected' : '' ?>>Hilang</option>
-                                                                </select>
-                                                            </div>
-                                                            <input type="hidden" id="bookId" name="bookId"
-                                                                value="<?= $row['ID_BUKU'] ?>" class="form-control">
+                                                                <div class="mb-3">
+                                                                    <label for="status_buku1"
+                                                                        class="col-sm-3 col-form-label">Status</label>
+                                                                    <select name="status_buku1" class="form-select"
+                                                                        aria-label="Default select example">
+                                                                        <option selected>Pilih Status</option>
+                                                                        <option value="Bagus"
+                                                                            <?= ($row['STATUS_BUKU'] == 'Bagus') ? 'selected' : '' ?>>Bagus</option>
+                                                                        <option value="Rusak"
+                                                                            <?= ($row['STATUS_BUKU'] == 'Rusak') ? 'selected' : '' ?>>Rusak</option>
+                                                                        <option value="Hilang"
+                                                                            <?= ($row['STATUS_BUKU'] == 'Hilang') ? 'selected' : '' ?>>Hilang</option>
+                                                                    </select>
+                                                                </div>
+                                                                <input type="hidden" id="bookId" name="bookId"
+                                                                    value="<?= $row['ID_BUKU'] ?>" class="form-control">
 
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="reset" class="btn btn-primary"
-                                                                onclick="resetData()">Reset</button>
-                                                            <button type="submit" name="update" class="btn btn-success">Save
-                                                                Changes</button>
-                                                            <!-- <button href="#" type="submit1" id="save" name="save" class="btn btn-success">Save Changes</button> -->
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="reset" class="btn btn-primary"
+                                                                    onclick="resetData()">Reset</button>
+                                                                <button type="submit" name="update"
+                                                                    class="btn btn-success">Save
+                                                                    Changes</button>
+                                                                <!-- <button href="#" type="submit1" id="save" name="save" class="btn btn-success">Save Changes</button> -->
 
-                                                        </div>
+                                                            </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -240,7 +248,7 @@
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="" method="post" class="overflow-y-scroll ">
                                 <div class="modal-body custom-modal-body">
                                     <div class="mb-3 row form-group">
                                         <label for="recipient-name" class="col-sm-3 col-form-label">Judul</label>

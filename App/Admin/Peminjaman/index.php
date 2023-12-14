@@ -170,9 +170,11 @@
             require 'Functions/Peminjaman.php';
 
             $peminjaman = new peminjaman($conn);
+            //$peminjaman = new DetailPeminjaman($conn);
             $add = $peminjaman->addPeminjamanFromForm();
             $edit = $peminjaman->editPeminjamanFromForm();
             $hapus = $peminjaman->deletePeminjamanFromForm();
+            $editKembali = $peminjaman->editPengembalianFromForm();
 
 
 
@@ -642,15 +644,36 @@
                                         echo "<td>" . $row['STATUS_PEMINJAMAN'] . "</td>";
                                         echo "<td>" . $row['STATUS_BUKU'] . "</td>";
                                         echo "<td>";
+                                        // Tombol Edit
+                                        echo "<button onclick='editPengembalianFromForm(" . $row['ID_PEMINJAMAN'] . ", \"" . $row['STATUS_BUKU'] . "\")' class='btn btn-warning btn-xs m-1'><i class='fa fa-edit'></i> Edit</button>";
+
                                         // Tombol Hapus
                                         echo "<a href='index.php?page=peminjaman&delete_id=" . $row['ID_PEMINJAMAN'] . "' onclick=\"return confirm('Hapus Data Peminjaman?');\" class='btn btn-danger btn-xs m-1'><i class='fa fa-trash'></i> Hapus</a>";
                                         echo "</td>";
+
                                         echo "</tr>";
                                     }
                                 } else {
                                     echo "<tr><td colspan='5'>Tidak ada data pengembalian</td></tr>";
                                 }
                                 ?>
+                                <!-- Modal Edit -->
+                                <div id="editModal" class="modal">
+                                    <div class="mb-3">
+                                        <label for="STATUS_BUKU" class="col-sm-3 col-form-label">Status
+                                            Buku</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" id="STATUS_BUKU" name="STATUS_BUKU"
+                                                value="Bagus" <?= ($statusValue === 'Bagus') ? 'checked' : '' ?>>
+                                            <label class="form-check-label" for="STATUS_BUKU">Bagus</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" id="STATUS_BUKU" name="STATUS_BUKU"
+                                                value="Rusak" <?= ($statusValue === 'Rusak') ? 'checked' : '' ?>>
+                                            <label class="form-check-label" for="STATUS_BUKU">Bagus</label>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </tbody>
                         </table>

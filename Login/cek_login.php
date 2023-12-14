@@ -17,14 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the connection is successful
     if ($conn) {
         // Use prepared statements to prevent SQL injection
-        $stmt = $conn->prepare("SELECT ID_MEMBER, PASSWORD_MEMBER, level FROM MEMBER WHERE USERNAME_MEMBER = ?");
+        $stmt = $conn->prepare("SELECT ID_MEMBER, NAMA_MEMBER, PASSWORD_MEMBER, level FROM MEMBER WHERE USERNAME_MEMBER = ?");
         $stmt->bind_param("s", $username);
 
         $stmt->execute();
         $stmt->store_result();
 
         if ($stmt->num_rows > 0) {
-            $stmt->bind_result($userID, $hashedPassword, $userLevel);
+            $stmt->bind_result($userID, $namaMember, $hashedPassword, $userLevel);
             $stmt->fetch();
 
             // Verify the password using md5()
@@ -33,6 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Store user ID and level in session variables
                 $_SESSION["userID"] = $userID;
                 $_SESSION["userLevel"] = $userLevel;
+                $_SESSION["namaMember"] = $namaMember;
+                var_dump($_SESSION);
 
                 $stmt->close();
 
