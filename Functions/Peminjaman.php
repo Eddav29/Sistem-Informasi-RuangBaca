@@ -258,12 +258,12 @@ class Peminjaman
         }
     }
 
-    public function editPengembalian($id_pengembalian, $status_buku)
+    public function editPengembalian($id_peminjaman, $status_buku)
     {
-        $id_pengembalian = mysqli_real_escape_string($this->conn, $id_pengembalian);
+        $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman);
         $status_buku = mysqli_real_escape_string($this->conn, $status_buku);
 
-        $update_query = "UPDATE DETAILPEMINJAMAN SET STATUS_BUKU = '$status_buku' WHERE ID_PEMINJAMAN = '$id_pengembalian'";
+        $update_query = "UPDATE DETAILPEMINJAMAN SET STATUS_BUKU = '$status_buku' WHERE ID_PEMINJAMAN = '$id_peminjaman'";
         $result = mysqli_query($this->conn, $update_query);
 
         return $result;
@@ -271,27 +271,25 @@ class Peminjaman
 
     public function editPengembalianFromForm()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
+        if (isset($_POST['update'])) {
             if (!empty($_POST['ID_PEMINJAMAN']) && !empty($_POST['STATUS_BUKU'])) {
-                $id_pengembalian = $_POST['ID_PEMINJAMAN'];
+                $id_peminjaman = $_POST['ID_PEMINJAMAN'];
                 $status_buku = $_POST['STATUS_BUKU'];
 
-                $result = $this->editPengembalian($id_pengembalian, $status_buku);
+                $result = $this->editPengembalian($id_peminjaman, $status_buku);
 
                 if ($result) {
                     ob_start();
                     pesan('success', 'Pengembalian Telah Diubah.');
                     header("Location: index.php?page=Peminjaman");
+                    exit;
                 } else {
                     pesan('danger', 'Gagal Mengubah status buku: ' . mysqli_error($this->conn));
                 }
             }
-
-            header("Location: index.php?page=Peminjaman");
-            exit;
         }
-
     }
+
 
     // function openEditModal(idPeminjaman, statusBuku) {
     //     document.getElementById('editID').value = idPeminjaman;

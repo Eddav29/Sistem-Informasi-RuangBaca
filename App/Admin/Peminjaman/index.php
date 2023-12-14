@@ -644,36 +644,51 @@
                                         echo "<td>" . $row['STATUS_PEMINJAMAN'] . "</td>";
                                         echo "<td>" . $row['STATUS_BUKU'] . "</td>";
                                         echo "<td>";
+
                                         // Tombol Edit
-                                        echo "<button onclick='editPengembalianFromForm(" . $row['ID_PEMINJAMAN'] . ", \"" . $row['STATUS_BUKU'] . "\")' class='btn btn-warning btn-xs m-1'><i class='fa fa-edit'></i> Edit</button>";
+                                        echo "<a href='#editModal" . $row['ID_PEMINJAMAN'] . "' class='btn btn-warning btn-xs m-1' data-bs-toggle='modal'><i class='fa fa-pencil-square-o'></i> Edit</a>";
 
                                         // Tombol Hapus
                                         echo "<a href='index.php?page=peminjaman&delete_id=" . $row['ID_PEMINJAMAN'] . "' onclick=\"return confirm('Hapus Data Peminjaman?');\" class='btn btn-danger btn-xs m-1'><i class='fa fa-trash'></i> Hapus</a>";
-                                        echo "</td>";
 
+                                        echo "</td>";
                                         echo "</tr>";
+
+                                        // Modal Edit
+                                        echo "<div id='editModal" . $row['ID_PEMINJAMAN'] . "' class='modal'>";
+                                        echo "<div class='modal-dialog'>";
+                                        echo "<div class='modal-content'>";
+                                        echo "<div class='modal-header'>";
+                                        echo "<h5 class='modal-title'>Edit Data</h5>";
+                                        echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
+                                        echo "</div>";
+                                        echo "<div class='modal-body'>";
+                                        echo "<form method='post' action='index.php?page=Peminjaman'>"; // Ganti action dengan file yang memproses update
+                                        echo "<input type='hidden' name='ID_PEMINJAMAN' value='" . $row['ID_PEMINJAMAN'] . "'>";
+                                        echo '<div class="mb-3">';
+                                        echo '<label for="STATUS_BUKU" class="col-sm-3 col-form-label">Status Peminjaman</label><br>';
+                                        echo '<div class="form-check form-check-inline">';
+                                        echo '<input type="radio" class="form-check-input" id="STATUS_BUKU" name="STATUS_BUKU" value="Bagus" ' . (($statusValue === 'bagus') ? 'checked' : '') . '>';
+                                        echo '<label class="form-check-label" for="STATUS_BUKU">Bagus</label>';
+                                        echo '</div>';
+                                        echo '<div class="form-check form-check-inline">';
+                                        echo '<input type="radio" class="form-check-input" id="STATUS_BUKU" name="STATUS_BUKU" value="Rusak" ' . (($statusValue === 'Rusak') ? 'checked' : '') . '>';
+                                        echo '<label class="form-check-label" for="STATUS_BUKU">Rusak</label>';
+                                        echo '</div>';
+                                        echo '</div>';
+                                        
+                                        echo "<button type='update' class='btn btn-primary mt-3'>Simpan</button>";
+                                        echo "</form>";
+                                        echo "</div>";
+                                        echo "</div>";
+                                        echo "</div>";
+                                        echo "</div>";
                                     }
                                 } else {
                                     echo "<tr><td colspan='5'>Tidak ada data pengembalian</td></tr>";
                                 }
                                 ?>
-                                <!-- Modal Edit -->
-                                <div id="editModal" class="modal">
-                                    <div class="mb-3">
-                                        <label for="STATUS_BUKU" class="col-sm-3 col-form-label">Status
-                                            Buku</label><br>
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" id="STATUS_BUKU" name="STATUS_BUKU"
-                                                value="Bagus" <?= ($statusValue === 'Bagus') ? 'checked' : '' ?>>
-                                            <label class="form-check-label" for="STATUS_BUKU">Bagus</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" id="STATUS_BUKU" name="STATUS_BUKU"
-                                                value="Rusak" <?= ($statusValue === 'Rusak') ? 'checked' : '' ?>>
-                                            <label class="form-check-label" for="STATUS_BUKU">Bagus</label>
-                                        </div>
-                                    </div>
-                                </div>
+
 
                             </tbody>
                         </table>
@@ -694,4 +709,4 @@
     </div>
 </body>
 
-</html>a
+</html>
