@@ -352,7 +352,7 @@
                                                                             <div class="mb-3 row form-group">
                                                                                 <div class="space-above-button">
                                                                                     <input type="button" value="Tambahkan"
-                                                                                        onclick="addSelectedBooksTambah()">
+                                                                                        onclick="addSelectedBooksTambah1()">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="mb-3 row form-group">
@@ -364,11 +364,11 @@
                                                                                     class="form-select" multiple></select>
                                                                             </div>
                                                                             <script>
-                                                                                function addSelectedBooksTambah() {
-                                                                                    var select = document.getElementById(
+                                                                                function addSelectedBooksTambah1() {
+                                                                                    var select = document.getElementById1(
                                                                                         "ID_BUKU_TAMBAH1");
                                                                                     var selectedItems = [];
-                                                                                    var selectedBooks = document.getElementById(
+                                                                                    var selectedBooks = document.getElementById1(
                                                                                         "selectedBooksTambah1");
 
                                                                                     for (var i = 0; i < select.options

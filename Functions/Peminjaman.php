@@ -88,13 +88,13 @@ class Peminjaman
 
 
 
-    public function editPeminjaman($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $status, $denda, $id_buku_edit)
+    public function editPeminjaman($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $status, $denda, $status_buku)
     {
         $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman);
         $id_member = mysqli_real_escape_string($this->conn, $id_member);
         $tanggal_peminjaman = mysqli_real_escape_string($this->conn, $tanggal_peminjaman);
         $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $tanggal_pengembalian);
-        $status_peminjaman = mysqli_real_escape_string($this->conn, $status);
+        $status = mysqli_real_escape_string($this->conn, $status);
         $denda = mysqli_real_escape_string($this->conn, $denda);
 
         // Update PEMINJAMAN table
@@ -102,26 +102,26 @@ class Peminjaman
                             SET ID_MEMBER = '$id_member', 
                                 TANGGAL_PEMINJAMAN = '$tanggal_peminjaman', 
                                 TANGGAL_PENGEMBALIAN = '$tanggal_pengembalian',
-                                ATTRIBSTATUSUTE_26 = '$status_peminjaman',
+                                ATTRIBSTATUSUTE_26 = '$status',
                                 DENDA = '$denda'
                             WHERE ID_PEMINJAMAN = $id_peminjaman";
         $result_peminjaman = mysqli_query($this->conn, $update_query_peminjaman);
 
-        // if ($result_peminjaman) {
-        //     foreach ($id_buku_edit as $index => $id_buku) {
-        //         $status_buku = mysqli_real_escape_string($this->conn, $status[$index]);
-        //         $status_peminjaman_buku = mysqli_real_escape_string($this->conn, $status);
-        //         $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
-
         if ($result_peminjaman) {
-            foreach ($id_buku_edit as $index => $id_buku) {
-                // Kode pengamanan terhadap SQL Injection
-                $status_buku = mysqli_real_escape_string($this->conn, $status[$index]);
+            foreach ($status_buku as $index => $id_buku) {
+                $status_buku = mysqli_real_escape_string($this->conn, $status_buku[$index]);
+                $status_peminjaman_buku = mysqli_real_escape_string($this->conn, $status);
                 $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
+
+                // if ($result_peminjaman) {
+                //     foreach ($id_buku_edit as $index => $id_buku) {
+                //         // Kode pengamanan terhadap SQL Injection
+                //         $status_buku = mysqli_real_escape_string($this->conn, $status[$index]);
+                //         $id_buku = mysqli_real_escape_string($this->conn, $id_buku);
 
                 // Menambahkan logika untuk mengubah status peminjaman buku menjadi 'Selesai'
                 $update_detail_query = "UPDATE DETAILPEMINJAMAN 
-                                            SET STATUS_PEMINJAMAN = '$status'
+                                            SET STATUS_PEMINJAMAN = '$status_peminjaman_buku'
                                             WHERE ID_PEMINJAMAN = $id_peminjaman AND ID_BUKU = $id_buku";
                 mysqli_query($this->conn, $update_detail_query);
             }
@@ -137,11 +137,11 @@ class Peminjaman
             $status = $_POST['STATUS'];
             $tanggal_peminjaman = mysqli_real_escape_string($this->conn, $_POST['tanggal_peminjaman1']);
             $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $_POST['tanggal_pengembalian1']);
-            $id_buku_edit = $_POST['ID_BUKU_EDIT'];
+            $status_buku = $_POST['ID_BUKU_TAMBAH1'];
             $denda = mysqli_real_escape_string($this->conn, $_POST['DENDA']);
 
             // Call the function to save to the database
-            $result_peminjaman = $this->editPeminjaman($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $status, $denda, $id_buku_edit);
+            $result_peminjaman = $this->editPeminjaman($id_peminjaman, $id_member, $tanggal_peminjaman, $tanggal_pengembalian, $status, $denda, $status_buku);
 
             if ($result_peminjaman) {
                 pesan('success', "Peminjaman Berhasil Diubah.");
