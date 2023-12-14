@@ -6,6 +6,26 @@
     <meta charset="UTF-8">
     <title>DataTable Example</title>
     <style>
+        .item {
+    margin: 10px 0;
+        }
+        /* Styling for mobile */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
+       .table-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+}
+
         .container-fluid {
             width: auto;
             padding: 20px;
@@ -50,7 +70,11 @@
 
         .table-container {
             width: 200%;
-            display: flexbox;
+
+  margin: 0 auto;
+
+  justify-content: space-between;
+
             margin-top: 20px;
             padding: 20px;
             line-break: ;
@@ -143,6 +167,26 @@
             margin-top: 10px;
             /* Sesuaikan nilai margin-top sesuai kebutuhan Anda */
         }
+        /* Mengatur tata letak baris dan posisi teks serta nilai di dalam modal */
+.modal-body .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* Memberikan lebar yang sesuai untuk elemen teks */
+.modal-body .form-group .col-form-label {
+    flex: 0 0 40%;
+    text-align: left;
+    padding-right: 10px;
+}
+
+/* Mengatur lebar nilai agar berada di sisi kanan */
+.modal-body .form-group .form-control,
+.modal-body .form-group .form-select {
+    flex: 0 0 55%;
+}
+
     </style>
     <!-- Sertakan CSS DataTables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
@@ -226,7 +270,8 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="table-container">
-
+                    
+                <h2 class="table-title">Tabel Transaksi</h2>
                     <div class="table-peminjaman">Tabel Peminjaman</div>
                     <!-- Tombol "Tambah" untuk menambahkan data -->
 
@@ -499,7 +544,7 @@
                                         <div class="mb-3 row form-group">
                                             <label for="recipient-name" class="col-form-label">ID Peminjam:</label>
                                             <input type="text" name="ID_MEMBER" class="form-control" method="post"
-                                                id="ID_MEMBER">
+                                                id="ID_MEMBER" required>
                                         </div>
                                         <div class="mb-3 row form-group">
 
@@ -511,7 +556,7 @@
 
                                             <label for="ID_BUKU_TAMBAH" class="col-form-label">Pilih Buku:</label>
                                             <select name="ID_BUKU_TAMBAH[]" class="form-select" id="ID_BUKU_TAMBAH"
-                                                multiple>
+                                                multiple required>
                                                 <?php
                                                 // Query untuk mengambil data buku dari tabel 'BUKU'
                                                 $query = "SELECT ID_BUKU, JUDUL_BUKU FROM BUKU";
@@ -654,19 +699,18 @@
                                         echo "</td>";
                                         echo "</tr>";
 
-                                        // Modal Edit
                                         echo "<div id='editModal" . $row['ID_PEMINJAMAN'] . "' class='modal'>";
-                                        echo "<div class='modal-dialog'>";
+                                        echo "<div class='modal-dialog modal-dialog-centered'>"; // Menambahkan kelas 'modal-dialog-centered'
                                         echo "<div class='modal-content'>";
                                         echo "<div class='modal-header'>";
-                                        echo "<h5 class='modal-title'>Edit Data</h5>";
+                                        echo "<h5 class='modal-title'>Edit Data Buku</h5>";
                                         echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
                                         echo "</div>";
                                         echo "<div class='modal-body'>";
-                                        echo "<form method='post' action='index.php?page=Peminjaman'>"; // Ganti action dengan file yang memproses update
+                                        echo "<form method='post' action='index.php?page=Peminjaman'>";
                                         echo "<input type='hidden' name='ID_PEMINJAMAN' value='" . $row['ID_PEMINJAMAN'] . "'>";
                                         echo '<div class="mb-3">';
-                                        echo '<label for="STATUS_BUKU" class="col-sm-3 col-form-label">Status Peminjaman</label><br>';
+                                        echo '<label for="STATUS_BUKU" class="col-sm-3 col-form-label">Status Buku</label><br>';
                                         echo '<div class="form-check form-check-inline">';
                                         echo '<input type="radio" class="form-check-input" id="STATUS_BUKU" name="STATUS_BUKU" value="Bagus" ' . (($statusValue === 'bagus') ? 'checked' : '') . '>';
                                         echo '<label class="form-check-label" for="STATUS_BUKU">Bagus</label>';
@@ -676,13 +720,13 @@
                                         echo '<label class="form-check-label" for="STATUS_BUKU">Rusak</label>';
                                         echo '</div>';
                                         echo '</div>';
-                                        
                                         echo "<button type='update' class='btn btn-primary mt-3'>Simpan</button>";
                                         echo "</form>";
                                         echo "</div>";
                                         echo "</div>";
                                         echo "</div>";
                                         echo "</div>";
+                                        
                                     }
                                 } else {
                                     echo "<tr><td colspan='5'>Tidak ada data pengembalian</td></tr>";

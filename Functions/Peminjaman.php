@@ -271,24 +271,25 @@ class Peminjaman
 
     public function editPengembalianFromForm()
     {
-        if (isset($_POST['update'])) {
-            if (!empty($_POST['ID_PEMINJAMAN']) && !empty($_POST['STATUS_BUKU'])) {
-                $id_peminjaman = $_POST['ID_PEMINJAMAN'];
-                $status_buku = $_POST['STATUS_BUKU'];
+        if (isset($_POST['ID_PEMINJAMAN'], $_POST['STATUS_BUKU'])) {
+            $id_peminjaman = $_POST['ID_PEMINJAMAN'];
+            $status_buku = $_POST['STATUS_BUKU'];
 
-                $result = $this->editPengembalian($id_peminjaman, $status_buku);
+            // Lakukan validasi tambahan jika diperlukan sebelum melakukan pembaruan
 
-                if ($result) {
-                    ob_start();
-                    pesan('success', 'Pengembalian Telah Diubah.');
-                    header("Location: index.php?page=Peminjaman");
-                    exit;
-                } else {
-                    pesan('danger', 'Gagal Mengubah status buku: ' . mysqli_error($this->conn));
-                }
+            $result = $this->editPengembalian($id_peminjaman, $status_buku);
+
+            if ($result) {
+                ob_start();
+                pesan('success', 'Pengembalian Telah Diubah.');
+                header("Location: index.php?page=Peminjaman");
+                exit;
+            } else {
+                pesan('danger', 'Gagal Mengubah status buku: ' . mysqli_error($this->conn));
             }
         }
     }
+
 
 
     // function openEditModal(idPeminjaman, statusBuku) {
