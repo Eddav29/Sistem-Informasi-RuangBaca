@@ -62,18 +62,18 @@ class Kategori
             }
         }
     }
-    public function editkategori($id_kategori, $nama_kategori)
+    // Kategori.php
+
+    public function editKategori($id_kategori, $nama_kategori)
     {
-        $id_kategori = mysqli_real_escape_string($this->conn, $id_kategori); // Escape ID
+        $id_kategori = mysqli_real_escape_string($this->conn, $id_kategori);
         $nama_kategori = mysqli_real_escape_string($this->conn, $nama_kategori);
 
-        $update_query = "UPDATE kategori SET NAMA_KATEGORI = '$nama_kategori' WHERE ID_KATEGORI = '$id_kategori'"; // Tambahkan klausa WHERE
-
+        $update_query = "UPDATE kategori SET NAMA_KATEGORI = '$nama_kategori' WHERE ID_KATEGORI = '$id_kategori'";
         $result = mysqli_query($this->conn, $update_query);
 
         return $result;
     }
-
 
     public function editKategoriFromForm()
     {
@@ -82,16 +82,18 @@ class Kategori
                 $id_kategori = $_POST['ID_KATEGORI'];
                 $nama_kategori = $_POST['NAMA_KATEGORI'];
 
-                $result = $this->editkategori($id_kategori, $nama_kategori);
+                $result = $this->editKategori($id_kategori, $nama_kategori);
 
                 if ($result) {
-                    pesan('success', 'Kategori Telah Diubah.');
+                    ob_start();
+                    pesan('success', 'kategori Telah Diubah.');
+                    header("Location: index.php?page=kategori");
                 } else {
-                    pesan('danger', 'Gagal Mengubah Kategori: ' . mysqli_error($this->conn));
+                    pesan('danger', 'Gagal Mengubah kategori: ' . mysqli_error($this->conn));
                 }
             }
 
-            header("Location: index.php?page=kategori");
+            header("Location: index.php?page=Kategori");
             exit;
         }
     }
@@ -116,6 +118,7 @@ class Kategori
             $result = $this->hapusKategori($id_kategori);
 
             if ($result) {
+                ob_start();
                 pesan('success', 'Kategori Telah Dihapus.');
             } else {
                 pesan('danger', 'Gagal Menghapus Kategori: ' . mysqli_error($this->conn));
