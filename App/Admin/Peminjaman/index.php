@@ -207,66 +207,66 @@
     <div class="container-fluid">
         <div class="row">
 
-            <?php
-            include 'Functions/pesan_kilat.php';
-            $db = new Database();
-            $conn = $db->getConnection();
-            require 'Functions/Peminjaman.php';
+                <?php
+                include 'Functions/pesan_kilat.php';
+                $db = new Database();
+                $conn = $db->getConnection();
+                require 'Functions/Peminjaman.php';
 
-            $peminjaman = new peminjaman($conn);
-            //$peminjaman = new DetailPeminjaman($conn);
-            $add = $peminjaman->addPeminjamanFromForm();
-            $edit = $peminjaman->editPeminjamanFromForm();
-            $hapus = $peminjaman->deletePeminjamanFromForm();
-            $editKembali = $peminjaman->editPengembalianFromForm();
+                $peminjaman = new peminjaman($conn);
+                //$peminjaman = new DetailPeminjaman($conn);
+                $add = $peminjaman->addPeminjamanFromForm();
+                $edit = $peminjaman->editPeminjamanFromForm();
+                $hapus = $peminjaman->deletePeminjamanFromForm();
+                $editKembali = $peminjaman->editPengembalianFromForm();
 
 
 
-            // Query untuk mendapatkan data transaksi peminjaman
-            $stmtPeminjaman = $conn->prepare("
-            SELECT
-            PEMINJAMAN.ID_PEMINJAMAN AS 'ID Peminjaman',
-            PEMINJAMAN.ID_MEMBER AS 'ID Member',
-           
-            BUKU.ID_BUKU,
-            MEMBER.NAMA_MEMBER AS 'Nama Peminjam',
-            PEMINJAMAN.TANGGAL_PEMINJAMAN AS 'Tanggal Pinjam',
-            PEMINJAMAN.TANGGAL_PENGEMBALIAN AS 'Tanggal Kembali',
-            BUKU.JUDUL_BUKU AS 'Judul Buku',
-            COUNT(DETAILPEMINJAMAN.ID_BUKU) AS 'Jumlah Buku',
-            ATTRIBSTATUSUTE_26 AS 'Status',
-            PEMINJAMAN.DENDA AS 'Denda'
-            FROM
-            PEMINJAMAN
-            LEFT JOIN
-            MEMBER ON PEMINJAMAN.ID_MEMBER = MEMBER.ID_MEMBER
-            LEFT JOIN
-            DETAILPEMINJAMAN ON PEMINJAMAN.ID_PEMINJAMAN = DETAILPEMINJAMAN.ID_PEMINJAMAN
-            LEFT JOIN
-            BUKU ON DETAILPEMINJAMAN.ID_BUKU = BUKU.ID_BUKU
-            GROUP BY
-            PEMINJAMAN.ID_PEMINJAMAN
-            ORDER BY
-            PEMINJAMAN.ID_PEMINJAMAN;
-            ");
-            $stmtPeminjaman->execute();
-            $resultPeminjaman = $stmtPeminjaman->get_result();
-            $peminjamanData = $resultPeminjaman->fetch_all(MYSQLI_ASSOC);
-
-            // Query untuk mendapatkan data transaksi pengembalian
-            $stmtPengembalian = $conn->prepare("
-            SELECT ID_PEMINJAMAN, ID_BUKU, STATUS_PEMINJAMAN, STATUS_BUKU
-            FROM DETAILPEMINJAMAN
-        
-            GROUP BY ID_PEMINJAMAN;
+                // Query untuk mendapatkan data transaksi peminjaman
+                $stmtPeminjaman = $conn->prepare("
+                SELECT
+                PEMINJAMAN.ID_PEMINJAMAN AS 'ID Peminjaman',
+                PEMINJAMAN.ID_MEMBER AS 'ID Member',
             
-        ");
+                BUKU.ID_BUKU,
+                MEMBER.NAMA_MEMBER AS 'Nama Peminjam',
+                PEMINJAMAN.TANGGAL_PEMINJAMAN AS 'Tanggal Pinjam',
+                PEMINJAMAN.TANGGAL_PENGEMBALIAN AS 'Tanggal Kembali',
+                BUKU.JUDUL_BUKU AS 'Judul Buku',
+                COUNT(DETAILPEMINJAMAN.ID_BUKU) AS 'Jumlah Buku',
+                ATTRIBSTATUSUTE_26 AS 'Status',
+                PEMINJAMAN.DENDA AS 'Denda'
+                FROM
+                PEMINJAMAN
+                LEFT JOIN
+                MEMBER ON PEMINJAMAN.ID_MEMBER = MEMBER.ID_MEMBER
+                LEFT JOIN
+                DETAILPEMINJAMAN ON PEMINJAMAN.ID_PEMINJAMAN = DETAILPEMINJAMAN.ID_PEMINJAMAN
+                LEFT JOIN
+                BUKU ON DETAILPEMINJAMAN.ID_BUKU = BUKU.ID_BUKU
+                GROUP BY
+                PEMINJAMAN.ID_PEMINJAMAN
+                ORDER BY
+                PEMINJAMAN.ID_PEMINJAMAN;
+                ");
+                $stmtPeminjaman->execute();
+                $resultPeminjaman = $stmtPeminjaman->get_result();
+                $peminjamanData = $resultPeminjaman->fetch_all(MYSQLI_ASSOC);
 
-            $stmtPengembalian->execute();
-            $resultPengembalian = $stmtPengembalian->get_result();
-            $pengembalianData = $resultPengembalian->fetch_all(MYSQLI_ASSOC);
+                // Query untuk mendapatkan data transaksi pengembalian
+                $stmtPengembalian = $conn->prepare("
+                SELECT ID_PEMINJAMAN, ID_BUKU, STATUS_PEMINJAMAN, STATUS_BUKU
+                FROM DETAILPEMINJAMAN
+            
+                GROUP BY ID_PEMINJAMAN;
+                
+            ");
 
-            ?>
+                $stmtPengembalian->execute();
+                $resultPengembalian = $stmtPengembalian->get_result();
+                $pengembalianData = $resultPengembalian->fetch_all(MYSQLI_ASSOC);
+
+                ?>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="table-container">
