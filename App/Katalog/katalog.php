@@ -11,33 +11,33 @@
     <link rel="stylesheet" href="../../Assets/style.css">
     <link rel="icon" href="../../Assets/img/logo.jpg" type="image/x-icon">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f3f3f3;
-            margin-top: 20px;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f3f3;
+        margin-top: 20px;
+    }
 
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease-in-out;
-        }
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out;
+    }
 
-        .card:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
+    .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
-        /* Adjust card image size */
-        .card-img-top {
-            height: 300px;
-            object-fit: cover;
-        }
+    /* Adjust card image size */
+    .card-img-top {
+        height: 300px;
+        object-fit: cover;
+    }
 
-        /* Update pagination styling */
-        .pagination {
-            justify-content: center;
-        }
+    /* Update pagination styling */
+    .pagination {
+        justify-content: center;
+    }
     </style>
 
 </head>
@@ -110,7 +110,8 @@
                         <a class="nav-link p-2 text-white" aria-current="page" href="#contact">Contact</a>
                     </li>
                 </ul>
-                <div class="d-flex align-items-center"> <!-- Container for search and login -->
+                <div class="d-flex align-items-center">
+                    <!-- Container for search and login -->
                     <?php
                     if (isset($showSearch) && $showSearch) {
                         echo '
@@ -136,7 +137,8 @@
 
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg "> <!-- Ubah modal ke ukuran besar (modal-lg) -->
+        <div class="modal-dialog modal-lg ">
+            <!-- Ubah modal ke ukuran besar (modal-lg) -->
             <div class="modal-content bg-darkblue text-white">
                 <div class="modal-header">
                     <h5 class="modal-title" id="loginModalLabel">Log in</h5>
@@ -179,7 +181,8 @@
                             </div>
                         </form>
                         <!-- Reverse column order untuk mobile -->
-                        <div class="flex-shrink-0 ms-lg-3 mb-3 mb-lg-0"> <!-- Tambahkan margin-bottom untuk mobile -->
+                        <div class="flex-shrink-0 ms-lg-3 mb-3 mb-lg-0">
+                            <!-- Tambahkan margin-bottom untuk mobile -->
                             <img src="../../Assets/img/logo.jpg" alt="Logo" class="img-fluid img-logo" width="400px">
                         </div>
                     </div>
@@ -240,10 +243,19 @@
                             <input type="text" class="form-control" id="NAMA_MEMBER" name="NAMA_MEMBER">
                         </div>
                         <div class="mb-3">
-                            <label for="JENIS_IDENTITAS" class="form-label">Identity Type
-                                (Mahasiswa/Dosen)</label>
-                            <input type="text" class="form-control" id="JENIS_IDENTITAS" name="JENIS_IDENTITAS">
+                            <label for="JENIS_IDENTITAS" class="form-label">Jenis Identitas (KTM/KTP)</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="JENIS_IDENTITAS" id="KTM"
+                                    value="KTM">
+                                <label class="form-label" for="KTM">KTM</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="JENIS_IDENTITAS" id="KTP"
+                                    value="KTP">
+                                <label class="form-label" for="KTP">KTP</label>
+                            </div>
                         </div>
+
                         <div class="mb-3">
                             <label for="NOMOR_IDENTITAS" class="form-label">Identity
                                 Number</label>
@@ -279,95 +291,107 @@
     <script src="../../Assets/app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
     <script>
-        //toggle sidebar
-        document.querySelector(".custom-toggler").addEventListener("click", function () {
-            event.preventDefault();
-            toggleSidebar();
+    //toggle sidebar
+    document.querySelector(".custom-toggler").addEventListener("click", function() {
+        event.preventDefault();
+        toggleSidebar();
+    });
+
+    document.querySelector(".close-btn").addEventListener("click", function() {
+        event.preventDefault();
+        closeSidebar();
+    });
+
+    function toggleSidebar() {
+        document.querySelector(".sidebar").classList.toggle("open");
+    }
+
+    function closeSidebar() {
+        document.querySelector(".sidebar").classList.remove("open");
+    }
+
+    // Handle click event on the "Log in" button
+    document
+        .querySelector(".login-darkblue")
+        .addEventListener("click", function(e) {
+            e.preventDefault(); // Prevent the default behavior of the button
+
+            // Update the URL without reloading the page
+            history.pushState(null, null, "katalog.php");
+
+            // Show the modal manually
+            $("#loginModal").modal("show");
         });
 
-        document.querySelector(".close-btn").addEventListener("click", function () {
-            event.preventDefault();
-            closeSidebar();
+    // Handle click event on the "Register" link
+    document
+        .querySelector("#registerModalLink")
+        .addEventListener("click", function(e) {
+            e.preventDefault(); // Prevent the default behavior of the link
+
+            // Update the URL without reloading the page
+            history.pushState(null, null, "../Login/Member/register.php");
+
+            // Show the modal manually
+            $("#registerModal").modal("show");
         });
 
-        function toggleSidebar() {
-            document.querySelector(".sidebar").classList.toggle("open");
-        }
+    // Check password match on registration
+    document
+        .getElementById("registerForm")
+        .addEventListener("submit", function(e) {
+            var password = document.getElementById("registerPassword").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
 
-        function closeSidebar() {
-            document.querySelector(".sidebar").classList.remove("open");
-        }
-
-        // Handle click event on the "Log in" button
-        document
-            .querySelector(".login-darkblue")
-            .addEventListener("click", function (e) {
-                e.preventDefault(); // Prevent the default behavior of the button
-
-                // Update the URL without reloading the page
-                history.pushState(null, null, "katalog.php");
-
-                // Show the modal manually
-                $("#loginModal").modal("show");
-            });
-
-        // Handle click event on the "Register" link
-        document
-            .querySelector("#registerModalLink")
-            .addEventListener("click", function (e) {
-                e.preventDefault(); // Prevent the default behavior of the link
-
-                // Update the URL without reloading the page
-                history.pushState(null, null, "../Login/Member/register.php");
-
-                // Show the modal manually
-                $("#registerModal").modal("show");
-            });
-
-        // Check password match on registration
-        document
-            .getElementById("registerForm")
-            .addEventListener("submit", function (e) {
-                var password = document.getElementById("registerPassword").value;
-                var confirmPassword = document.getElementById("confirmPassword").value;
-
-                if (password !== confirmPassword) {
-                    e.preventDefault(); // Prevent form submission
-                    document.getElementById("passwordMatchError").classList.remove("d-none");
-                } else {
-                    document.getElementById("passwordMatchError").classList.add("d-none");
+            if (password !== confirmPassword) {
+                e.preventDefault(); // Prevent form submission
+                document.getElementById("passwordMatchError").classList.remove("d-none");
+            } else {
+                document.getElementById("passwordMatchError").classList.add("d-none");
+            }
+        });
+    //search
+    $(document).ready(function() {
+        $(' #searchForm').submit(function(e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: '../../Functions/searchHandler.php',
+                data: formData,
+                success: function(response) { // Update bagian katalog dengan hasil pencarian
+                    $('#katalogContent').html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
                 }
             });
-        //search
-        $(document).ready(function () {
-            $(' #searchForm').submit(function (e) {
-                e.preventDefault(); var formData = $(this).serialize(); $.ajax({
-                    type: 'POST', url: '../../Functions/searchHandler.php', data: formData, success:
-                        function (response) { // Update bagian katalog dengan hasil pencarian
-                            $('#katalogContent').html(response);
-                        }, error: function (xhr, status, error) {
-                            console.error(error);
-                        }
-                });
-            });
-        }); var
-            passwordInput = document.getElementById("password"); var
-                passwordInput = document.getElementById("loginPassword"); // Show password login document
-                                .getElementById("togglePassword").addEventListener("click", function () {
-                    var
-                        passwordInput = document.getElementById("loginPassword"); var
-                            type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-                    passwordInput.setAttribute("type", type); this.innerHTML = type === "password"
-                        ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-                }); // Show
-                                password register document.getElementById("togglePasswordRegister")
-            .addEventListener("click", function () {
-                var
-                    passwordInput = document.getElementById("registerPassword"); var
-                        type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-                passwordInput.setAttribute("type", type); this.innerHTML = type === "password"
-                    ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-            }); </script>
+        });
+    });
+    var
+        passwordInput = document.getElementById("password");
+    var
+        passwordInput = document.getElementById("loginPassword"); // Show password login document
+    .getElementById("togglePassword").addEventListener("click", function() {
+        var
+            passwordInput = document.getElementById("loginPassword");
+        var
+            type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+        this.innerHTML = type === "password" ?
+            '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+    }); // Show
+    password register document.getElementById("togglePasswordRegister")
+        .addEventListener("click", function() {
+            var
+                passwordInput = document.getElementById("registerPassword");
+            var
+                type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+            this.innerHTML = type === "password" ?
+                '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+    </script>
 
 </body>
 
