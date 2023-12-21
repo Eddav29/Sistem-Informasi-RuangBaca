@@ -110,11 +110,43 @@ class Book
         $status_buku = mysqli_real_escape_string($this->conn, $status_buku);
 
         $insert_query = "INSERT INTO BUKU (JUDUL_BUKU, DESKRIPSI, KETERSEDIAAN, TANGGAL_PENGADAAN, TAHUN_TERBIT, PENERBIT, RAK, IMG, STATUS_BUKU) 
-                        VALUES ('$judul', '$deskripsi', '$ketersediaan', '$tanggal_pengadaan', '$tahun_terbit', '$penerbit', '$rak', '$img', '$status_buku')";
+                        VALUES (?,?,?,?,?,?,?,?,?)";
 
-        $result = mysqli_query($this->conn, $insert_query);
+        $stmt = $this->conn->prepare($insert_query);
+        $stmt->bind_param("sssssssss", $judul, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_terbit, $penerbit, $rak ,$img ,$status_buku);
 
-        return $result;
+        if($stmt->execute()){
+            $newBookID = $stmt->insert_id;
+
+            $pilihKategori = $_POST['kategori'];
+            foreach($pilihKategori as $categoryId){
+                $insertKategori = "INSERT INTO detail_kategori_buku (ID_BUKU, ID_KATEGORI) VALUES (?,?)";
+                $stmtKategori = $this->conn->prepare($insertKategori);
+                $stmtKategori->bind_param("ii", $newBookID, $categoryId);
+                $stmtKategori->execute();
+                $stmtKategori->close();
+        
+            }
+            $pilihPenulis = $_POST['penulis'];
+            foreach($pilihPenulis as $penulisId){
+                $insertPenulis = "INSERT INTO detail_penulis_buku (ID_BUKU, ID_PENULIS) VALUES (?,?)";
+                $stmtPenulis = $this->conn->prepare($insertPenulis);
+                $stmtPenulis->bind_param("ii", $newBookID, $penulisId);
+                $stmtPenulis->execute();
+                $stmtPenulis->close();
+        
+            }
+            return true;
+            
+        }else{
+            return false;
+        }
+
+        // $insertKategori = "INSERT INTO detailKategori (ID_KATEGORI, NAMA_KATEGORI) VALUES ('')"
+
+        
+
+        
     }
 
     public function addBookFromForm()
@@ -135,7 +167,7 @@ class Book
                     $deskripsi = $_POST['deskripsi'];
                     $ketersediaan = $_POST['ketersediaan'];
                     $tanggal_pengadaan = $_POST['tanggal_pengadaan'];
-                    $tahun_penerbit = $_POST['tahun_penerbit'];
+                    $tahun_penerbit = $_POST['tahun_terbit'];
                     $penerbit = $_POST['penerbit'];
                     $rak = $_POST['rak'];
                     $img = $namaFile;
@@ -148,24 +180,25 @@ class Book
                         // Book added successfully
                         // You can redirect to a success page or perform any other actions
                         // For example, you can use header("Location: success.php");
-                        pesan('success', "Jabatan Baru Ditambahkan.");
+                        pesan('success', "Buku Baru Ditambahkan.");
                         header("Location: index.php?page=Buku");
                         exit(); 
                     } else {
                         pesan('danger', "Gagal Menambahkan Buku Karena: " . mysqli_error($this->conn));
+                        // header("Location: index.php?page=Buku");
                     }
                 } else {
                     pesan('danger', "Gagal Memindahkan File.");
+                    header("Location: index.php?page=Buku");
                 }
             } else {
                 pesan('danger', "Tipe file tidak valid: " . implode(', ', $allowedExtensions));
             }
         } else {
-            pesan('danger', "File tidak terupload.");
+            pesan('danger', "Isi Image.");
         }
     }
 }
-
 
     // public function edit($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_terbit, $penerbit, $rak, $img, $status_buku, $id)
     // {

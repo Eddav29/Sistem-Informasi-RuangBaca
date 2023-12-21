@@ -54,6 +54,7 @@
                         </thead>
                         <tbody>
                             <?php
+                            
                             $no = 1;
                             $query = "SELECT buku.*, GROUP_CONCAT(DISTINCT penulis.NAMA_PENULIS) AS NAMA_PENULIS, kategori.NAMA_KATEGORI 
                                         FROM buku
@@ -65,6 +66,8 @@
 
                             $result = mysqli_query($conn, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
+
+                              
                                 ?>
                                 <tr>
                                     <!-- <th scope="row"><?= $no++ ?></th> -->
@@ -129,17 +132,35 @@
                                                                 <input type="text" class="form-control" id="deskripsi1" name="deskripsi1" value="<?= $row['DESKRIPSI'] ?>">
                                                             </div>
                                                         </div>
+                                                        <?php 
+                                                        $id = $row['ID_BUKU'];
+                                                        $queryEdit = "SELECT buku.*, 
+                    GROUP_CONCAT(DISTINCT penulis.NAMA_PENULIS) AS NAMA_PENULIS, 
+                    GROUP_CONCAT(DISTINCT penulis.ID_PENULIS) AS ID_PENULIS,
+                    kategori.NAMA_KATEGORI,
+                    kategori.ID_KATEGORI
+              FROM buku
+              LEFT JOIN detail_penulis_buku ON buku.ID_BUKU = detail_penulis_buku.ID_BUKU
+              LEFT JOIN penulis ON detail_penulis_buku.ID_PENULIS = penulis.ID_PENULIS
+              LEFT JOIN detail_kategori_buku ON buku.ID_BUKU = detail_kategori_buku.ID_BUKU
+              LEFT JOIN kategori ON detail_kategori_buku.ID_KATEGORI = kategori.ID_KATEGORI
+              WHERE buku.ID_BUKU = '$id'";
+
+                                                        $resultEdit = mysqli_query($conn, $queryEdit);
+                                                        $rowEdit = mysqli_fetch_assoc($resultEdit);
+                                                        $rowEdit['ID_PENULIS'] = explode(',', $rowEdit['ID_PENULIS']);
+                                                        ?>
                                                         <div class="mb-3 row form-group">
                                                             <label for="kategori1[]" class="col-sm-3 col-form-label">Kategori</label>
                                                             <div class="col-sm-9">
                                                                 <select name="kategori1[]" id="kategori1" class="form-select">
-                                                                    <option selected>Kategori</option>
+                                                                    <option>Kategori</option>
                                                                     <?php
                                                                         $queryKategori = "SELECT * FROM kategori";
                                                                         $resultKategori = mysqli_query($conn, $queryKategori);
                                                                         while($rowKategori = mysqli_fetch_assoc($resultKategori)){
                                                                         ?>
-                                                                        <option value="<?= $rowKategori['ID_KATEGORI']?>"><?= $rowKategori['NAMA_KATEGORI'] ?></option>
+                                                                        <option value="<?= $rowKategori['ID_KATEGORI']?>" <?= ($rowEdit['ID_KATEGORI'] == $rowKategori['ID_KATEGORI']) ? 'selected' : '' ?> ><?= $rowKategori['NAMA_KATEGORI'] ?></option>
                                                                         <?php
                                                                         }
                                                                         ?>
@@ -152,22 +173,25 @@
                                                             <label for="penulis1[]" class="col-sm-3 col-form-label">Penulis</label>
                                                             <div class="col-sm-9">
                                                                 <div id="writers-container-edit-<?php echo $row['ID_BUKU']; ?>">
-                                                                    <select name="penulis1[]" class="form-select">
-                                                                        <option selected>Penulis</option>
-                                                                        <?php
-                                                                        $queryPenulis = "SELECT * FROM penulis";
-                                                                        $resultPenulis = mysqli_query($conn, $queryPenulis);
-                                                                        while ($rowPenulis = mysqli_fetch_assoc($resultPenulis)) {
-                                                                        ?>
-                                                                            <option value="<?= $rowPenulis['ID_PENULIS'] ?>"><?= $rowPenulis['NAMA_PENULIS'] ?></option>
-                                                                        <?php
-                                                                        }
-                                                                        ?>
-                                                                    </select>
+                                                                    <?php foreach ($rowEdit['ID_PENULIS'] as $selectedPenulis): ?>
+                                                                        <select name="penulis1[]" class="form-select">
+                                                                            <option selected>Penulis</option>
+                                                                            <?php
+                                                                            $queryPenulis = "SELECT * FROM penulis";
+                                                                            $resultPenulis = mysqli_query($conn, $queryPenulis);
+                                                                            while ($rowPenulis = mysqli_fetch_assoc($resultPenulis)) {
+                                                                            ?>
+                                                                                <option value="<?= $rowPenulis['ID_PENULIS'] ?>" <?= ($selectedPenulis == $rowPenulis['ID_PENULIS']) ? 'selected' : '' ?>>
+                                                                                    <?= $rowPenulis['NAMA_PENULIS'] ?>
+                                                                                </option>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </select>
+                                                                        <br>
+                                                                    <?php endforeach; ?>
                                                                 </div>
-                                                                <br>
-                                                                
-                                                                <button class="btn btn-primary" onclick="addWriterEdit('writers-container-edit-<?php echo $row['ID_BUKU']; ?>')">Add Writer</button>
+                                                                <button type="button" class="btn btn-primary" onclick="addWriterEdit('writers-container-edit-<?php echo $row['ID_BUKU']; ?>')">Add Writer</button>
                                                             </div>
                                                         </div>
 
@@ -211,8 +235,9 @@
                                                         <div class="mb-3 row form-group">
                                                             <label for="file1" class="col-sm-3 col-form-label">Img</label>
                                                             <div class="col-sm-9">
+                                                                
                                                                 <!-- Input type "file" allows users to choose a new image file -->
-                                                                <input type="file" class="form-control" id="file1" name="newFile" required>
+                                                                <input type="file" class="form-control" id="file1" name="newFile">
                                                                 <!-- Hidden input to store the existing image file name -->
                                                                 <input type="hidden" name="img1" value="<?= $row['IMG'] ?>">
                                                             </div>
@@ -311,7 +336,7 @@
                                                 </select>
                                             </div>
                                             <br>
-                                            <button class="btn btn-primary" onclick="addWriter('writers-container-create')">Add Writer</button>
+                                            <button type="button" class="btn btn-primary" onclick="addWriter('writers-container-create')">Add Writer</button>
                                         </div>
                                     </div>
 
@@ -447,7 +472,7 @@
         // Create a label element
         var label = document.createElement('label');
         label.className = 'col-sm-3 col-form-label';
-        label.textContent = 'Penulis1';
+        
 
         // Create a div for the select element
         var selectDiv = document.createElement('div');
