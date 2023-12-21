@@ -135,16 +135,16 @@
                                                         <?php 
                                                         $id = $row['ID_BUKU'];
                                                         $queryEdit = "SELECT buku.*, 
-                    GROUP_CONCAT(DISTINCT penulis.NAMA_PENULIS) AS NAMA_PENULIS, 
-                    GROUP_CONCAT(DISTINCT penulis.ID_PENULIS) AS ID_PENULIS,
-                    kategori.NAMA_KATEGORI,
-                    kategori.ID_KATEGORI
-              FROM buku
-              LEFT JOIN detail_penulis_buku ON buku.ID_BUKU = detail_penulis_buku.ID_BUKU
-              LEFT JOIN penulis ON detail_penulis_buku.ID_PENULIS = penulis.ID_PENULIS
-              LEFT JOIN detail_kategori_buku ON buku.ID_BUKU = detail_kategori_buku.ID_BUKU
-              LEFT JOIN kategori ON detail_kategori_buku.ID_KATEGORI = kategori.ID_KATEGORI
-              WHERE buku.ID_BUKU = '$id'";
+                                                                GROUP_CONCAT(DISTINCT penulis.NAMA_PENULIS) AS NAMA_PENULIS, 
+                                                                GROUP_CONCAT(DISTINCT penulis.ID_PENULIS) AS ID_PENULIS,
+                                                                kategori.NAMA_KATEGORI,
+                                                                kategori.ID_KATEGORI
+                                                        FROM buku
+                                                        LEFT JOIN detail_penulis_buku ON buku.ID_BUKU = detail_penulis_buku.ID_BUKU
+                                                        LEFT JOIN penulis ON detail_penulis_buku.ID_PENULIS = penulis.ID_PENULIS
+                                                        LEFT JOIN detail_kategori_buku ON buku.ID_BUKU = detail_kategori_buku.ID_BUKU
+                                                        LEFT JOIN kategori ON detail_kategori_buku.ID_KATEGORI = kategori.ID_KATEGORI
+                                                        WHERE buku.ID_BUKU = '$id'";
 
                                                         $resultEdit = mysqli_query($conn, $queryEdit);
                                                         $rowEdit = mysqli_fetch_assoc($resultEdit);
@@ -277,7 +277,7 @@
 
                 <div id="exampleModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
                     role="dialog" aria-labelledby="modalTitleId" aria-hidden="true" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-height: 80vh; overflow-y: auto;">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="myModalLabel"><i class="fa fa-users"></i> Tambah Buku</h5>
@@ -286,8 +286,8 @@
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
-                            <form action="" method="post" enctype="multipart/form-data" >
-                                <div class="modal-body custom-modal-body">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="modal-body custom-modal-body" >
                                     <div class="mb-3 row form-group">
                                         <label for="recipient-name" class="col-sm-3 col-form-label">Judul</label>
                                         <div class="col-sm-9">
