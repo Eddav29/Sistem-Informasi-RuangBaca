@@ -24,34 +24,67 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // Fetch counts for history and notifications
-        $query_history = "SELECT COUNT(*) AS history_count FROM PEMINJAMAN";
-        $result_history = mysqli_query($conn, $query_history);
-        $row_history = mysqli_fetch_assoc($result_history);
 
-        // Query the database for notification count
-        $query_notifications_count = "SELECT COUNT(*) AS notification_count FROM peminjaman p
-                              JOIN DETAILPEMINJAMAN dp ON p.ID_PEMINJAMAN = dp.ID_PEMINJAMAN
-                              WHERE p.ID_MEMBER = ? AND p.TANGGAL_PENGEMBALIAN >= CURDATE()";
+// Fetch counts for history and notifications
+$query_history = "SELECT COUNT(*) AS history_count 
+                  FROM PEMINJAMAN AS p
+                  JOIN member AS m ON p.ID_MEMBER = m.ID_MEMBER
+                  WHERE p.ID_MEMBER = ?";
+$stmt_history = mysqli_prepare($conn, $query_history);
 
-        $stmt_notifications_count = mysqli_prepare($conn, $query_notifications_count);
+// Check if the statement was prepared successfully
+if ($stmt_history) {
+    // Bind the parameter
+    mysqli_stmt_bind_param($stmt_history, "s", $userID);
 
-        if ($stmt_notifications_count) {
-            mysqli_stmt_bind_param($stmt_notifications_count, "s", $userID);
-            mysqli_stmt_execute($stmt_notifications_count);
+    // Execute the query
+    mysqli_stmt_execute($stmt_history);
 
-            $result_notifications_count = mysqli_stmt_get_result($stmt_notifications_count);
-            $row_notifications_count = mysqli_fetch_assoc($result_notifications_count);
+    // Get the result set
+    $result_history = mysqli_stmt_get_result($stmt_history);
+    
+    // Fetch the row
+    $row_history = mysqli_fetch_assoc($result_history);
 
-            $notificationCount = $row_notifications_count['notification_count'];
+    // Close the statement
+    mysqli_stmt_close($stmt_history);
+} else {
+    // Handle the error if the statement was not prepared successfully
+    echo "Error in preparing statement for history: " . mysqli_error($conn);
+}
 
-            // Close the statement
-            mysqli_stmt_close($stmt_notifications_count);
-        } else {
-            echo "Error in the query: " . mysqli_error($conn);
-        }
+// Fetch counts for notifications
+$query_notifications = "SELECT COUNT(*) AS notification_count 
+                        FROM BUKU AS b
+                        JOIN DETAILPEMINJAMAN AS dp ON b.ID_BUKU = dp.ID_BUKU
+                        JOIN PEMINJAMAN AS p ON dp.ID_PEMINJAMAN = p.ID_PEMINJAMAN
+                        JOIN member AS m ON p.ID_MEMBER = m.ID_MEMBER
+                        WHERE p.ID_MEMBER = ?";
+$stmt_notifications = mysqli_prepare($conn, $query_notifications);
 
-        ?>
+// Check if the statement was prepared successfully
+if ($stmt_notifications) {
+    // Bind the parameter
+    mysqli_stmt_bind_param($stmt_notifications, "s", $userID);
+
+    // Execute the query
+    mysqli_stmt_execute($stmt_notifications);
+
+    // Get the result set
+    $result_notifications = mysqli_stmt_get_result($stmt_notifications);
+    
+    // Fetch the row
+    $row_notifications = mysqli_fetch_assoc($result_notifications);
+
+    // Close the statement
+    mysqli_stmt_close($stmt_notifications);
+} else {
+    // Handle the error if the statement was not prepared successfully
+    echo "Error in preparing statement for notifications: " . mysqli_error($conn);
+}
+
+
+?>
         <main class="col-md-9 col-lg-12 px-md-4 m=0 ms-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Dashboard</h1>
@@ -102,19 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-bar-chart-line-fill" aria-hidden="true"></i> STATISTIK BUKU</h5>
-                            <p class="card-text">Total Inventaris: 50</p>
-                            <p class="card-text">Buku Dipinjam: 30</p>
-                            <p class="card-text">Buku Di rak: 20</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <BR></BR>
-            <div class="row">
+                
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
@@ -132,30 +153,49 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
+                                <?php
                                     $no = 1;
-                                    $query = $query = "SELECT b.JUDUL_BUKU, p.TANGGAL_PEMINJAMAN, p.TANGGAL_PENGEMBALIAN
-                                    FROM buku b
-                                    JOIN DETAILPEMINJAMAN dp ON b.ID_BUKU = dp.ID_BUKU
-                                    JOIN PEMINJAMAN p ON dp.ID_PEMINJAMAN = p.ID_PEMINJAMAN
-                                    ORDER BY p.ID_PEMINJAMAN DESC";
-                                    $result = mysqli_query($conn, $query);
+                                    $query = "SELECT p.*, b.JUDUL_BUKU FROM peminjaman p
+                                    JOIN DETAILPEMINJAMAN dp ON p.ID_PEMINJAMAN = dp.ID_PEMINJAMAN
+                                    JOIN BUKU b ON dp.ID_BUKU = b.ID_BUKU
+                                    WHERE p.ID_MEMBER = ?";
+                                    $stmt = mysqli_prepare($conn, $query);
 
-                                    $count = 0;
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                    ?>
-                                        <tr>
-                                            <th scope="row"><?= $no++ ?></th>
-                                            <td><?= $row['JUDUL_BUKU'] ?></td>
-                                            <td><?= $row['TANGGAL_PEMINJAMAN'] ? date('Y-m-d', strtotime($row['TANGGAL_PEMINJAMAN'])) : 'N/A' ?></td>
-                                            <td><?= $row['TANGGAL_PENGEMBALIAN'] ? date('Y-m-d', strtotime($row['TANGGAL_PENGEMBALIAN'])) : 'N/A' ?></td>
-                                        </tr>
-                                    <?php
-                                        $count++;
-                                        if ($count == 5) {
-                                            break;
+                                    // Check if the statement was prepared successfully
+                                    if ($stmt) {
+                                        // Bind the parameter
+                                        mysqli_stmt_bind_param($stmt, "s", $userID);
+
+                                        // Execute the query
+                                        mysqli_stmt_execute($stmt);
+
+                                        // Get the result set
+                                        $result = mysqli_stmt_get_result($stmt);
+
+                                        $count = 0;
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            ?>
+                                            <tr>
+                                                <th scope="row"><?= $no++ ?></th>
+                                                <td><?= $row['JUDUL_BUKU'] ?></td>
+                                                <td><?= $row['TANGGAL_PEMINJAMAN'] ? date('Y-m-d', strtotime($row['TANGGAL_PEMINJAMAN'])) : 'N/A' ?></td>
+                                                <td><?= $row['TANGGAL_PENGEMBALIAN'] ? date('Y-m-d', strtotime($row['TANGGAL_PENGEMBALIAN'])) : 'N/A' ?></td>
+                                            </tr>
+                                            <?php
+                                            $count++;
+                                            if ($count == 5) {
+                                                break;
+                                            }
                                         }
-                                    } ?>
+
+                                        // Close the statement
+                                        mysqli_stmt_close($stmt);
+                                    } else {
+                                        // Handle the error if the statement was not prepared successfully
+                                        echo "Error in preparing statement: " . mysqli_error($conn);
+                                    }
+                                    ?>
+
                                 </tbody>
 
                             </table>
@@ -164,49 +204,7 @@
                     </div>
 
                 </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5 class="card-title"><i class="fa-solid fa-bell"></i> NOTIFIKASI</h5>
-                            <a href="index.php?page=Notifikasi" class="btn btn-primary"> Lihat Selengkapnya >></a>
-
-                        </div>
-                        <div class="table-responsive small">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Judul</th>
-                                        <th scope="col">Penulis</th>
-                                        <th scope="col">Jumlah</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $no = 1;
-                                    $query = "SELECT * FROM buku order by id_buku desc";
-                                    $result = mysqli_query($conn, $query);
-
-                                    $count = 0;
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                    ?>
-                                    <?php
-                                        $count++;
-                                        if ($count == 5) {
-                                            break;
-                                        }
-                                    } ?>
-                                </tbody>
-
-                            </table>
-                        </div>
-
-
-                    </div>
-
-                </div>
-
+                
             </div>
             <br></br>
 

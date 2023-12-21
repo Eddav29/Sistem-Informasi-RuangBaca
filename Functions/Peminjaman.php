@@ -157,7 +157,7 @@ class Peminjaman
             $status = $_POST['STATUS'];
             $tanggal_peminjaman = mysqli_real_escape_string($this->conn, $_POST['tanggal_peminjaman1']);
             $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $_POST['tanggal_pengembalian1']);
-            $status_buku = $_POST['ID_BUKU_TAMBAH1'];
+            $status_buku = $_POST['ID_BUKU_TAMBAH'];
             $denda = mysqli_real_escape_string($this->conn, $_POST['DENDA']);
 
             // Call the function to save to the database

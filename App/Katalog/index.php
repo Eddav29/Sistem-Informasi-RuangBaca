@@ -87,7 +87,7 @@ include("katalog.php");
             <div class="col-md-4">
                 <div class="team-member">
                     <img src="path/to/team-member1.jpg" alt="Team Member 5" class="img-fluid" width="100px">
-                    <h4 class="team-member-name">Achmad Syahrul</h4>
+                    <h4 class="team-member-name">Achmad Syahrul Faroh</h4>
                     <p class="team-member-role">Front-End Developer</p>
                 </div>
             </div>
