@@ -375,63 +375,53 @@
                                                                                 class="form-control" method="post" id="ID_BUKU">
                                                                         </div>
                                                                         <div class="mb-3 row form-group">
-                                                                            <label for="ID_BUKU_TAMBAH1"
-                                                                                class="col-form-label">Pilih Buku:</label>
-                                                                            <select name="ID_BUKU_TAMBAH1[]" class="form-select"
-                                                                                id="ID_BUKU_TAMBAH1" multiple>
-                                                                                <?php
-                                                                                // Query untuk mengambil data buku dari tabel 'BUKU'
-                                                                                $queryBuku = "SELECT ID_BUKU, JUDUL_BUKU FROM BUKU";
-                                                                                $resultBuku = mysqli_query($conn, $queryBuku);
+    <label for="ID_BUKU_TAMBAH" class="col-form-label">Pilih Buku:</label>
+    <select name="ID_BUKU_TAMBAH[]" class="form-select" id="ID_BUKU_TAMBAH" multiple>
+        <!-- Data buku diambil dari database -->
+        <?php
+        $queryBuku = "SELECT ID_BUKU, JUDUL_BUKU FROM BUKU";
+        $resultBuku = mysqli_query($conn, $queryBuku);
 
-                                                                                // Periksa apakah query berhasil dijalankan
-                                                                                if ($resultBuku) {
-                                                                                    // Loop melalui setiap baris hasil query dan tampilkan sebagai option dalam select
-                                                                                    while ($rowBuku = mysqli_fetch_assoc($resultBuku)) {
-                                                                                        echo '<option value="' . $rowBuku['ID_BUKU'] . '">' . $rowBuku['JUDUL_BUKU'] . '</option>';
-                                                                                    }
-                                                                                } else {
-                                                                                    // Tampilkan pesan jika terjadi kesalahan saat mengambil data
-                                                                                    echo "Gagal mengambil data buku: " . mysqli_error($conn);
-                                                                                }
-                                                                                ?>
-                                                                            </select>
-                                                                            <div class="mb-3 row form-group">
-                                                                                <div class="space-above-button">
-                                                                                    <input type="button" value="Tambahkan"
-                                                                                        onclick="addSelectedBooksTambah1()">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="mb-3 row form-group">
-                                                                                <label for="selectedBooksTambah1"
-                                                                                    class="col-form-label">Buku yang
-                                                                                    Dipilih:</label>
-                                                                                <select name="selectedBooksTambah1[]"
-                                                                                    id="selectedBooksTambah1"
-                                                                                    class="form-select" multiple></select>
-                                                                            </div>
-                                                                            <script>
-                                                                                function addSelectedBooksTambah1() {
-                                                                                    var select = document.getElementById1(
-                                                                                        "ID_BUKU_TAMBAH1");
-                                                                                    var selectedItems = [];
-                                                                                    var selectedBooks = document.getElementById1(
-                                                                                        "selectedBooksTambah1");
+        if ($resultBuku) {
+            while ($rowBuku = mysqli_fetch_assoc($resultBuku)) {
+                echo '<option value="' . $rowBuku['ID_BUKU'] . '">' . $rowBuku['JUDUL_BUKU'] . '</option>';
+            }
+        } else {
+            echo "Gagal mengambil data buku: " . mysqli_error($conn);
+        }
+        ?>
+    </select>
+    <div class="mb-3 row form-group">
+        <div class="space-above-button">
+            <!-- Tombol "Tambahkan" untuk memindahkan buku yang ingin dipinjam -->
+            <input type="button" value="Tambahkan" onclick="addSelectedBooksTambah()">
+        </div>
+    </div>
+    <div class="mb-3 row form-group">
+        <label for="selectedBooksTambah" class="col-form-label">Buku yang Dipilih:</label>
+        <select name="selectedBooksTambah[]" id="selectedBooksTambah" class="form-select" multiple></select>
+    </div>
+</div>
 
-                                                                                    for (var i = 0; i < select.options
-                                                                                        .length; i++) {
-                                                                                        if (select.options[i].selected) {
-                                                                                            selectedItems.push(select.options[i]);
-                                                                                        }
-                                                                                    }
+<script>
+    function addSelectedBooksTambah() {
+        var select = document.getElementById("ID_BUKU_TAMBAH");
+        var selectedItems = [];
+        var selectedBooks = document.getElementById("selectedBooksTambah");
 
-                                                                                    selectedItems.forEach(function (item) {
-                                                                                        selectedBooks.appendChild(item
-                                                                                            .cloneNode(true));
-                                                                                    });
-                                                                                }
-                                                                            </script>
-                                                                        </div>
+        for (var i = 0; i < select.options.length; i++) {
+            if (select.options[i].selected) {
+                selectedItems.push(select.options[i]);
+            }
+        }
+
+        selectedItems.forEach(function (item) {
+            // Append item yang dipilih ke dropdown buku yang ingin dipinjam
+            selectedBooks.appendChild(item.cloneNode(true));
+        });
+    }
+</script>
+
                                                                         <div class="mb-3 row form-group">
                                                                             <label for="tanggal_peminjaman1"
                                                                                 class="col-sm-3 col-form-label">Tanggal
@@ -578,13 +568,13 @@
                                                 <div class="space-above-button">
 
                                                     <input type="button" value="Tambahkan"
-                                                        onclick="addSelectedBooksTambah()">
+                                                        onclick="addSelectedBooksTambah1()">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row form-group">
-                                                <label for="selectedBooksTambah" class="col-form-label">Buku yang
+                                                <label for="selectedBooksTambah1" class="col-form-label">Buku yang
                                                     Dipilih:</label>
-                                                <select name="selectedBooksTambah" id="selectedBooksTambah"
+                                                <select name="selectedBooksTambah1" id="selectedBooksTambah1"
                                                     class="form-select" multiple>
                                                 </select>
                                             </div>
@@ -592,10 +582,10 @@
 
 
                                             <script>
-                                                function addSelectedBooksTambah() {
+                                                function addSelectedBooksTambah1() {
                                                     var select = document.getElementById("ID_BUKU_TAMBAH");
                                                     var selectedItems = [];
-                                                    var selectedBooks = document.getElementById("selectedBooksTambah");
+                                                    var selectedBooks = document.getElementById("selectedBooksTambah1");
 
                                                     for (var i = 0; i < select.options.length; i++) {
                                                         if (select.options[i].selected) {
