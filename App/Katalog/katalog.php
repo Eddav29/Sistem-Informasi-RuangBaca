@@ -11,33 +11,33 @@
     <link rel="stylesheet" href="../../Assets/style.css">
     <link rel="icon" href="../../Assets/img/logo.jpg" type="image/x-icon">
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f3f3f3;
-        margin-top: 20px;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin-top: 20px;
+        }
 
-    .card {
-        border: none;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.3s ease-in-out;
-    }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
 
-    .card:hover {
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
 
-    /* Adjust card image size */
-    .card-img-top {
-        height: 300px;
-        object-fit: cover;
-    }
+        /* Adjust card image size */
+        .card-img-top {
+            height: 300px;
+            object-fit: cover;
+        }
 
-    /* Update pagination styling */
-    .pagination {
-        justify-content: center;
-    }
+        /* Update pagination styling */
+        .pagination {
+            justify-content: center;
+        }
     </style>
 
 </head>
@@ -206,8 +206,8 @@
                     <!-- Registration form -->
                     <form id="registerForm" method="post" action="../../Login/register.php">
                         <div class="mb-3">
-                            <label for="ID_MEMBER" class="form-label">ID MEMBER</label>
-                            <input type="text" class="form-control" id="ID_MEMBER" name="ID_MEMBER">
+                            <label for="ID_MEMBER" class="form-label"></label>
+                            <input type="hidden" class="form-control" id="ID_MEMBER" name="ID_MEMBER">
                         </div>
                         <div class="mb-3">
                             <label for="USERNAME_MEMBER" class="form-label">Username</label>
@@ -291,106 +291,106 @@
     <script src="../../Assets/app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
     <script>
-    //toggle sidebar
-    document.querySelector(".custom-toggler").addEventListener("click", function() {
-        event.preventDefault();
-        toggleSidebar();
-    });
-
-    document.querySelector(".close-btn").addEventListener("click", function() {
-        event.preventDefault();
-        closeSidebar();
-    });
-
-    function toggleSidebar() {
-        document.querySelector(".sidebar").classList.toggle("open");
-    }
-
-    function closeSidebar() {
-        document.querySelector(".sidebar").classList.remove("open");
-    }
-
-    // Handle click event on the "Log in" button
-    document
-        .querySelector(".login-darkblue")
-        .addEventListener("click", function(e) {
-            e.preventDefault(); // Prevent the default behavior of the button
-
-            // Update the URL without reloading the page
-            history.pushState(null, null, "katalog.php");
-
-            // Show the modal manually
-            $("#loginModal").modal("show");
+        //toggle sidebar
+        document.querySelector(".custom-toggler").addEventListener("click", function () {
+            event.preventDefault();
+            toggleSidebar();
         });
 
-    // Handle click event on the "Register" link
-    document
-        .querySelector("#registerModalLink")
-        .addEventListener("click", function(e) {
-            e.preventDefault(); // Prevent the default behavior of the link
-
-            // Update the URL without reloading the page
-            history.pushState(null, null, "../Login/Member/register.php");
-
-            // Show the modal manually
-            $("#registerModal").modal("show");
+        document.querySelector(".close-btn").addEventListener("click", function () {
+            event.preventDefault();
+            closeSidebar();
         });
 
-    // Check password match on registration
-    document
-        .getElementById("registerForm")
-        .addEventListener("submit", function(e) {
-            var password = document.getElementById("registerPassword").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
+        function toggleSidebar() {
+            document.querySelector(".sidebar").classList.toggle("open");
+        }
 
-            if (password !== confirmPassword) {
-                e.preventDefault(); // Prevent form submission
-                document.getElementById("passwordMatchError").classList.remove("d-none");
-            } else {
-                document.getElementById("passwordMatchError").classList.add("d-none");
-            }
-        });
-    //search
-    $(document).ready(function() {
-        $(' #searchForm').submit(function(e) {
-            e.preventDefault();
-            var formData = $(this).serialize();
-            $.ajax({
-                type: 'POST',
-                url: '../../Functions/searchHandler.php',
-                data: formData,
-                success: function(response) { // Update bagian katalog dengan hasil pencarian
-                    $('#katalogContent').html(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
+        function closeSidebar() {
+            document.querySelector(".sidebar").classList.remove("open");
+        }
+
+        // Handle click event on the "Log in" button
+        document
+            .querySelector(".login-darkblue")
+            .addEventListener("click", function (e) {
+                e.preventDefault(); // Prevent the default behavior of the button
+
+                // Update the URL without reloading the page
+                history.pushState(null, null, "katalog.php");
+
+                // Show the modal manually
+                $("#loginModal").modal("show");
+            });
+
+        // Handle click event on the "Register" link
+        document
+            .querySelector("#registerModalLink")
+            .addEventListener("click", function (e) {
+                e.preventDefault(); // Prevent the default behavior of the link
+
+                // Update the URL without reloading the page
+                history.pushState(null, null, "../Login/Member/register.php");
+
+                // Show the modal manually
+                $("#registerModal").modal("show");
+            });
+
+        // Check password match on registration
+        document
+            .getElementById("registerForm")
+            .addEventListener("submit", function (e) {
+                var password = document.getElementById("registerPassword").value;
+                var confirmPassword = document.getElementById("confirmPassword").value;
+
+                if (password !== confirmPassword) {
+                    e.preventDefault(); // Prevent form submission
+                    document.getElementById("passwordMatchError").classList.remove("d-none");
+                } else {
+                    document.getElementById("passwordMatchError").classList.add("d-none");
                 }
             });
+        //search
+        $(document).ready(function () {
+            $(' #searchForm').submit(function (e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '../../Functions/searchHandler.php',
+                    data: formData,
+                    success: function (response) { // Update bagian katalog dengan hasil pencarian
+                        $('#katalogContent').html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
         });
-    });
-    var
-        passwordInput = document.getElementById("password");
-    var
-        passwordInput = document.getElementById("loginPassword"); // Show password login document
-    .getElementById("togglePassword").addEventListener("click", function() {
         var
-            passwordInput = document.getElementById("loginPassword");
+            passwordInput = document.getElementById("password");
         var
-            type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-        passwordInput.setAttribute("type", type);
-        this.innerHTML = type === "password" ?
-            '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-    }); // Show
+            passwordInput = document.getElementById("loginPassword"); // Show password login document
+    .getElementById("togglePassword").addEventListener("click", function () {
+                var
+                    passwordInput = document.getElementById("loginPassword");
+                var
+                    type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                passwordInput.setAttribute("type", type);
+                this.innerHTML = type === "password" ?
+                    '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            }); // Show
     password register document.getElementById("togglePasswordRegister")
-        .addEventListener("click", function() {
-            var
-                passwordInput = document.getElementById("registerPassword");
-            var
-                type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-            passwordInput.setAttribute("type", type);
-            this.innerHTML = type === "password" ?
-                '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-        });
+            .addEventListener("click", function () {
+                var
+                    passwordInput = document.getElementById("registerPassword");
+                var
+                    type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                passwordInput.setAttribute("type", type);
+                this.innerHTML = type === "password" ?
+                    '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
     </script>
 
 </body>
