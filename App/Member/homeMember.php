@@ -1,28 +1,28 @@
 <div class="container-fluid ">
     <div class="row">
-    <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+        <?php
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-// Check if the user is logged in
-if (!isset($_SESSION["userID"]) || !isset($_SESSION["userLevel"])) {
-    header("Location: App/Katalog/index.php");
-    exit();
-}
+        // Check if the user is logged in
+        if (!isset($_SESSION["userID"]) || !isset($_SESSION["userLevel"])) {
+            header("Location: App/Katalog/index.php");
+            exit();
+        }
 
-// Retrieve ID_MEMBER from the session
-$userID = $_SESSION["userID"];
-$userLevel = $_SESSION["userLevel"];
+        // Retrieve ID_MEMBER from the session
+        $userID = $_SESSION["userID"];
+        $userLevel = $_SESSION["userLevel"];
 
-// Include your database connection file or establish a connection here
+        // Include your database connection file or establish a connection here
 
-$database = new Database();
-$conn = $database->getConnection();
+        $database = new Database();
+        $conn = $database->getConnection();
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
 
 // Fetch counts for history and notifications
@@ -106,7 +106,7 @@ if ($stmt_notifications) {
                 <div class="col-sm-3 m-auto">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5><?= $row_notifications['notification_count'] ?></h5>
+                            <h5><?= $notificationCount ?></h5>
                             <h5><i class="fa-solid fa-bell fa-2x" aria-hidden="true"></i></h5>
                         </div>
                         <div class="card-body">
@@ -115,6 +115,7 @@ if ($stmt_notifications) {
                         </div>
                     </div>
                 </div>
+
             </div>
             <br>
             <div class="row">
