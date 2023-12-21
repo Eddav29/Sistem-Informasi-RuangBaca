@@ -66,7 +66,6 @@ if ($stmt) {
                                     <th scope="col">TGL PEMINJAMAN</th>
                                     <th scope="col">TGL PENGEMBALIAN</th>
                                     <th scope="col">DENDA</th>
-                                    <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,11 +77,7 @@ if ($stmt) {
                                         <td><?= isset($row['JUDUL_BUKU']) ? $row['JUDUL_BUKU'] : 'N/A' ?></td>
                                         <td><?= isset($row['TANGGAL_PEMINJAMAN']) ? date('Y-m-d', strtotime($row['TANGGAL_PEMINJAMAN'])) : 'N/A' ?></td>
                                         <td><?= isset($row['TANGGAL_PENGEMBALIAN']) ? date('Y-m-d', strtotime($row['TANGGAL_PENGEMBALIAN'])) : 'N/A' ?></td>
-                                        <td><?= isset($row['DENDA']) ? $row['DENDA'] : 'N/A' ?></td>
-                                        <td>
-                                            <a href="edit.php?id=<?= $row['ID_PEMINJAMAN'] ?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i>Edit</a>
-                                            <a href="delete.php?id=<?= $row['ID_PEMINJAMAN'] ?>" onclick="javascript:return confirm('Hapus Data Buku?');" class="btn btn-danger btn-xs"><i class="fa fa-pencil-square-o"></i>Hapus</a>
-                                        </td>
+                                        <td><?= isset($row['DENDA']) ? $row['DENDA'] : '0' ?></td>
                                     </tr>
                                     <?php
                                 }
