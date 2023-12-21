@@ -123,6 +123,7 @@ class Peminjaman
             return true; // Return true if the update was successful
         }
         return false;
+        
         if ($result_peminjaman) {
             // Update STATUS_PEMINJAMAN pada DETAILPEMINJAMAN
             $status_peminjaman_buku = mysqli_real_escape_string($this->conn, $status);
@@ -157,7 +158,7 @@ class Peminjaman
             $status = $_POST['STATUS'];
             $tanggal_peminjaman = mysqli_real_escape_string($this->conn, $_POST['tanggal_peminjaman1']);
             $tanggal_pengembalian = mysqli_real_escape_string($this->conn, $_POST['tanggal_pengembalian1']);
-            $status_buku = $_POST['ID_BUKU_TAMBAH'];
+            $status_buku = $_POST['ID_BUKU_TAMBAH1'];
             $denda = mysqli_real_escape_string($this->conn, $_POST['DENDA']);
 
             // Call the function to save to the database
@@ -288,21 +289,48 @@ class Peminjaman
                 pesan('danger', 'Gagal Mengubah status buku: ' . mysqli_error($this->conn));
             }
         }
+        
     }
 
 
+    public function DendaPeminjaman($id_peminjaman, $denda)
+{
+    // Escape dan validasi input
+    $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman);
+    $denda = mysqli_real_escape_string($this->conn, $denda);
 
-    // function openEditModal(idPeminjaman, statusBuku) {
-    //     document.getElementById('editID').value = idPeminjaman;
+    // Update tabel PEMINJAMAN dengan nilai denda yang diterima
+    $update_denda_query = "UPDATE PEMINJAMAN
+                           SET DENDA = '$denda'
+                           WHERE CURRENT_TIMESTAMP() > TANGGAL_PENGEMBALIAN
+                           AND ID_PEMINJAMAN = $id_peminjaman";
+    
+    $result_update_denda = mysqli_query($this->conn, $update_denda_query);
 
-    //     // Memeriksa status buku untuk menentukan radio button yang harus dicentang
-    //     if (statusBuku === 'Bagus') {
-    //         document.getElementById('bagus').checked = true;
-    //     } else if (statusBuku === 'Rusak') {
-    //         document.getElementById('rusak').checked = true;
-    //     }
+    return $result_update_denda;
+}
 
-    //     document.getElementById('editModal').style.display = 'block';
-    // }
+public function updateDendaPeminjaman()
+{
+    if (isset($_POST['ID_PEMINJAMAN'], $_POST['DENDA'])) {
+        $id_peminjaman = $_POST['ID_PEMINJAMAN'];
+        $denda = $_POST['DENDA'];
+
+        $result = $this->DendaPeminjaman($id_peminjaman, $denda);
+
+        if ($result) {
+            ob_start();
+            pesan('success', 'Denda Telah Diubah.');
+            header("Location: index.php?page=Peminjaman");
+            exit;
+        } else {
+            pesan('danger', 'Gagal Mengubah status Denda: ' . mysqli_error($this->conn));
+        }
+    }
+}
+
+    
+    
+    
 
 }
