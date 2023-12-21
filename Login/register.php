@@ -1,67 +1,51 @@
-    <!-- Registration Modal -->
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content bg-darkblue text-white">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">Register</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Registration form -->
-                    <form id="registerForm" method="post">
-                        <div class="mb-3">
-                            <label for="registerUsername" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="registerUsername">
-                        </div>
-                        <div class="mb-3">
-                            <label for="registerPassword" class="form-label">Password</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                <input type="password" class="form-control" id="registerPassword">
-                                <button type="button" class="btn btn-outline-secondary" id="togglePasswordRegister">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+<?php
+include("../Config/koneksi.php");
+$db = new Database();
+$conn = $db->getConnection();
 
-                        <div class="mb-3">
-                            <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <span id="passwordMatchError" class="text-danger d-none">Passwords do not match.</span>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                <input type="password" class="form-control" id="confirmPassword">
-                                <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword">
-                                    <i class="fas fa-eye"></i>
-                                </button>
+$idmember = $_POST['ID_MEMBER'] ?? '';
+$username = $_POST['USERNAME_MEMBER'] ?? '';
+$password = $_POST['PASSWORD_MEMBER'] ?? '';
+$hashed_password = md5($password);
+$fullName = $_POST['NAMA_MEMBER'] ?? '';
+$identityType = $_POST['JENIS_IDENTITAS'] ?? '';
+$identityNumber = $_POST['NOMOR_IDENTITAS'] ?? '';
+$address = $_POST['ALAMAT'] ?? '';
+$level = $_POST['LEVEL'] ?? '';
 
-                            </div>
-                        </div>
+// Memeriksa apakah ID_MEMBER sudah ada sebelumnya
+$check_query = "SELECT * FROM MEMBER WHERE ID_MEMBER = ?";
+$stmt_check = $conn->prepare($check_query);
+$stmt_check->bind_param('s', $idmember);
+$stmt_check->execute();
+$result = $stmt_check->get_result();
 
-                        <div class="mb-3">
-                            <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="fullName">
-                        </div>
-                        <div class="mb-3">
-                            <label for="identityType" class="form-label">Identity Type (Mahasiswa/Dosen)</label>
-                            <input type="text" class="form-control" id="identityType">
-                        </div>
-                        <div class="mb-3">
-                            <label for="identityNumber" class="form-label">Identity Number</label>
-                            <input type="text" class="form-control" id="identityNumber">
-                        </div>
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address">
-                        </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--End Modal-->
-    <script src="../../Assets/app.js"></script>
-    <script src=" ../../Assets/JQuery/jquery-3.7.1.min.js"></script>
-    <script src="../../Assets/Bootstraps/js/bootstrap.min.js"></script>
+if ($result->num_rows > 0) {
+    echo "ID_MEMBER sudah digunakan. Gunakan ID_MEMBER yang berbeda.";
+} else {
+    $sql = "INSERT INTO MEMBER (ID_MEMBER, USERNAME_MEMBER, PASSWORD_MEMBER, NAMA_MEMBER, JENIS_IDENTITAS, NOMOR_IDENTITAS, ALAMAT,LEVEL) 
+            VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+
+    // Persiapkan pernyataan SQL
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameters dengan tipe data yang sesuai
+    $stmt->bind_param('ssssssss', $idmember, $username, $hashed_password, $fullName, $identityType, $identityNumber, $address, $level);
+
+    // Eksekusi pernyataan INSERT
+    if ($stmt->execute()) {
+        echo "Registrasi berhasil!";
+        header("Location: ../App/Katalog/index.php");
+        exit();
+    } else {
+        echo "Registrasi gagal. Silakan coba lagi.";
+        // Jika ingin menampilkan pesan kesalahan detail:
+        echo "Error: " . $conn->error;
+    }
+
+    $stmt->close();
+}
+
+$stmt_check->close();
+$conn->close();
+?>
