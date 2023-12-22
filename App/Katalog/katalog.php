@@ -47,11 +47,13 @@
     <nav class="navbar navbar-expand-lg m-0 fixed-top">
         <div class="container-fluid">
 
-            <img src="../../Assets/img/logo.jpg" alt="Logo-ruangBaca" width="125px" class="d-inline-block align-text-top ">
+            <img src="../../Assets/img/logo.jpg" alt="Logo-ruangBaca" width="125px"
+                class="d-inline-block align-text-top ">
             <a class="navbar-brand fw-bold text-white" href="#">Ruang Baca</a>
 
             <!-- Toggler for Sidebar -->
-            <button class="custom-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="custom-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <div class="bar"></div>
                 <div class="bar"></div>
                 <div class="bar"></div>
@@ -85,7 +87,8 @@
                         </li>';
                     }
                     ?>
-                    <button class="btn btn-outline-light login-darkblue" type="submit" data-bs-toggle="modal" data-bs-target="#loginAwal" ">
+                    <button class="btn btn-outline-light login-darkblue" type="submit" data-bs-toggle="modal"
+                        data-bs-target="#loginAwal" ">
                         <i class=" fa-solid fa-right-to-bracket"></i> Log in
                     </button>
                 </ul>
@@ -122,7 +125,8 @@
                     }
                     ?>
 
-                    <button class="btn btn-outline-light login-darkblue" type="submit" data-bs-toggle="modal" data-bs-target="#loginModal" ">
+                    <button class="btn btn-outline-light login-darkblue" type="submit" data-bs-toggle="modal"
+                        data-bs-target="#loginModal" ">
                         <i class=" fa-solid fa-right-to-bracket"></i> Log in
                     </button>
                 </div>
@@ -138,16 +142,20 @@
             <div class="modal-content bg-darkblue text-white">
                 <div class="modal-header">
                     <h5 class="modal-title" id="loginModalLabel">Log in</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Struktur HTML untuk logo dan form -->
                     <div class="d-flex flex-column-reverse flex-lg-row align-items-lg-center">
-                        <form class="flex-grow-1" id="loginForm" action="../../Login/cek_login.php" method="post" onsubmit="return handleLoginForm()">
+                        <form class="flex-grow-1" id="loginForm" action="../../Login/cek_login.php" method="post"
+                            onsubmit="return handleLoginForm()">
                             <!-- ... (form fields) -->
                             <div class="mb-3 mt-3 text-dark">
                                 <h5>Login</h5>
-                                <p>If you are not a member, <a href="#" id="registerModalLink" class="text-darkblue" data-bs-toggle="modal" data-bs-target="#registerModal" style="text-decoration: none;">register here</a>!</p>
+                                <p>If you are not a member, <a href="#" id="registerModalLink" class="text-darkblue"
+                                        data-bs-toggle="modal" data-bs-target="#registerModal"
+                                        style="text-decoration: none;">register here</a>!</p>
                             </div>
 
                             <div class="mb-3">
@@ -191,15 +199,16 @@
             <div class="modal-content bg-darkblue text-white">
                 <div class="modal-header">
                     <h5 class="modal-title" id="registerModalLabel">Register</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Registration form -->
                     <form id="registerForm" method="post" action="../../Login/register.php">
-                        <!-- <div class="mb-3">
-                            <label for="ID_MEMBER" class="form-label">ID MEMBER</label>
+                        <div class="mb-3">
+                            <label for="ID_MEMBER" class="form-label">ID_MEMBER</label>
                             <input type="text" class="form-control" id="ID_MEMBER" name="ID_MEMBER">
-                        </div> -->
+                        </div>
                         <div class="mb-3">
                             <label for="USERNAME_MEMBER" class="form-label">Username</label>
                             <input type="text" class="form-control" id="USERNAME_MEMBER" name="USERNAME_MEMBER">
@@ -236,11 +245,13 @@
                         <div class="mb-3">
                             <label for="JENIS_IDENTITAS" class="form-label">Jenis Identitas (KTM/KTP)</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="JENIS_IDENTITAS" id="KTM" value="KTM">
+                                <input class="form-check-input" type="radio" name="JENIS_IDENTITAS" id="KTM"
+                                    value="KTM">
                                 <label class="form-label" for="KTM">KTM</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="JENIS_IDENTITAS" id="KTP" value="KTP">
+                                <input class="form-check-input" type="radio" name="JENIS_IDENTITAS" id="KTP"
+                                    value="KTP">
                                 <label class="form-label" for="KTP">KTP</label>
                             </div>
                         </div>
@@ -281,12 +292,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
     <script>
         //toggle sidebar
-        document.querySelector(".custom-toggler").addEventListener("click", function() {
+        document.querySelector(".custom-toggler").addEventListener("click", function () {
             event.preventDefault();
             toggleSidebar();
         });
 
-        document.querySelector(".close-btn").addEventListener("click", function() {
+        document.querySelector(".close-btn").addEventListener("click", function () {
             event.preventDefault();
             closeSidebar();
         });
@@ -302,7 +313,7 @@
         // Handle click event on the "Log in" button
         document
             .querySelector(".login-darkblue")
-            .addEventListener("click", function(e) {
+            .addEventListener("click", function (e) {
                 e.preventDefault(); // Prevent the default behavior of the button
 
                 // Update the URL without reloading the page
@@ -315,7 +326,7 @@
         // Handle click event on the "Register" link
         document
             .querySelector("#registerModalLink")
-            .addEventListener("click", function(e) {
+            .addEventListener("click", function (e) {
                 e.preventDefault(); // Prevent the default behavior of the link
 
                 // Update the URL without reloading the page
@@ -328,7 +339,7 @@
         // Check password match on registration
         document
             .getElementById("registerForm")
-            .addEventListener("submit", function(e) {
+            .addEventListener("submit", function (e) {
                 var password = document.getElementById("registerPassword").value;
                 var confirmPassword = document.getElementById("confirmPassword").value;
 
@@ -340,44 +351,46 @@
                 }
             });
         //search
-        $(document).ready(function() {
-            $(' #searchForm').submit(function(e) {
+        $(document).ready(function () {
+            $(' #searchForm').submit(function (e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
                 $.ajax({
                     type: 'POST',
                     url: '../../Functions/searchHandler.php',
                     data: formData,
-                    success: function(response) { // Update bagian katalog dengan hasil pencarian
+                    success: function (response) { // Update bagian katalog dengan hasil pencarian
                         $('#katalogContent').html(response);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error(error);
                     }
                 });
             });
         });
-
-        function togglePassword(passwordFieldId, toggleButtonId) {
-            var passwordInput = document.getElementById(passwordFieldId);
-            var toggleButton = document.getElementById(toggleButtonId);
-
-            var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-            passwordInput.setAttribute("type", type);
-
-            toggleButton.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-        }
-
-        document.getElementById("togglePasswordRegister").addEventListener("click", function() {
-            togglePassword('PASSWORD_MEMBER', 'togglePasswordRegister');
-        });
-
-        document.getElementById("togglePassword").addEventListener("click", function() {
-            togglePassword('loginPassword', 'togglePassword');
-        });
-        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
-            toggleConfirmPassword();
-        });
+        var
+            passwordInput = document.getElementById("password");
+        var
+            passwordInput = document.getElementById("loginPassword"); // Show password login document
+    .getElementById("togglePassword").addEventListener("click", function () {
+                var
+                    passwordInput = document.getElementById("loginPassword");
+                var
+                    type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                passwordInput.setAttribute("type", type);
+                this.innerHTML = type === "password" ?
+                    '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            }); // Show
+    password register document.getElementById("togglePasswordRegister")
+            .addEventListener("click", function () {
+                var
+                    passwordInput = document.getElementById("registerPassword");
+                var
+                    type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                passwordInput.setAttribute("type", type);
+                this.innerHTML = type === "password" ?
+                    '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
     </script>
 
 </body>
