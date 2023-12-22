@@ -206,8 +206,8 @@
                     <!-- Registration form -->
                     <form id="registerForm" method="post" action="../../Login/register.php">
                         <div class="mb-3">
-                            <label for="ID_MEMBER" class="form-label"></label>
-                            <input type="hidden" class="form-control" id="ID_MEMBER" name="ID_MEMBER">
+                            <label for="ID_MEMBER" class="form-label">ID_MEMBER</label>
+                            <input type="text" class="form-control" id="ID_MEMBER" name="ID_MEMBER">
                         </div>
                         <div class="mb-3">
                             <label for="USERNAME_MEMBER" class="form-label">Username</label>
