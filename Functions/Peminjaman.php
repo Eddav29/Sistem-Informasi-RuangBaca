@@ -123,7 +123,7 @@ class Peminjaman
             return true; // Return true if the update was successful
         }
         return false;
-        
+
         if ($result_peminjaman) {
             // Update STATUS_PEMINJAMAN pada DETAILPEMINJAMAN
             $status_peminjaman_buku = mysqli_real_escape_string($this->conn, $status);
@@ -286,51 +286,51 @@ class Peminjaman
                 header("Location: index.php?page=Peminjaman");
                 exit;
             } else {
-                pesan('danger', 'Gagal Mengubah status buku: ' . mysqli_error($this->conn));
+                pesan('danger', 'Gagal Mengubah status: ' . mysqli_error($this->conn));
             }
         }
-        
+
     }
 
 
     public function DendaPeminjaman($id_peminjaman, $denda)
-{
-    // Escape dan validasi input
-    $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman);
-    $denda = mysqli_real_escape_string($this->conn, $denda);
+    {
+        // Escape dan validasi input
+        $id_peminjaman = mysqli_real_escape_string($this->conn, $id_peminjaman);
+        $denda = mysqli_real_escape_string($this->conn, $denda);
 
-    // Update tabel PEMINJAMAN dengan nilai denda yang diterima
-    $update_denda_query = "UPDATE PEMINJAMAN
+        // Update tabel PEMINJAMAN dengan nilai denda yang diterima
+        $update_denda_query = "UPDATE PEMINJAMAN
                            SET DENDA = '$denda'
                            WHERE CURRENT_TIMESTAMP() > TANGGAL_PENGEMBALIAN
                            AND ID_PEMINJAMAN = $id_peminjaman";
-    
-    $result_update_denda = mysqli_query($this->conn, $update_denda_query);
 
-    return $result_update_denda;
-}
+        $result_update_denda = mysqli_query($this->conn, $update_denda_query);
 
-public function updateDendaPeminjaman()
-{
-    if (isset($_POST['ID_PEMINJAMAN'], $_POST['DENDA'])) {
-        $id_peminjaman = $_POST['ID_PEMINJAMAN'];
-        $denda = $_POST['DENDA'];
+        return $result_update_denda;
+    }
 
-        $result = $this->DendaPeminjaman($id_peminjaman, $denda);
+    public function updateDendaPeminjaman()
+    {
+        if (isset($_POST['ID_PEMINJAMAN'], $_POST['DENDA'])) {
+            $id_peminjaman = $_POST['ID_PEMINJAMAN'];
+            $denda = $_POST['DENDA'];
 
-        if ($result) {
-            ob_start();
-            pesan('success', 'Denda Telah Diubah.');
-            header("Location: index.php?page=Peminjaman");
-            exit;
-        } else {
-            pesan('danger', 'Gagal Mengubah status Denda: ' . mysqli_error($this->conn));
+            $result = $this->DendaPeminjaman($id_peminjaman, $denda);
+
+            if ($result) {
+                ob_start();
+                pesan('success', 'Denda Telah Diubah.');
+                header("Location: index.php?page=Peminjaman");
+                exit;
+            } else {
+                pesan('danger', 'Gagal Mengubah status Denda: ' . mysqli_error($this->conn));
+            }
         }
     }
-}
 
-    
-    
-    
+
+
+
 
 }

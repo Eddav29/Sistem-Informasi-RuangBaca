@@ -271,21 +271,21 @@
             $pengembalianData = $resultPengembalian->fetch_all(MYSQLI_ASSOC);
 
             ?>
-                                <div class="table-container">
-                                    <table id="tablePeminjaman">
-                                    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                    <table class="table table-striped table-data">
-<div class="table-responsive small">
-                                    
-                                    <h2 class="table-title">Tabel Transaksi</h2>
-                                    <div class="table-peminjaman">Tabel Peminjaman</div>
-                                    <!-- Tombol "Tambah" untuk menambahkan data -->
-                                    
-                                    <button type="button" class="add-button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    data-bs-whatever="@mdo">
+            <div class="table-container">
+                <table id="tablePeminjaman">
+                    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                        <table class="table table-striped table-data">
+                            <div class="table-responsive small">
+
+                                <h2 class="table-title">Tabel Transaksi</h2>
+                                <div class="table-peminjaman">Tabel Peminjaman</div>
+                                <!-- Tombol "Tambah" untuk menambahkan data -->
+
+                                <button type="button" class="add-button" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                                     <i class="fa fa-plus"></i>Tambah Peminjam</button>
-                                    
-                                    <!-- Table for Peminjaman CRUD -->
+
+                                <!-- Table for Peminjaman CRUD -->
 
                                 <thead>
                                     <tr>
@@ -298,7 +298,7 @@
                                         <th>status Peminjaman</th>
                                         <th>Denda</th>
                                         <th>Aksi</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -320,70 +320,73 @@
                                             echo "<td>";
 
                                             ?>
-                                    <!-- Tombol Edit dan Hapus dalam bentuk button -->
+                                            <!-- Tombol Edit dan Hapus dalam bentuk button -->
 
 
-                                    <!-- HTML & PHP -->
-                                    <div class="d-flex">
+                                            <!-- HTML & PHP -->
+                                            <div class="d-flex">
 
-                                        <a href='index.php?page=edit&id=<?= $row["ID Peminjaman"]; ?>'
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#myModal<?= $row['ID Peminjaman']; ?>"
-                                            class="btn btn-warning btn-xs m-1"><i
-                                                class="fa fa-pencil-square-o"></i>Edit</a>
+                                                <a href='index.php?page=edit&id=<?= $row["ID Peminjaman"]; ?>'
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#myModal<?= $row['ID Peminjaman']; ?>"
+                                                    class="btn btn-warning btn-xs m-1"><i
+                                                        class="fa fa-pencil-square-o"></i>Edit</a>
 
-                                        <!-- Tombol Hapus -->
-                                        <a href="index.php?page=peminjaman&delete_id=<?= $row['ID Peminjaman'] ?>"
-                                            onclick="javascript:return confirm('Hapus Data Peminjaman?');"
-                                            class="btn btn-danger btn-xs m-1">
-                                            <i class="fa fa-trash"></i> Hapus
-                                        </a>
-                                        <!-- Modal untuk Edit -->
-                                        <div id="myModal<?= $row["ID Peminjaman"]; ?>" class="modal fade"
-                                            data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
-                                            aria-labelledby="myModalLabel<?= $row["ID Peminjaman"]; ?>"
-                                            aria-hidden="true" tabindex="-1">
-                                            <!-- Isi dari modal -->
-                                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title"
-                                                            id="myModalLabel<?= $row["ID Peminjaman"]; ?>">
-                                                            <i class="fa fa-users"></i> Edit Data Peminjaman
-                                                        </h5>
-                                                        <button type="button" class="btn-close-style"
-                                                            data-bs-dismiss="modal" aria-label="Close">
-                                                            <i class="fa-solid fa-xmark"></i>
-                                                        </button>
-                                                    </div>
-
-
-
-                                                    <!-- Form untuk Edit -->
-                                                    <div style="height: 400px; overflow-y: auto;">
-                                                        <form action="" method="post">
-                                                            <div class="modal-body custom-modal-body">
-                                                                <div class="mb-3 row form-group">
-                                                                    <input type="hidden" name="ID_PEMINJAMAN"
-                                                                        class="form-control" id="ID_PEMINJAMAN"
-                                                                        value="<?= $row['ID Peminjaman'] ?>">
-                                                                </div>
-                                                                <div class="mb-3 row form-group">
-    <label for="ID_MEMBER" class="col-form-label">ID Member:</label>
-</div>
-<div class="mb-3 row form-group">
-    <input type="text" name="ID_MEMBER" class="form-control" id="ID_MEMBER" value="<?= isset($row['ID Member']) ? $row['ID Member'] : '' ?>">
-</div>
-
-                                                                <div class="mb-3 row form-group">
-                                                                    <input type="hidden" name="ID_BUKU"
-                                                                        class="form-control" method="post" id="ID_BUKU">
-                                                                </div>
+                                                <!-- Tombol Hapus -->
+                                                <a href="index.php?page=peminjaman&delete_id=<?= $row['ID Peminjaman'] ?>"
+                                                    onclick="javascript:return confirm('Hapus Data Peminjaman?');"
+                                                    class="btn btn-danger btn-xs m-1">
+                                                    <i class="fa fa-trash"></i> Hapus
+                                                </a>
+                                                <!-- Modal untuk Edit -->
+                                                <div id="myModal<?= $row["ID Peminjaman"]; ?>" class="modal fade"
+                                                    data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+                                                    aria-labelledby="myModalLabel<?= $row["ID Peminjaman"]; ?>"
+                                                    aria-hidden="true" tabindex="-1">
+                                                    <!-- Isi dari modal -->
+                                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"
+                                                                    id="myModalLabel<?= $row["ID Peminjaman"]; ?>">
+                                                                    <i class="fa fa-users"></i> Edit Data Peminjaman
+                                                                </h5>
+                                                                <button type="button" class="btn-close-style"
+                                                                    data-bs-dismiss="modal" aria-label="Close">
+                                                                    <i class="fa-solid fa-xmark"></i>
+                                                                </button>
+                                                            </div>
 
 
 
+                                                            <!-- Form untuk Edit -->
+                                                            <div style="height: 400px; overflow-y: auto;">
+                                                                <form action="" method="post">
+                                                                    <div class="modal-body custom-modal-body">
+                                                                        <div class="mb-3 row form-group">
+                                                                            <input type="hidden" name="ID_PEMINJAMAN"
+                                                                                class="form-control" id="ID_PEMINJAMAN"
+                                                                                value="<?= $row['ID Peminjaman'] ?>">
+                                                                        </div>
+                                                                        <div class="mb-3 row form-group">
+                                                                            <label for="ID_MEMBER" class="col-form-label">ID
+                                                                                Member:</label>
+                                                                        </div>
+                                                                        <div class="mb-3 row form-group">
+                                                                            <input type="text" name="ID_MEMBER"
+                                                                                class="form-control" id="ID_MEMBER"
+                                                                                value="<?= isset($row['ID Member']) ? $row['ID Member'] : '' ?>">
+                                                                        </div>
 
-                                                                <!-- <div class="mb-3 row form-group">
+                                                                        <div class="mb-3 row form-group">
+                                                                            <input type="hidden" name="ID_BUKU"
+                                                                                class="form-control" method="post" id="ID_BUKU">
+                                                                        </div>
+
+
+
+
+                                                                        <!-- <div class="mb-3 row form-group">
     <label for="ID_BUKU_TAMBAH1" class="col-form-label">Pilih Buku:</label>
     <select name="ID_BUKU_TAMBAH1[]" class="form-select" id="ID_BUKU_TAMBAH1" multiple>
         <?php
@@ -435,68 +438,79 @@ function addSelectedBooks() {
 
 
 
-                                                                <div class="mb-3 row form-group">
-                                                                    <label for="tanggal_peminjaman1"
-                                                                        class="col-sm-3 col-form-label">Tanggal
-                                                                        Peminjaman</label>
-                                                                    <div class="col-sm-9">
-                                                                        <input type="date" class="form-control"
-                                                                            id="tanggal_peminjaman1"
-                                                                            name="tanggal_peminjaman1"
-                                                                            value="<?= $row['Tanggal Pinjam'] ?>">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="mb-3 row form-group">
-                                                                    <label for="tanggal_pengembalian1"
-                                                                        class="col-sm-3 col-form-label">Tanggal
-                                                                        Pengembalian</label>
-                                                                    <div class="col-sm-9">
-                                                                        <input type="date" class="form-control"
-                                                                            id="tanggal_pengembalian1"
-                                                                            name="tanggal_pengembalian1"
-                                                                            value="<?= $row['Tanggal Kembali'] ?>">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="mb-3 row form-group">
+                                                                        <div class="mb-3 row form-group">
+                                                                            <label for="tanggal_peminjaman1"
+                                                                                class="col-sm-3 col-form-label">Tanggal
+                                                                                Peminjaman</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="date" class="form-control"
+                                                                                    id="tanggal_peminjaman1"
+                                                                                    name="tanggal_peminjaman1"
+                                                                                    value="<?= $row['Tanggal Pinjam'] ?>">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="mb-3 row form-group">
+                                                                            <label for="tanggal_pengembalian1"
+                                                                                class="col-sm-3 col-form-label">Tanggal
+                                                                                Pengembalian</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="date" class="form-control"
+                                                                                    id="tanggal_pengembalian1"
+                                                                                    name="tanggal_pengembalian1"
+                                                                                    value="<?= $row['Tanggal Kembali'] ?>">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="mb-3 row form-group">
 
-<!-- Skrip JavaScript -->
-<script>
-// Fungsi untuk menghitung tanggal pengembalian
-function hitungTanggalPengembalian() {
-    var tanggalPeminjaman = document.getElementById("TANGGAL_PEMINJAMAN").value;
+                                                                            <!-- Skrip JavaScript -->
+                                                                            <script>
+                                                                            // Fungsi untuk menghitung tanggal pengembalian
+                                                                            function hitungTanggalPengembalian() {
+                                                                                var tanggalPeminjaman = document.getElementById(
+                                                                                    "TANGGAL_PEMINJAMAN").value;
 
-    if (tanggalPeminjaman !== "") {
-        // Menghitung tanggal pengembalian berdasarkan tanggal peminjaman + 14 hari
-        var tanggalPinjam = new Date(tanggalPeminjaman);
-        tanggalPinjam.setDate(tanggalPinjam.getDate() + 14);
+                                                                                if (tanggalPeminjaman !== "") {
+                                                                                    // Menghitung tanggal pengembalian berdasarkan tanggal peminjaman + 14 hari
+                                                                                    var tanggalPinjam = new Date(
+                                                                                        tanggalPeminjaman);
+                                                                                    tanggalPinjam.setDate(tanggalPinjam
+                                                                                    .getDate() + 14);
 
-        var tahun = tanggalPinjam.getFullYear();
-        var bulan = ('0' + (tanggalPinjam.getMonth() + 1)).slice(-2);
-        var tanggal = ('0' + tanggalPinjam.getDate()).slice(-2);
+                                                                                    var tahun = tanggalPinjam.getFullYear();
+                                                                                    var bulan = ('0' + (tanggalPinjam
+                                                                                    .getMonth() + 1)).slice(-2);
+                                                                                    var tanggal = ('0' + tanggalPinjam
+                                                                                    .getDate()).slice(-2);
 
-        var tanggalPengembalian = tahun + '-' + bulan + '-' + tanggal;
-        document.getElementById("TANGGAL_PENGEMBALIAN").value =
-            tanggalPengembalian;
-    }
-}
+                                                                                    var tanggalPengembalian = tahun + '-' +
+                                                                                        bulan + '-' + tanggal;
+                                                                                    document.getElementById(
+                                                                                            "TANGGAL_PENGEMBALIAN").value =
+                                                                                        tanggalPengembalian;
+                                                                                }
+                                                                            }
 
-// Panggil fungsi hitungTanggalPengembalian saat tanggal peminjaman berubah
-document.getElementById("TANGGAL_PEMINJAMAN").addEventListener("change",
-    function() {
-        hitungTanggalPengembalian();
-    });
+                                                                            // Panggil fungsi hitungTanggalPengembalian saat tanggal peminjaman berubah
+                                                                            document.getElementById("TANGGAL_PEMINJAMAN")
+                                                                                .addEventListener("change",
+                                                                                    function() {
+                                                                                        hitungTanggalPengembalian();
+                                                                                    });
 
-// Fungsi reset form
-function resetData() {
-    document.getElementById("TANGGAL_PEMINJAMAN").value = "";
-    document.getElementById("TANGGAL_PENGEMBALIAN").value = "";
-    document.getElementById("selectedBooksTambah").innerHTML = "";
-}
-</script>
+                                                                            // Fungsi reset form
+                                                                            function resetData() {
+                                                                                document.getElementById("TANGGAL_PEMINJAMAN")
+                                                                                    .value = "";
+                                                                                document.getElementById("TANGGAL_PENGEMBALIAN")
+                                                                                    .value = "";
+                                                                                document.getElementById("selectedBooksTambah")
+                                                                                    .innerHTML = "";
+                                                                            }
+                                                                            </script>
 
 
-</div>
-                                                                <?php
+                                                                        </div>
+                                                                        <?php
                                                                         // Pastikan $row memiliki nilai yang valid sebelum mengakses elemen array di dalamnya
                                                                         if (isset($row) && isset($row['Status'])) {
                                                                             $statusValue = $row['Status'];
@@ -504,73 +518,76 @@ function resetData() {
                                                                             $statusValue = ''; // Atur nilai default jika $row tidak terdefinisi atau elemen array-nya tidak ada
                                                                         }
                                                                         ?>
-                                                                <div class="mb-3">
-                                                                    <label for="STATUS"
-                                                                        class="col-sm-3 col-form-label">Status
-                                                                        Peminjaman</label><br>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input type="radio" class="form-check-input"
-                                                                            id="STATUS" name="STATUS" value="Dipinjam"
-                                                                            <?= ($statusValue === 'Dipinjam') ? 'checked' : '' ?>>
-                                                                        <label class="form-check-label"
-                                                                            for="STATUS">Dipinjam</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input type="radio" class="form-check-input"
-                                                                            id="STATUS" name="STATUS" value="Selesai"
-                                                                            <?= ($statusValue === 'Selesai') ? 'checked' : '' ?>>
-                                                                        <label class="form-check-label"
-                                                                            for="STATUS">Selesai</label>
-                                                                    </div>
-                                                                </div>
-                                                             <?php
-// Hitung denda otomatis jika pengembalian melebihi tanggal pengembalian
-$now = new DateTime(); // Waktu dan tanggal saat ini
-$returnDate = new DateTime($row['Tanggal Kembali']); // Waktu dan tanggal pengembalian
-
-// Perhitungan selisih hari antara tanggal pengembalian dengan tanggal saat ini
-$diff = $now->diff($returnDate);
-$daysLate = $diff->days;
-
-// Inisialisasi nilai denda
-$fine = 0;
-
-// Perhitungan denda berdasarkan keterlambatan
-if ($returnDate < $now) {
-    $fine = $daysLate * 5000; // Hitung denda: 5000 per hari keterlambatan
-} else {
-    $fine = 0; // Tidak ada denda jika pengembalian tepat waktu atau masih di masa depan
-}
-?>
-
-<!-- Input untuk menampilkan dan memperbarui nilai denda -->
-<div class="mb-3 row form-group">
-    <label for="DENDA" class="col-sm-3 col-form-label">Denda</label>
-    <div class="col-sm-9">
-        <input type="number" class="form-control" id="DENDA" name="DENDA" value="<?= $fine ?>">
-    </div>
-</div>
-
-
+                                                                        <div class="mb-3">
+                                                                            <label for="STATUS"
+                                                                                class="col-sm-3 col-form-label">Status
+                                                                                Peminjaman</label><br>
+                                                                            <div class="form-check form-check-inline">
+                                                                                <input type="radio" class="form-check-input"
+                                                                                    id="STATUS" name="STATUS" value="Dipinjam"
+                                                                                    <?= ($statusValue === 'Dipinjam') ? 'checked' : '' ?>>
+                                                                                <label class="form-check-label"
+                                                                                    for="STATUS">Dipinjam</label>
+                                                                            </div>
+                                                                            <div class="form-check form-check-inline">
+                                                                                <input type="radio" class="form-check-input"
+                                                                                    id="STATUS" name="STATUS" value="Selesai"
+                                                                                    <?= ($statusValue === 'Selesai') ? 'checked' : '' ?>>
+                                                                                <label class="form-check-label"
+                                                                                    for="STATUS">Selesai</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <?php
+                                                                        // Hitung denda otomatis jika pengembalian melebihi tanggal pengembalian
+                                                                        $now = new DateTime(); // Waktu dan tanggal saat ini
+                                                                        $returnDate = new DateTime($row['Tanggal Kembali']); // Waktu dan tanggal pengembalian
                                                                 
+                                                                        // Perhitungan selisih hari antara tanggal pengembalian dengan tanggal saat ini
+                                                                        $diff = $now->diff($returnDate);
+                                                                        $daysLate = $diff->days;
 
+                                                                        // Inisialisasi nilai denda
+                                                                        $fine = 0;
+
+                                                                        // Perhitungan denda berdasarkan keterlambatan
+                                                                        if ($returnDate < $now) {
+                                                                            $fine = $daysLate * 5000; // Hitung denda: 5000 per hari keterlambatan
+                                                                        } else {
+                                                                            $fine = 0; // Tidak ada denda jika pengembalian tepat waktu atau masih di masa depan
+                                                                        }
+                                                                        ?>
+
+                                                                        <!-- Input untuk menampilkan dan memperbarui nilai denda -->
+                                                                        <div class="mb-3 row form-group">
+                                                                            <label for="DENDA"
+                                                                                class="col-sm-3 col-form-label">Denda</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="number" class="form-control"
+                                                                                    id="DENDA" name="DENDA"
+                                                                                    value="<?= $fine ?>">
+                                                                            </div>
+                                                                        </div>
+
+
+
+
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="reset" class="btn btn-primary"
+                                                                            onclick="resetData()">Reset</button>
+                                                                        <button type="update" name="update"
+                                                                            class="btn btn-success"
+                                                                            onclick="saveChanges(<?= $row['ID Peminjaman'] ?>)">Save
+                                                                            Changes</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
-                                                            <div class="modal-footer">
-                                                                <button type="reset" class="btn btn-primary"
-                                                                    onclick="resetData()">Reset</button>
-                                                                <button type="update" name="update"
-                                                                    class="btn btn-success"
-                                                                    onclick="saveChanges(<?= $row['ID Peminjaman'] ?>)">Save
-                                                                    Changes</button>
-                                                            </div>
-                                                        </form>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <?php } ?>
-                                </tbody>
-                                <?php
+                                            <?php } ?>
+                                    </tbody>
+                                    <?php
                                     echo "</td>";
                                     echo "</tr>";
                                     }
@@ -580,268 +597,266 @@ if ($returnDate < $now) {
                                 </tbody>
                             </div>
                         </table>
-                    </table>
-                </div>
+                </table>
+            </div>
 
 
 
-                <!-- Modal untuk menambahkan data peminjaman -->
+            <!-- Modal untuk menambahkan data peminjaman -->
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static"
-                    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="myModalLabel<?= $row["ID Peminjaman"]; ?>">
-                                    <i class="fa fa-users"></i> Tambah Data Peminjaman
-                                </h5>
-                                <button type="button" class="btn-close-style" data-bs-dismiss="modal"
-                                    aria-label="Close">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
-                            <div style="height: 700px; overflow-y: auto;">
-                                <!-- <form action="proses_simpan.php" method="post"> -->
-                                <form action="" method="post">
-                                    <div class="modal-body custom-modal-body">
-                                        <div class="mb-3 row form-group">
-                                            <label for="recipient-name" class="col-form-label">ID Peminjam:</label>
-                                            <input type="text" name="ID_MEMBER" class="form-control" method="post"
-                                                id="ID_MEMBER" required>
-                                        </div>
-                                        <div class="mb-3 row form-group">
-
-                                            <input type="hidden" name="ID_BUKU" class="form-control" method="post"
-                                                id="ID_BUKU">
-                                        </div>
-
-
-
-
-
-                                        <!-- tambah buku di modal tambah -->
-                                        <div class="mb-3 row form-group">
-                                            <label for="ID_BUKU_TAMBAH" class="col-form-label">Pilih Buku:</label>
-                                            <select name="ID_BUKU_TAMBAH[]" class="form-select" id="ID_BUKU_TAMBAH"
-                                                multiple required>
-                                                <?php
-                                                // Query untuk mengambil data buku dari tabel 'BUKU'
-                                                $query = "SELECT ID_BUKU, JUDUL_BUKU FROM BUKU";
-                                                $result = mysqli_query($conn, $query);
-
-                                                // Periksa apakah query berhasil dijalankan
-                                                if ($result) {
-                                                    // Loop melalui setiap baris hasil query dan tampilkan sebagai option dalam select
-                                                    while ($row = mysqli_fetch_assoc($result)) {
-                                                        echo '<option value="' . $row['ID_BUKU'] . '">' . $row['JUDUL_BUKU'] . '</option>';
-                                                    }
-                                                } else {
-                                                    // Tampilkan pesan jika terjadi kesalahan saat mengambil data
-                                                    echo "Gagal mengambil data buku: " . mysqli_error($conn);
-                                                }
-                                                ?>
-                                            </select>
-                                            <div class="mb-3 row form-group">
-                                                <div class="space-above-button">
-
-                                                    <input type="button" value="Tambahkan"
-                                                        onclick="addSelectedBooksTambah()">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row form-group">
-                                                <label for="selectedBooksTambah" class="col-form-label">Buku yang
-                                                    Dipilih:</label>
-                                                <select name="selectedBooksTambah" id="selectedBooksTambah"
-                                                    class="form-select" multiple>
-                                                </select>
-                                            </div>
-
-
-
-                                            <script>
-                                            function addSelectedBooksTambah() {
-                                                var select = document.getElementById("ID_BUKU_TAMBAH");
-                                                var selectedItems = [];
-                                                var selectedBooks = document.getElementById("selectedBooksTambah");
-
-                                                for (var i = 0; i < select.options.length; i++) {
-                                                    if (select.options[i].selected) {
-                                                        selectedItems.push(select.options[i]);
-                                                    }
-                                                }
-
-                                                selectedItems.forEach(function(item) {
-                                                    selectedBooks.appendChild(item.cloneNode(true));
-                                                });
-                                            }
-                                            </script>
-
-                                        </div>
-
-                                        <div class="mb-3 row form-group">
-                                            <label for="TANGGAL_PEMINJAMAN" class="col-form-label">Tanggal
-                                                Peminjaman:</label>
-                                            <input type="date" name="TANGGAL_PEMINJAMAN" class="form-control"
-                                                id="TANGGAL_PEMINJAMAN">
-                                        </div>
-                                        <div class="mb-3 row form-group">
-                                            <label for="TANGGAL_PENGEMBALIAN" class="col-form-label">Tanggal
-                                                Pengembalian:</label>
-                                            <input type="date" name="TANGGAL_PENGEMBALIAN" class="form-control"
-                                                id="TANGGAL_PENGEMBALIAN">
-                                        </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+                role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel<?= $row["ID Peminjaman"]; ?>">
+                                <i class="fa fa-users"></i> Tambah Data Peminjaman
+                            </h5>
+                            <button type="button" class="btn-close-style" data-bs-dismiss="modal" aria-label="Close">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <div style="height: 700px; overflow-y: auto;">
+                            <!-- <form action="proses_simpan.php" method="post"> -->
+                            <form action="" method="post">
+                                <div class="modal-body custom-modal-body">
+                                    <div class="mb-3 row form-group">
+                                        <label for="recipient-name" class="col-form-label">ID Peminjam:</label>
+                                        <input type="text" name="ID_MEMBER" class="form-control" method="post"
+                                            id="ID_MEMBER" required>
                                     </div>
                                     <div class="mb-3 row form-group">
 
-                                        <!-- Skrip JavaScript -->
-                                        <script>
-                                        // Fungsi untuk menghitung tanggal pengembalian
-                                        function hitungTanggalPengembalian() {
-                                            var tanggalPeminjaman = document.getElementById("TANGGAL_PEMINJAMAN").value;
+                                        <input type="hidden" name="ID_BUKU" class="form-control" method="post"
+                                            id="ID_BUKU">
+                                    </div>
 
-                                            if (tanggalPeminjaman !== "") {
-                                                // Menghitung tanggal pengembalian berdasarkan tanggal peminjaman + 14 hari
-                                                var tanggalPinjam = new Date(tanggalPeminjaman);
-                                                tanggalPinjam.setDate(tanggalPinjam.getDate() + 14);
 
-                                                var tahun = tanggalPinjam.getFullYear();
-                                                var bulan = ('0' + (tanggalPinjam.getMonth() + 1)).slice(-2);
-                                                var tanggal = ('0' + tanggalPinjam.getDate()).slice(-2);
 
-                                                var tanggalPengembalian = tahun + '-' + bulan + '-' + tanggal;
-                                                document.getElementById("TANGGAL_PENGEMBALIAN").value =
-                                                    tanggalPengembalian;
+
+
+                                    <!-- tambah buku di modal tambah -->
+                                    <div class="mb-3 row form-group">
+                                        <label for="ID_BUKU_TAMBAH" class="col-form-label">Pilih Buku:</label>
+                                        <select name="ID_BUKU_TAMBAH[]" class="form-select" id="ID_BUKU_TAMBAH" multiple
+                                            required>
+                                            <?php
+                                            // Query untuk mengambil data buku dari tabel 'BUKU'
+                                            $query = "SELECT ID_BUKU, JUDUL_BUKU FROM BUKU";
+                                            $result = mysqli_query($conn, $query);
+
+                                            // Periksa apakah query berhasil dijalankan
+                                            if ($result) {
+                                                // Loop melalui setiap baris hasil query dan tampilkan sebagai option dalam select
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    echo '<option value="' . $row['ID_BUKU'] . '">' . $row['JUDUL_BUKU'] . '</option>';
+                                                }
+                                            } else {
+                                                // Tampilkan pesan jika terjadi kesalahan saat mengambil data
+                                                echo "Gagal mengambil data buku: " . mysqli_error($conn);
                                             }
-                                        }
+                                            ?>
+                                        </select>
+                                        <div class="mb-3 row form-group">
+                                            <div class="space-above-button">
 
-                                        // Panggil fungsi hitungTanggalPengembalian saat tanggal peminjaman berubah
-                                        document.getElementById("TANGGAL_PEMINJAMAN").addEventListener("change",
-                                            function() {
-                                                hitungTanggalPengembalian();
+                                                <input type="button" value="Tambahkan"
+                                                    onclick="addSelectedBooksTambah()">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row form-group">
+                                            <label for="selectedBooksTambah" class="col-form-label">Buku yang
+                                                Dipilih:</label>
+                                            <select name="selectedBooksTambah" id="selectedBooksTambah"
+                                                class="form-select" multiple>
+                                            </select>
+                                        </div>
+
+
+
+                                        <script>
+                                        function addSelectedBooksTambah() {
+                                            var select = document.getElementById("ID_BUKU_TAMBAH");
+                                            var selectedItems = [];
+                                            var selectedBooks = document.getElementById("selectedBooksTambah");
+
+                                            for (var i = 0; i < select.options.length; i++) {
+                                                if (select.options[i].selected) {
+                                                    selectedItems.push(select.options[i]);
+                                                }
+                                            }
+
+                                            selectedItems.forEach(function(item) {
+                                                selectedBooks.appendChild(item.cloneNode(true));
                                             });
-
-                                        // Fungsi reset form
-                                        function resetData() {
-                                            document.getElementById("TANGGAL_PEMINJAMAN").value = "";
-                                            document.getElementById("TANGGAL_PENGEMBALIAN").value = "";
-                                            document.getElementById("selectedBooksTambah").innerHTML = "";
                                         }
                                         </script>
 
-
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="reset" class="btn btn-primary"
-                                            onclick="resetData()">Reset</button>
-                                        <button type="submit" name="submit" class="btn btn-success ms-2"
-                                            aria-hidden="true"><i class="fa fa-floppy-o"></i> Submit</button>
-                                    </div>
-                                </form>
-                            </div>
 
+                                    <div class="mb-3 row form-group">
+                                        <label for="TANGGAL_PEMINJAMAN" class="col-form-label">Tanggal
+                                            Peminjaman:</label>
+                                        <input type="date" name="TANGGAL_PEMINJAMAN" class="form-control"
+                                            id="TANGGAL_PEMINJAMAN">
+                                    </div>
+                                    <div class="mb-3 row form-group">
+                                        <label for="TANGGAL_PENGEMBALIAN" class="col-form-label">Tanggal
+                                            Pengembalian:</label>
+                                        <input type="date" name="TANGGAL_PENGEMBALIAN" class="form-control"
+                                            id="TANGGAL_PENGEMBALIAN">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row form-group">
+
+                                    <!-- Skrip JavaScript -->
+                                    <script>
+                                    // Fungsi untuk menghitung tanggal pengembalian
+                                    function hitungTanggalPengembalian() {
+                                        var tanggalPeminjaman = document.getElementById("TANGGAL_PEMINJAMAN").value;
+
+                                        if (tanggalPeminjaman !== "") {
+                                            // Menghitung tanggal pengembalian berdasarkan tanggal peminjaman + 14 hari
+                                            var tanggalPinjam = new Date(tanggalPeminjaman);
+                                            tanggalPinjam.setDate(tanggalPinjam.getDate() + 14);
+
+                                            var tahun = tanggalPinjam.getFullYear();
+                                            var bulan = ('0' + (tanggalPinjam.getMonth() + 1)).slice(-2);
+                                            var tanggal = ('0' + tanggalPinjam.getDate()).slice(-2);
+
+                                            var tanggalPengembalian = tahun + '-' + bulan + '-' + tanggal;
+                                            document.getElementById("TANGGAL_PENGEMBALIAN").value =
+                                                tanggalPengembalian;
+                                        }
+                                    }
+
+                                    // Panggil fungsi hitungTanggalPengembalian saat tanggal peminjaman berubah
+                                    document.getElementById("TANGGAL_PEMINJAMAN").addEventListener("change",
+                                        function() {
+                                            hitungTanggalPengembalian();
+                                        });
+
+                                    // Fungsi reset form
+                                    function resetData() {
+                                        document.getElementById("TANGGAL_PEMINJAMAN").value = "";
+                                        document.getElementById("TANGGAL_PENGEMBALIAN").value = "";
+                                        document.getElementById("selectedBooksTambah").innerHTML = "";
+                                    }
+                                    </script>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-primary" onclick="resetData()">Reset</button>
+                                    <button type="submit" name="submit" class="btn btn-success ms-2"
+                                        aria-hidden="true"><i class="fa fa-floppy-o"></i> Submit</button>
+                                </div>
+                            </form>
                         </div>
+
                     </div>
                 </div>
+            </div>
 
 
 
 
 
-                <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-                <div class="table-container">
-                    <div class="table-kembali">Tabel Pengembalian</div>
+            <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+            <div class="table-container">
+                <div class="table-kembali">Tabel Pengembalian</div>
 
-                    <div class="table-responsive small">
-                        <table class="table table-striped table-data">
-                            <!-- Bagian Header Tabel -->
-                            <thead>
-                                <tr>
-                                    <th>ID Peminjaman</th>
-                                    <th>ID Buku</th>
-                                    <th>Status Peminjaman</th>
-                                    <th>Status Buku</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                // Query untuk mengambil data dari tabel DETAILPEMINJAMAN
-                                
-                                // Query untuk mengambil data dari tabel DETAILPEMINJAMAN dengan status 'Kembali'
-                                $query_detail_peminjaman = "SELECT dp.ID_PEMINJAMAN, dp.ID_BUKU, dp.STATUS_PEMINJAMAN, dp.STATUS_BUKU
+                <div class="table-responsive small">
+                    <table class="table table-striped table-data">
+                        <!-- Bagian Header Tabel -->
+                        <thead>
+                            <tr>
+                                <th>ID Peminjaman</th>
+                                <th>ID Buku</th>
+                                <th>Status Peminjaman</th>
+                                <th>Status Buku</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Query untuk mengambil data dari tabel DETAILPEMINJAMAN
+                            
+                            // Query untuk mengambil data dari tabel DETAILPEMINJAMAN dengan status 'Kembali'
+                            $query_detail_peminjaman = "SELECT dp.ID_PEMINJAMAN, dp.ID_BUKU, dp.STATUS_PEMINJAMAN, dp.STATUS_BUKU
                                                             FROM DETAILPEMINJAMAN dp
                                                             INNER JOIN PEMINJAMAN p ON dp.ID_PEMINJAMAN = p.ID_PEMINJAMAN
                                                             WHERE dp.STATUS_PEMINJAMAN = 'Selesai'";
 
-                                // $query_detail_peminjaman = "SELECT ID_PEMINJAMAN, ID_BUKU, STATUS_PEMINJAMAN, STATUS_BUKU FROM DETAILPEMINJAMAN 
-                                //           WHERE STATUS_PEMINJAMAN = 'Kembali'";
-                                
-                                $result_detail_peminjaman = mysqli_query($conn, $query_detail_peminjaman);
+                            // $query_detail_peminjaman = "SELECT ID_PEMINJAMAN, ID_BUKU, STATUS_PEMINJAMAN, STATUS_BUKU FROM DETAILPEMINJAMAN 
+                            //           WHERE STATUS_PEMINJAMAN = 'Kembali'";
+                            
+                            $result_detail_peminjaman = mysqli_query($conn, $query_detail_peminjaman);
 
-                                if ($result_detail_peminjaman && mysqli_num_rows($result_detail_peminjaman) > 0) {
-                                    while ($row = mysqli_fetch_assoc($result_detail_peminjaman)) {
-                                        echo "<tr>";
-                                        echo "<td>" . $row['ID_PEMINJAMAN'] . "</td>";
-                                        echo "<td>" . $row['ID_BUKU'] . "</td>"; // Tampilkan ID buku
-                                        echo "<td>" . $row['STATUS_PEMINJAMAN'] . "</td>";
-                                        echo "<td>" . $row['STATUS_BUKU'] . "</td>";
-                                        echo "<td>";
+                            if ($result_detail_peminjaman && mysqli_num_rows($result_detail_peminjaman) > 0) {
+                                while ($row = mysqli_fetch_assoc($result_detail_peminjaman)) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row['ID_PEMINJAMAN'] . "</td>";
+                                    echo "<td>" . $row['ID_BUKU'] . "</td>"; // Tampilkan ID buku
+                                    echo "<td>" . $row['STATUS_PEMINJAMAN'] . "</td>";
+                                    echo "<td>" . $row['STATUS_BUKU'] . "</td>";
+                                    echo "<td>";
 
-                                        // Tombol Edit
-                                        echo "<a href='#editModal" . $row['ID_PEMINJAMAN'] . "' class='btn btn-warning btn-xs m-1' data-bs-toggle='modal'><i class='fa fa-pencil-square-o'></i> Edit</a>";
+                                    // Tombol Edit
+                                    echo "<a href='#editModal" . $row['ID_PEMINJAMAN'] . "' class='btn btn-warning btn-xs m-1' data-bs-toggle='modal'><i class='fa fa-pencil-square-o'></i> Edit</a>";
 
-                                        // Tombol Hapus
-                                        echo "<a href='index.php?page=peminjaman&delete_id=" . $row['ID_PEMINJAMAN'] . "' onclick=\"return confirm('Hapus Data Peminjaman?');\" class='btn btn-danger btn-xs m-1'><i class='fa fa-trash'></i> Hapus</a>";
+                                    // Tombol Hapus
+                                    echo "<a href='index.php?page=peminjaman&delete_id=" . $row['ID_PEMINJAMAN'] . "' onclick=\"return confirm('Hapus Data Peminjaman?');\" class='btn btn-danger btn-xs m-1'><i class='fa fa-trash'></i> Hapus</a>";
 
-                                        echo "</td>";
-                                        echo "</tr>";
+                                    echo "</td>";
+                                    echo "</tr>";
 
-                                        echo "<div id='editModal" . $row['ID_PEMINJAMAN'] . "' class='modal'>";
-                                        echo "<div class='modal-dialog modal-dialog-centered'>"; // Menambahkan kelas 'modal-dialog-centered'
-                                        echo "<div class='modal-content'>";
-                                        echo "<div class='modal-header'>";
-                                        echo "<h5 class='modal-title'>Edit Data Buku</h5>";
-                                        echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
-                                        echo "</div>";
-                                        echo "<div class='modal-body'>";
-                                        echo "<form method='post' action='index.php?page=Peminjaman'>";
-                                        echo "<input type='hidden' name='ID_PEMINJAMAN' value='" . $row['ID_PEMINJAMAN'] . "'>";
-                                        echo '<div class="mb-3">';
-                                        echo '<label for="STATUS_BUKU" class="col-sm-3 col-form-label">Status Buku</label><br>';
-                                        echo '<div class="form-check form-check-inline">';
-                                        echo '<input type="radio" class="form-check-input" id="STATUS_BUKU" name="STATUS_BUKU" value="Bagus" ' . (($statusValue === 'bagus') ? 'checked' : '') . '>';
-                                        echo '<label class="form-check-label" for="STATUS_BUKU">Bagus</label>';
-                                        echo '</div>';
-                                        echo '<div class="form-check form-check-inline">';
-                                        echo '<input type="radio" class="form-check-input" id="STATUS_BUKU" name="STATUS_BUKU" value="Rusak" ' . (($statusValue === 'Rusak') ? 'checked' : '') . '>';
-                                        echo '<label class="form-check-label" for="STATUS_BUKU">Rusak</label>';
-                                        echo '</div>';
-                                        echo '</div>';
-                                        echo "<button type='update' class='btn btn-primary mt-3'>Simpan</button>";
-                                        echo "</form>";
-                                        echo "</div>";
-                                        echo "</div>";
-                                        echo "</div>";
-                                        echo "</div>";
-                                        
-                                    }
-                                } else {
-                                    echo "<tr><td colspan='5'>Tidak ada data pengembalian</td></tr>";
+                                    echo "<div id='editModal" . $row['ID_PEMINJAMAN'] . "' class='modal'>";
+                                    echo "<div class='modal-dialog modal-dialog-centered'>"; // Menambahkan kelas 'modal-dialog-centered'
+                                    echo "<div class='modal-content'>";
+                                    echo "<div class='modal-header'>";
+                                    echo "<h5 class='modal-title'>Edit Data Buku</h5>";
+                                    echo "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>";
+                                    echo "</div>";
+                                    echo "<div class='modal-body'>";
+                                    echo "<form method='post' action='index.php?page=Peminjaman'>";
+                                    echo "<input type='hidden' name='ID_PEMINJAMAN' value='" . $row['ID_PEMINJAMAN'] . "'>";
+                                    echo '<div class="mb-3">';
+                                    echo '<label for="STATUS_BUKU" class="col-sm-3 col-form-label">Status Buku</label><br>';
+                                    echo '<div class="form-check form-check-inline">';
+                                    echo '<input type="radio" class="form-check-input" id="STATUS_BUKU" name="STATUS_BUKU" value="Bagus" ' . (($statusValue === 'bagus') ? 'checked' : '') . '>';
+                                    echo '<label class="form-check-label" for="STATUS_BUKU">Bagus</label>';
+                                    echo '</div>';
+                                    echo '<div class="form-check form-check-inline">';
+                                    echo '<input type="radio" class="form-check-input" id="STATUS_BUKU" name="STATUS_BUKU" value="Rusak" ' . (($statusValue === 'Rusak') ? 'checked' : '') . '>';
+                                    echo '<label class="form-check-label" for="STATUS_BUKU">Rusak</label>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo "<button type='update' class='btn btn-primary mt-3'>Simpan</button>";
+                                    echo "</form>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                    echo "</div>";
+
                                 }
-                                ?>
+                            } else {
+                                echo "<tr><td colspan='5'>Tidak ada data pengembalian</td></tr>";
+                            }
+                            ?>
 
 
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
 
 
 
-                <?php
-                // Menutup koneksi database
-                $conn->close();
-                ?>
+            <?php
+            // Menutup koneksi database
+            $conn->close();
+            ?>
 
 
             </main>
