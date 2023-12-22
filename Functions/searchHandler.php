@@ -16,10 +16,11 @@ $query = isset($_POST['query']) ? $_POST['query'] : '';
 $searchResults = $bookCatalog->searchBooks($query);
 
 // Tampilkan hasil pencarian
+// Tampilkan hasil pencarian
 while ($book = mysqli_fetch_assoc($searchResults)) {
     echo "<div class='col'>";
     echo "<div class='card h-100'>";
-    echo "<img src='" . $book['IMG'] . "' class='card-img-top' alt='" . $book['JUDUL_BUKU'] . "'>";
+    echo "<img src='../../Assets/img/" . $book['IMG'] . "' class='card-img-top' alt='" . $book['JUDUL_BUKU'] . "'>";
     echo "<div class='card-body'>";
     echo "<h5 class='card-title'>" . $book['JUDUL_BUKU'] . "</h5>";
     echo "<p class='card-text'>" . $book['DESKRIPSI'] . "</p>";

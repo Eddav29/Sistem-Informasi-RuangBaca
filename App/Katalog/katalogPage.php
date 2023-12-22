@@ -88,7 +88,7 @@ $totalPages = ceil($totalBooks / $booksPerPage);
                     <?php while ($book = mysqli_fetch_assoc($booksResult)) : ?>
                         <div class='col-lg-4 col-md-6 mb-4'>
                             <div class='card h-100'>
-                                <img src='<?php echo $book['IMG']; ?>' class='card-img-top' alt='<?php echo $book['JUDUL_BUKU']; ?>'>
+                                <img src='../../Assets/img/<?php echo $book['IMG']; ?>' class='card-img-top' alt='<?php echo $book['JUDUL_BUKU']; ?>'>
                                 <div class='card-body'>
                                     <h5 class='card-title'><?php echo $book['JUDUL_BUKU']; ?></h5>
                                     <p class='card-text'><?php echo $book['DESKRIPSI']; ?></p>

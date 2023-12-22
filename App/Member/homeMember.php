@@ -25,66 +25,66 @@
         }
 
 
-// Fetch counts for history and notifications
-$query_history = "SELECT COUNT(*) AS history_count 
+        // Fetch counts for history and notifications
+        $query_history = "SELECT COUNT(*) AS history_count 
                   FROM PEMINJAMAN AS p
                   JOIN member AS m ON p.ID_MEMBER = m.ID_MEMBER
                   WHERE p.ID_MEMBER = ?";
-$stmt_history = mysqli_prepare($conn, $query_history);
+        $stmt_history = mysqli_prepare($conn, $query_history);
 
-// Check if the statement was prepared successfully
-if ($stmt_history) {
-    // Bind the parameter
-    mysqli_stmt_bind_param($stmt_history, "s", $userID);
+        // Check if the statement was prepared successfully
+        if ($stmt_history) {
+            // Bind the parameter
+            mysqli_stmt_bind_param($stmt_history, "s", $userID);
 
-    // Execute the query
-    mysqli_stmt_execute($stmt_history);
+            // Execute the query
+            mysqli_stmt_execute($stmt_history);
 
-    // Get the result set
-    $result_history = mysqli_stmt_get_result($stmt_history);
-    
-    // Fetch the row
-    $row_history = mysqli_fetch_assoc($result_history);
+            // Get the result set
+            $result_history = mysqli_stmt_get_result($stmt_history);
 
-    // Close the statement
-    mysqli_stmt_close($stmt_history);
-} else {
-    // Handle the error if the statement was not prepared successfully
-    echo "Error in preparing statement for history: " . mysqli_error($conn);
-}
+            // Fetch the row
+            $row_history = mysqli_fetch_assoc($result_history);
 
-// Fetch counts for notifications
-$query_notifications = "SELECT COUNT(*) AS notification_count 
+            // Close the statement
+            mysqli_stmt_close($stmt_history);
+        } else {
+            // Handle the error if the statement was not prepared successfully
+            echo "Error in preparing statement for history: " . mysqli_error($conn);
+        }
+
+        // Fetch counts for notifications
+        $query_notifications = "SELECT COUNT(*) AS notification_count 
                         FROM BUKU AS b
                         JOIN DETAILPEMINJAMAN AS dp ON b.ID_BUKU = dp.ID_BUKU
                         JOIN PEMINJAMAN AS p ON dp.ID_PEMINJAMAN = p.ID_PEMINJAMAN
                         JOIN member AS m ON p.ID_MEMBER = m.ID_MEMBER
                         WHERE p.ID_MEMBER = ?";
-$stmt_notifications = mysqli_prepare($conn, $query_notifications);
+        $stmt_notifications = mysqli_prepare($conn, $query_notifications);
 
-// Check if the statement was prepared successfully
-if ($stmt_notifications) {
-    // Bind the parameter
-    mysqli_stmt_bind_param($stmt_notifications, "s", $userID);
+        // Check if the statement was prepared successfully
+        if ($stmt_notifications) {
+            // Bind the parameter
+            mysqli_stmt_bind_param($stmt_notifications, "s", $userID);
 
-    // Execute the query
-    mysqli_stmt_execute($stmt_notifications);
+            // Execute the query
+            mysqli_stmt_execute($stmt_notifications);
 
-    // Get the result set
-    $result_notifications = mysqli_stmt_get_result($stmt_notifications);
-    
-    // Fetch the row
-    $row_notifications = mysqli_fetch_assoc($result_notifications);
+            // Get the result set
+            $result_notifications = mysqli_stmt_get_result($stmt_notifications);
 
-    // Close the statement
-    mysqli_stmt_close($stmt_notifications);
-} else {
-    // Handle the error if the statement was not prepared successfully
-    echo "Error in preparing statement for notifications: " . mysqli_error($conn);
-}
+            // Fetch the row
+            $row_notifications = mysqli_fetch_assoc($result_notifications);
+
+            // Close the statement
+            mysqli_stmt_close($stmt_notifications);
+        } else {
+            // Handle the error if the statement was not prepared successfully
+            echo "Error in preparing statement for notifications: " . mysqli_error($conn);
+        }
 
 
-?>
+        ?>
         <main class="col-md-9 col-lg-12 px-md-4 m=0 ms-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Dashboard</h1>
@@ -106,7 +106,7 @@ if ($stmt_notifications) {
                 <div class="col-sm-3 m-auto">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h5><?= $notificationCount ?></h5>
+                            <h5><?= $row_notifications['notification_count'] ?></h5>
                             <h5><i class="fa-solid fa-bell fa-2x" aria-hidden="true"></i></h5>
                         </div>
                         <div class="card-body">
@@ -135,7 +135,7 @@ if ($stmt_notifications) {
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
@@ -153,7 +153,7 @@ if ($stmt_notifications) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php
+                                    <?php
                                     $no = 1;
                                     $query = "SELECT p.*, b.JUDUL_BUKU FROM peminjaman p
                                     JOIN DETAILPEMINJAMAN dp ON p.ID_PEMINJAMAN = dp.ID_PEMINJAMAN
@@ -174,14 +174,14 @@ if ($stmt_notifications) {
 
                                         $count = 0;
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            ?>
+                                    ?>
                                             <tr>
                                                 <th scope="row"><?= $no++ ?></th>
                                                 <td><?= $row['JUDUL_BUKU'] ?></td>
                                                 <td><?= $row['TANGGAL_PEMINJAMAN'] ? date('Y-m-d', strtotime($row['TANGGAL_PEMINJAMAN'])) : 'N/A' ?></td>
                                                 <td><?= $row['TANGGAL_PENGEMBALIAN'] ? date('Y-m-d', strtotime($row['TANGGAL_PENGEMBALIAN'])) : 'N/A' ?></td>
                                             </tr>
-                                            <?php
+                                    <?php
                                             $count++;
                                             if ($count == 5) {
                                                 break;
@@ -204,7 +204,7 @@ if ($stmt_notifications) {
                     </div>
 
                 </div>
-                
+
             </div>
             <br></br>
 
