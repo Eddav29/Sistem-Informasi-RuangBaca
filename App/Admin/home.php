@@ -21,86 +21,86 @@
                 <h1 class="h2">Dashboard</h1>
             </div>
             <?php
-// Assuming you have established a database connection and fetched the counts
+            // Assuming you have established a database connection and fetched the counts
 
-// Fetch total members
-$queryMembers = "SELECT COUNT(*) AS totalMembers FROM member where level= 'Member'";
-$resultMembers = mysqli_query($conn, $queryMembers);
-$rowMembers = mysqli_fetch_assoc($resultMembers);
-$totalMembers = $rowMembers['totalMembers'];
+            // Fetch total members
+            $queryMembers = "SELECT COUNT(*) AS totalMembers FROM member where level= 'Member'";
+            $resultMembers = mysqli_query($conn, $queryMembers);
+            $rowMembers = mysqli_fetch_assoc($resultMembers);
+            $totalMembers = $rowMembers['totalMembers'];
 
-// Fetch total books
-$queryBooks = "SELECT COUNT(*) AS totalBooks FROM buku";
-$resultBooks = mysqli_query($conn, $queryBooks);
-$rowBooks = mysqli_fetch_assoc($resultBooks);
-$totalBooks = $rowBooks['totalBooks'];
+            // Fetch total books
+            $queryBooks = "SELECT COUNT(*) AS totalBooks FROM buku";
+            $resultBooks = mysqli_query($conn, $queryBooks);
+            $rowBooks = mysqli_fetch_assoc($resultBooks);
+            $totalBooks = $rowBooks['totalBooks'];
 
-// Fetch total petugas
-$queryPetugas = "SELECT COUNT(*) AS totalPetugas FROM member WHERE level = 'Admin'";
-$resultPetugas = mysqli_query($conn, $queryPetugas);
-$rowPetugas = mysqli_fetch_assoc($resultPetugas);
-$totalPetugas = $rowPetugas['totalPetugas'];
+            // Fetch total petugas
+            $queryPetugas = "SELECT COUNT(*) AS totalPetugas FROM member WHERE level = 'Admin'";
+            $resultPetugas = mysqli_query($conn, $queryPetugas);
+            $rowPetugas = mysqli_fetch_assoc($resultPetugas);
+            $totalPetugas = $rowPetugas['totalPetugas'];
 
-// Fetch total peminjaman
-$queryPeminjaman = "SELECT COUNT(*) AS totalPeminjaman FROM peminjaman";
-$resultPeminjaman = mysqli_query($conn, $queryPeminjaman);
-$rowPeminjaman = mysqli_fetch_assoc($resultPeminjaman);
-$totalPeminjaman = $rowPeminjaman['totalPeminjaman'];
-?>
+            // Fetch total peminjaman
+            $queryPeminjaman = "SELECT COUNT(*) AS totalPeminjaman FROM peminjaman";
+            $resultPeminjaman = mysqli_query($conn, $queryPeminjaman);
+            $rowPeminjaman = mysqli_fetch_assoc($resultPeminjaman);
+            $totalPeminjaman = $rowPeminjaman['totalPeminjaman'];
+            ?>
 
-<div class="row">
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <h5><?= $totalMembers ?></h5>
-                <h5><i class="fa fa-users fa-2x" aria-hidden="true"></i></h5>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Member</h5>
-                <p class="card-text">jumlah member terdaftar</p>
-            </div>
-        </div>
-    </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h5><?= $totalMembers ?></h5>
+                            <h5><i class="fa fa-users fa-2x" aria-hidden="true"></i></h5>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Member</h5>
+                            <p class="card-text">jumlah member terdaftar</p>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <h5><?= $totalBooks ?></h5>
-                <h5><i class="fa fa-book fa-2x" aria-hidden="true"></i></h5>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Buku</h5>
-                <p class="card-text">jumlah buku terdaftar</p>
-            </div>
-        </div>
-    </div>
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h5><?= $totalBooks ?></h5>
+                            <h5><i class="fa fa-book fa-2x" aria-hidden="true"></i></h5>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Buku</h5>
+                            <p class="card-text">jumlah buku terdaftar</p>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <h5><?= $totalPetugas ?></h5>
-                <h5><i class="fa-solid fa-user-tie fa-2x" aria-hidden="true"></i></h5>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Petugas</h5>
-                <p class="card-text">jumlah petugas terdaftar</p>
-            </div>
-        </div>
-    </div>
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h5><?= $totalPetugas ?></h5>
+                            <h5><i class="fa-solid fa-user-tie fa-2x" aria-hidden="true"></i></h5>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Petugas</h5>
+                            <p class="card-text">jumlah petugas terdaftar</p>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                <h5><?= $totalPeminjaman ?></h5>
-                <h5><i class="fa-solid fa-truck-ramp-box fa-2x" aria-hidden="true"></i></h5>
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <h5><?= $totalPeminjaman ?></h5>
+                            <h5><i class="fa-solid fa-truck-ramp-box fa-2x" aria-hidden="true"></i></h5>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Peminjaman</h5>
+                            <p class="card-text">Total jumlah peminjaman</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <h5 class="card-title">Peminjaman</h5>
-                <p class="card-text">Total jumlah peminjaman</p>
-            </div>
-        </div>
-    </div>
-</div>
 
             <br>
             <div class="row">
@@ -120,90 +120,90 @@ $totalPeminjaman = $rowPeminjaman['totalPeminjaman'];
                     </div>
                 </div>
                 <?php
-// Mendapatkan total inventaris
-$queryTotalInventaris = "SELECT COUNT(*) AS total_inventaris FROM buku";
-$resultTotalInventaris = mysqli_query($conn, $queryTotalInventaris);
-$rowTotalInventaris = mysqli_fetch_assoc($resultTotalInventaris);
-$totalInventaris = $rowTotalInventaris['total_inventaris'];
+                // Mendapatkan total inventaris
+                $queryTotalInventaris = "SELECT COUNT(*) AS total_inventaris FROM buku";
+                $resultTotalInventaris = mysqli_query($conn, $queryTotalInventaris);
+                $rowTotalInventaris = mysqli_fetch_assoc($resultTotalInventaris);
+                $totalInventaris = $rowTotalInventaris['total_inventaris'];
 
-// Mendapatkan total buku yang dipinjam
-$queryBukuDipinjam = "SELECT COUNT(*) AS total_buku_dipinjam FROM detailpeminjaman WHERE STATUS_PEMINJAMAN = 'Dipinjam'";
-$resultBukuDipinjam = mysqli_query($conn, $queryBukuDipinjam);
-$rowBukuDipinjam = mysqli_fetch_assoc($resultBukuDipinjam);
-$totalBukuDipinjam = $rowBukuDipinjam['total_buku_dipinjam'];
+                // Mendapatkan total buku yang dipinjam
+                $queryBukuDipinjam = "SELECT COUNT(*) AS total_buku_dipinjam FROM detailpeminjaman WHERE STATUS_PEMINJAMAN = 'Dipinjam'";
+                $resultBukuDipinjam = mysqli_query($conn, $queryBukuDipinjam);
+                $rowBukuDipinjam = mysqli_fetch_assoc($resultBukuDipinjam);
+                $totalBukuDipinjam = $rowBukuDipinjam['total_buku_dipinjam'];
 
-// Mendapatkan total buku dirak
-$queryBukuDirak = "SELECT COUNT(*) AS total_buku_dirak FROM buku WHERE KETERSEDIAAN = 'Tersedia'";
-$resultBukuDirak = mysqli_query($conn, $queryBukuDirak);
-$rowBukuDirak = mysqli_fetch_assoc($resultBukuDirak);
-$totalBukuDirak = $rowBukuDirak['total_buku_dirak'];
+                // Mendapatkan total buku dirak
+                $queryBukuDirak = "SELECT COUNT(*) AS total_buku_dirak FROM buku WHERE KETERSEDIAAN = 'Tersedia'";
+                $resultBukuDirak = mysqli_query($conn, $queryBukuDirak);
+                $rowBukuDirak = mysqli_fetch_assoc($resultBukuDirak);
+                $totalBukuDirak = $rowBukuDirak['total_buku_dirak'];
 
-// Mendapatkan data kategori untuk diagram lingkaran
-$queryKategori = "SELECT k.NAMA_KATEGORI, COUNT(dkb.ID_BUKU) AS jumlah FROM kategori k
+                // Mendapatkan data kategori untuk diagram lingkaran
+                $queryKategori = "SELECT k.NAMA_KATEGORI, COUNT(dkb.ID_BUKU) AS jumlah FROM kategori k
                   LEFT JOIN detail_kategori_buku dkb ON k.ID_KATEGORI = dkb.ID_KATEGORI
                   GROUP BY k.ID_KATEGORI";
-$resultKategori = mysqli_query($conn, $queryKategori);
-$dataKategori = array();
+                $resultKategori = mysqli_query($conn, $queryKategori);
+                $dataKategori = array();
 
-while ($rowKategori = mysqli_fetch_assoc($resultKategori)) {
-    $dataKategori[] = $rowKategori;
-}
-?>
-<div class="col-sm-6">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title"><i class="bi bi-bar-chart-line-fill" aria-hidden="true"></i> STATISTIK</h5>
-            <div class="d-flex justify-content-between">
-                <div>
-                    <br>
-                    <p class="card-text">Total Inventaris:<?= $totalInventaris?></p>
-                    <p class="card-text">Buku Dipinjam:<?= $totalBukuDipinjam?></p>
-                    <p class="card-text">Buku Dirak:<?= $totalBukuDirak?></p>
-                </div>
-                <canvas id="kategoriChart" width="400" height="185"></canvas>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    var ctx = document.getElementById('kategoriChart').getContext('2d');
-    var kategoriChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Total Inventaris', 'Buku Dipinjam', 'Buku Dirak'],
-            datasets: [{
-                data: [<?= $totalInventaris ?>, <?= $totalBukuDipinjam ?>, <?= $totalBukuDirak ?>],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.7)',
-                    'rgba(54, 162, 235, 0.7)',
-                    'rgba(255, 206, 86, 0.7)',
-                    'rgba(75, 192, 192, 0.7)',
-                    'rgba(153, 102, 255, 0.7)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: false,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'right',
+                while ($rowKategori = mysqli_fetch_assoc($resultKategori)) {
+                    $dataKategori[] = $rowKategori;
                 }
-            }
-        }
-    });
-});
-</script>
+                ?>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-bar-chart-line-fill" aria-hidden="true"></i> STATISTIK</h5>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <br>
+                                    <p class="card-text">Total Inventaris:<?= $totalInventaris ?></p>
+                                    <p class="card-text">Buku Dipinjam:<?= $totalBukuDipinjam ?></p>
+                                    <p class="card-text">Buku Dirak:<?= $totalBukuDirak ?></p>
+                                </div>
+                                <canvas id="kategoriChart" width="400" height="185"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var ctx = document.getElementById('kategoriChart').getContext('2d');
+                        var kategoriChart = new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['Total Inventaris', 'Buku Dipinjam', 'Buku Dirak'],
+                                datasets: [{
+                                    data: [<?= $totalInventaris ?>, <?= $totalBukuDipinjam ?>, <?= $totalBukuDirak ?>],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.7)',
+                                        'rgba(54, 162, 235, 0.7)',
+                                        'rgba(255, 206, 86, 0.7)',
+                                        'rgba(75, 192, 192, 0.7)',
+                                        'rgba(153, 102, 255, 0.7)',
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: false,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'right',
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
 
 
             </div>
