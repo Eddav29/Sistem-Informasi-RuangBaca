@@ -196,10 +196,10 @@
                 <div class="modal-body">
                     <!-- Registration form -->
                     <form id="registerForm" method="post" action="../../Login/register.php">
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="ID_MEMBER" class="form-label">ID_MEMBER</label>
                             <input type="text" class="form-control" id="ID_MEMBER" name="ID_MEMBER">
-                        </div>
+                        </div> -->
                         <div class="mb-3">
                             <label for="USERNAME_MEMBER" class="form-label">Username</label>
                             <input type="text" class="form-control" id="USERNAME_MEMBER" name="USERNAME_MEMBER">
@@ -312,18 +312,7 @@
                 $("#loginModal").modal("show");
             });
 
-        // Handle click event on the "Register" link
-        document
-            .querySelector("#registerModalLink")
-            .addEventListener("click", function(e) {
-                e.preventDefault(); // Prevent the default behavior of the link
 
-                // Update the URL without reloading the page
-                history.pushState(null, null, "../Login/Member/register.php");
-
-                // Show the modal manually
-                $("#registerModal").modal("show");
-            });
 
         // Check password match on registration
         document

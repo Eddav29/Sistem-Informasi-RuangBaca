@@ -3,6 +3,7 @@ include("../Config/koneksi.php");
 $db = new Database();
 $conn = $db->getConnection();
 
+// Retrieve user input (you can use filter_input to sanitize input)
 $idmember = $_POST['ID_MEMBER'] ?? '';
 $username = $_POST['USERNAME_MEMBER'] ?? '';
 $password = $_POST['PASSWORD_MEMBER'] ?? '';
@@ -13,7 +14,16 @@ $identityNumber = $_POST['NOMOR_IDENTITAS'] ?? '';
 $address = $_POST['ALAMAT'] ?? '';
 $level = $_POST['LEVEL'] ?? '';
 
-// Memeriksa apakah ID_MEMBER sudah ada sebelumnya
+// Generate the numeric part of ID_MEMBER (assumed to be the last 3 digits)
+$new_numeric_part = mt_rand(1, 999);
+$new_id_member = 'MBR' . sprintf('%03d', $new_numeric_part);
+
+// Ensure the total length does not exceed 10 characters
+if (strlen($new_id_member) > 10) {
+    die("Error: Generated ID_MEMBER exceeds the maximum length.");
+}
+
+// Check if ID_MEMBER already exists
 $check_query = "SELECT * FROM MEMBER WHERE ID_MEMBER = ?";
 $stmt_check = $conn->prepare($check_query);
 $stmt_check->bind_param('s', $idmember);
@@ -23,23 +33,23 @@ $result = $stmt_check->get_result();
 if ($result->num_rows > 0) {
     echo "ID_MEMBER sudah digunakan. Gunakan ID_MEMBER yang berbeda.";
 } else {
-    $sql = "INSERT INTO MEMBER (ID_MEMBER, USERNAME_MEMBER, PASSWORD_MEMBER, NAMA_MEMBER, JENIS_IDENTITAS, NOMOR_IDENTITAS, ALAMAT,LEVEL) 
-            VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+    $sql = "INSERT INTO MEMBER (ID_MEMBER, USERNAME_MEMBER, PASSWORD_MEMBER, NAMA_MEMBER, JENIS_IDENTITAS, NOMOR_IDENTITAS, ALAMAT, LEVEL) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-    // Persiapkan pernyataan SQL
+    // Prepare the SQL statement
     $stmt = $conn->prepare($sql);
 
-    // Bind parameters dengan tipe data yang sesuai
-    $stmt->bind_param('ssssssss', $idmember, $username, $hashed_password, $fullName, $identityType, $identityNumber, $address, $level);
+    // Bind parameters with appropriate data types
+    $stmt->bind_param('ssssssss', $new_id_member, $username, $hashed_password, $fullName, $identityType, $identityNumber, $address, $level);
 
-    // Eksekusi pernyataan INSERT
+    // Execute the INSERT statement
     if ($stmt->execute()) {
         echo "Registrasi berhasil!";
         header("Location: ../App/Katalog/index.php");
         exit();
     } else {
         echo "Registrasi gagal. Silakan coba lagi.";
-        // Jika ingin menampilkan pesan kesalahan detail:
+        // If you want to display detailed error messages:
         echo "Error: " . $conn->error;
     }
 
@@ -48,4 +58,3 @@ if ($result->num_rows > 0) {
 
 $stmt_check->close();
 $conn->close();
-?>
