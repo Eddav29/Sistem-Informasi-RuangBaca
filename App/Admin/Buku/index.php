@@ -118,7 +118,7 @@
                                                             <i class="fa-solid fa-xmark"></i>
                                                         </button>
                                                     </div>
-                                                    <form action="index.php?page=buku" method="post" id="editForm">
+                                                    <form action="index.php?page=buku" method="post" id="editForm" enctype="multipart/form-data">
                                                     <div class="modal-body custom-modal-body">
                                                         <div class="mb-3 row form-group">
                                                             <label for="judul_buku1" class="col-sm-3 col-form-label">Judul Buku</label>
@@ -233,11 +233,11 @@
                                                             </div>
                                                         </div>
                                                         <div class="mb-3 row form-group">
-                                                            <label for="file1" class="col-sm-3 col-form-label">Img</label>
+                                                            <label for="newFile" class="col-sm-3 col-form-label">Img</label>
                                                             <div class="col-sm-9">
                                                                 
                                                                 <!-- Input type "file" allows users to choose a new image file -->
-                                                                <input type="file" class="form-control" id="file1" name="newFile">
+                                                                <input type="file" class="form-control" id="newFile" name="newFile">
                                                                 <!-- Hidden input to store the existing image file name -->
                                                                 <input type="hidden" name="img1" value="<?= $row['IMG'] ?>">
                                                             </div>
