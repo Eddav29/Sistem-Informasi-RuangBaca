@@ -135,9 +135,11 @@ class Member
                 $alamat = $_POST['alamat1'];
                 $level = $_POST['level1'];
 
+                $hashed_password = md5($password);
+
 
                 // Assuming $book is an instance of your Book class
-                $result = $this->edit($id, $username, $password, $nama, $jenisIdentitas, $noIdentitas, $alamat, $level);
+                $result = $this->edit($id, $username, $hashed_password, $nama, $jenisIdentitas, $noIdentitas, $alamat, $level);
 
                 if ($result) {
                     ob_start();
