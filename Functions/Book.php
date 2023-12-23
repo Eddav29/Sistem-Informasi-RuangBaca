@@ -73,15 +73,12 @@ class Book
             $sql .= $categoryCondition;
         }
 
-        // Add pagination limit and offset
         $sql .= " LIMIT " . $perPage . " OFFSET " . $offset;
 
         $result = mysqli_query($this->conn, $sql);
 
         return $result;
     }
-    // search
-    // Metode untuk melakukan pencarian buku berdasarkan judul
     public function searchBooks($query)
     {
         $query = '%' . mysqli_real_escape_string($this->conn, $query) . '%';
@@ -142,7 +139,6 @@ class Book
             return false;
         }
 
-        // $insertKategori = "INSERT INTO detailKategori (ID_KATEGORI, NAMA_KATEGORI) VALUES ('')"
 
         
 
@@ -173,13 +169,9 @@ class Book
                     $img = $namaFile;
                     $status_buku = $_POST['status_buku'];
 
-                    // Assuming $this is an instance of your class containing the addBook method
                     $result = $this->addBook($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_penerbit, $penerbit, $rak, $img, $status_buku);
 
                     if ($result) {
-                        // Book added successfully
-                        // You can redirect to a success page or perform any other actions
-                        // For example, you can use header("Location: success.php");
                         pesan('success', "Buku Baru Ditambahkan.");
                         header("Location: index.php?page=Buku");
                         exit(); 
@@ -200,79 +192,12 @@ class Book
     }
 }
 
-    // public function edit($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_terbit, $penerbit, $rak, $img, $status_buku, $id)
-    // {
-    //     $judul_buku = mysqli_real_escape_string($this->conn, $judul_buku);
-    //     $deskripsi = mysqli_real_escape_string($this->conn, $deskripsi);
-    //     $ketersediaan = mysqli_real_escape_string($this->conn, $ketersediaan);
-    //     $tanggal_pengadaan = mysqli_real_escape_string($this->conn, $tanggal_pengadaan);
-    //     $tahun_terbit = mysqli_real_escape_string($this->conn, $tahun_terbit);
-    //     $penerbit = mysqli_real_escape_string($this->conn, $penerbit);
-    //     $rak = mysqli_real_escape_string($this->conn, $rak);
-    //     $img = mysqli_real_escape_string($this->conn, $img);
-    //     $status_buku = mysqli_real_escape_string($this->conn, $status_buku);
-    //     $id = mysqli_real_escape_string($this->conn, $id);
-
-    //     $queryEditBuku = "UPDATE buku SET 
-    // JUDUL_BUKU = '$judul_buku',
-    // DESKRIPSI = '$deskripsi',
-    // KETERSEDIAAN = '$ketersediaan',
-    // TANGGAL_PENGADAAN = '$tanggal_pengadaan',
-    // TAHUN_TERBIT = '$tahun_terbit',
-    // PENERBIT = '$penerbit',
-    // RAK = '$rak',
-    // IMG = '$img',
-    // STATUS_BUKU = '$status_buku'
-    // WHERE ID_BUKU = $id";
-
-    //     $result = mysqli_query($this->conn, $queryEditBuku);
-
-    //     return $result;
-    // }
-
-    // public function editBookFromForm()
-    // {
-    //     if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])){
-    //         if (isset($_POST['update'])) {
-
-    //             $id = $_POST['bookId'];  // Remove the # symbol
-    //             $judul_buku = $_POST['judul_buku1'];
-    //             $deskripsi = $_POST['deskripsi1'];
-    //             $ketersediaan = $_POST['ketersediaan1'];
-    //             $tanggal_pengadaan = $_POST['tanggal_pengadaan1'];
-    //             $tahun_terbit = $_POST['tahun_terbit1'];
-    //             $penerbit = $_POST['penerbit1'];
-    //             $rak = $_POST['rak1'];
-    //             $img = $_POST['img1'];
-    //             $status_buku = $_POST['status_buku1'];
-    
-    
-    
-    //             // Assuming $book is an instance of your Book class
-    //             $result = $this->edit($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_terbit, $penerbit, $rak, $img, $status_buku, $id);
-    
-    //             if ($result) {
-    //                 ob_start();
-    
-    //                 pesan('success', "Buku Telah Diupdate.");
-    //                 header("Location: index.php?page=Buku");
-    //             } else {
-    //                 pesan('danger', "Gagal Edit Buku Karena: " . mysqli_error($this->conn));
-    //             }
-    //         } else {
-    //             echo "err";
-    //         }
-    //     }
-    // }
-
-
-
     public function hapusBuku($idBuku)
     {
-        $idBuku = mysqli_real_escape_string($this->conn, $idBuku); // Escape ID
+        $idBuku = mysqli_real_escape_string($this->conn, $idBuku); 
 
 
-        $delete_query = "DELETE FROM buku WHERE ID_BUKU = '$idBuku'"; // 
+        $delete_query = "DELETE FROM buku WHERE ID_BUKU = '$idBuku'"; 
 
         $result = mysqli_query($this->conn, $delete_query);
 
@@ -312,29 +237,6 @@ public function edit($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan,
     $status_buku = mysqli_real_escape_string($this->conn, $status_buku);
     $id = mysqli_real_escape_string($this->conn, $id);
 
-    // Check if a new image is uploaded
-    if (!empty($_FILES["file1"]["name"])) {
-        $dir = "Assets/img/";
-        $namaFile = ($_FILES["file1"]["name"]);
-        $filePath = $dir . $namaFile;
-        $tipeFile = pathinfo($filePath, PATHINFO_EXTENSION);
-
-        $allowedExtensions = array('jpg', 'png', 'jpeg');
-        if (in_array($tipeFile, $allowedExtensions)) {
-            if (move_uploaded_file($_FILES["file1"]["tmp_name"], $filePath)) {
-                $img = $namaFile;
-            } else {
-                pesan('danger', "Gagal Memindahkan File.");
-                header("Location: index.php?page=Buku");
-                exit();
-            }
-        } else {
-            pesan('danger', "Tipe file tidak valid: " . implode(', ', $allowedExtensions));
-            header("Location: index.php?page=Buku");
-            exit();
-        }
-    }
-
     $queryEditBuku = "UPDATE buku SET 
         JUDUL_BUKU = ?,
         DESKRIPSI = ?,
@@ -352,27 +254,26 @@ public function edit($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan,
     $result = $stmt->execute();
     $stmt->close();
 
-    // Update categories
+    
     $this->updateCategoriesForBook($id, $selectedCategories);
 
-    // Update authors
+    
     $this->updateAuthorsForBook($id, $selectedAuthors);
 
     return $result;
 }
 
-// Add the following methods to your class
+
 
 public function updateCategoriesForBook($bookId, $selectedCategories)
 {
-    // Delete existing categories for the book
     $deleteQuery = "DELETE FROM detail_kategori_buku WHERE ID_BUKU = ?";
     $deleteStmt = $this->conn->prepare($deleteQuery);
     $deleteStmt->bind_param("i", $bookId);
     $deleteStmt->execute();
     $deleteStmt->close();
 
-    // Insert new categories for the book
+    
     $insertQuery = "INSERT INTO detail_kategori_buku (ID_BUKU, ID_KATEGORI) VALUES (?, ?)";
     $insertStmt = $this->conn->prepare($insertQuery);
 
@@ -387,20 +288,19 @@ public function updateCategoriesForBook($bookId, $selectedCategories)
 
 public function updateAuthorsForBook($bookId, $selectedAuthors)
 {
-    // Check if authors are provided
+    
     if (!is_array($selectedAuthors)) {
-        // Jika $selectedAuthors bukan array, berikan array kosong
         $selectedAuthors = [];
     }
 
-    // Delete existing authors for the book
+    
     $deleteQuery = "DELETE FROM detail_penulis_buku WHERE ID_BUKU = ?";
     $deleteStmt = $this->conn->prepare($deleteQuery);
     $deleteStmt->bind_param("i", $bookId);
     $deleteStmt->execute();
     $deleteStmt->close();
 
-    // Insert new authors for the book
+    
     foreach ($selectedAuthors as $penulisId) {
         $insertQuery = "INSERT INTO detail_penulis_buku (ID_BUKU, ID_PENULIS) VALUES (?, ?)";
         $insertStmt = $this->conn->prepare($insertQuery);
@@ -422,28 +322,43 @@ public function editBookFromForm()
         $tahun_terbit = $_POST['tahun_terbit1'];
         $penerbit = $_POST['penerbit1'];
         $rak = $_POST['rak1'];
-        $img = $_POST['img1'];
+        
         $status_buku = $_POST['status_buku1'];
 
-        // Assuming your form includes input fields for categories and authors
-        $selectedCategories = $_POST['kategori1']; // Replace 'selected_categories' with the actual name attribute of your category input field
-        $selectedAuthors = $_POST['penulis1']; // Replace 'selected_authors' with the actual name attribute of your author input field
-
-        // Check if a new image is uploaded
-        if (!empty($_FILES["file1"]["name"])) {
-            $img = $_FILES["file1"]["name"];
+        if (!empty($_FILES["newFile"]["name"])) {
+            $dir = "Assets/img/";
+            $namaFile = ($_FILES["newFile"]["name"]);
+            $filePath = $dir . $namaFile;
+            $tipeFile = pathinfo($filePath, PATHINFO_EXTENSION);
+    
+            $allowedExtensions = array('jpg', 'png', 'jpeg');
+            if (in_array($tipeFile, $allowedExtensions)) {
+                if (move_uploaded_file($_FILES["newFile"]["tmp_name"], $filePath)) {
+                    $img = $namaFile;
+                } else {
+                    pesan('danger', "Gagal Memindahkan File.");
+                    header("Location: index.php?page=Buku");
+                    exit();
+                }
+            } else {
+                pesan('danger', "Tipe file tidak valid: " . implode(', ', $allowedExtensions));
+                header("Location: index.php?page=Buku");
+                exit();
+            }
+        }else{
+            $img = $_POST['img1'];
         }
+        
+        $selectedCategories = $_POST['kategori1']; 
+        $selectedAuthors = $_POST['penulis1']; 
 
-        // Assuming $this is an instance of your class containing the edit method
         $result = $this->edit($judul_buku, $deskripsi, $ketersediaan, $tanggal_pengadaan, $tahun_terbit, $penerbit, $rak, $img, $status_buku, $id, $selectedCategories, $selectedAuthors);
 
         if ($result) {
-            // Book edited successfully
             pesan('success', "Buku Telah Diupdate.");
             header("Location: index.php?page=Buku");
             exit();
         } else {
-            // Error editing book
             pesan('danger', "Gagal Edit Buku Karena: " . mysqli_error($this->conn));
             header("Location: index.php?page=Buku");
             exit();
