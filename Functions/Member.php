@@ -36,7 +36,7 @@ class Member
     public function addMemberFromForm()
     {
         if (isset($_POST['submit'])) {
-            $id = $_POST['id_member'];
+            // $id = $_POST['id_member'];
             $username = $_POST['username'];
             $password = $_POST['password'];
             $nama = $_POST['nama'];
@@ -47,18 +47,50 @@ class Member
 
             $hashed_password = md5($password);
 
-            // Assuming $book is an instance of your Book class
-            $result = $this->addMember($id, $username, $hashed_password, $nama, $jenisIdentitas, $noIdentitas, $alamat, $level);
 
-            if ($result) {
-                ob_start();
-                // Book added successfully
-                // You can redirect to a success page or perform any other actions
-                // For example, you can use header("Location: success.php");
-                pesan('success', "Member Baru Ditambahkan.");
-                header("Location: index.php?page=Member");
-            } else {
-                pesan('danger', "Gagal Menambahkan Member Karena: " . mysqli_error($this->conn));
+            // Check if ID_MEMBER already exists
+            
+
+            if($level == 'Admin'){
+                $new_numeric_part = mt_rand(1, 999);
+                $new_id_member = 'ADM' . sprintf('%03d', $new_numeric_part);
+
+                // Ensure the total length does not exceed 10 characters
+                if (strlen($new_id_member) > 10) {
+                    die("Error: Generated ID_MEMBER exceeds the maximum length.");
+                }
+            }elseif($level == 'Member'){
+                $new_numeric_part = mt_rand(1, 999);
+                $new_id_member = 'MBR' . sprintf('%03d', $new_numeric_part);
+
+                if (strlen($new_id_member) > 10) {
+                    die("Error: Generated ID_MEMBER exceeds the maximum length.");
+                }
+            }
+
+            $check_query = "SELECT * FROM MEMBER WHERE ID_MEMBER = ?";
+            $stmt_check = $this->conn->prepare($check_query);
+            $stmt_check->bind_param('s', $idmember);
+            $stmt_check->execute();
+            $result = $stmt_check->get_result();
+
+            if ($result->num_rows > 0) {
+                echo "ID_MEMBER sudah digunakan. Gunakan ID_MEMBER yang berbeda.";
+            }else{
+
+                // Assuming $book is an instance of your Book class
+                $result = $this->addMember($new_id_member, $username, $hashed_password, $nama, $jenisIdentitas, $noIdentitas, $alamat, $level);
+
+                if ($result) {
+                    ob_start();
+                    // Book added successfully
+                    // You can redirect to a success page or perform any other actions
+                    // For example, you can use header("Location: success.php");
+                    pesan('success', "Member Baru Ditambahkan.");
+                    header("Location: index.php?page=Member");
+                } else {
+                    pesan('danger', "Gagal Menambahkan Member Karena: " . mysqli_error($this->conn));
+                }
             }
         }
     }
@@ -94,7 +126,7 @@ class Member
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             if (isset($_POST['update'])) {
-                $id = $_POST['id_member1'];
+                $id = $_POST['memberId'];
                 $username = $_POST['username1'];
                 $password = $_POST['password1'];
                 $nama = $_POST['nama1'];
