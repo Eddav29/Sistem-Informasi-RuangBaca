@@ -113,14 +113,6 @@
                                                     <form action="index.php?page=member" method="post">
                                                         <div class="modal-body custom-modal-body">
                                                             <div class="mb-3 row form-group">
-                                                                <label for="judul_buku" class="col-sm-3 col-form-label">ID
-                                                                    Member</label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" id="id_member1"
-                                                                        name="id_member1" value="<?= $row['ID_MEMBER'] ?>">
-                                                                </div>
-                                                            </div>
-                                                            <div class="mb-3 row form-group">
                                                                 <label for="judul_buku"
                                                                     class="col-sm-3 col-form-label">Username</label>
                                                                 <div class="col-sm-9">
@@ -195,7 +187,7 @@
                                                                         for="inlineRadio2">Member</label>
                                                                 </div>
                                                             </div>
-                                                            <input type="hidden" id="memberId" class="form-control">
+                                                            <input type="hidden" id="memberId" name="memberId" class="form-control" value="<?= $row['ID_MEMBER'] ?>">
 
                                                         </div>
                                                         <div class="modal-footer">
@@ -232,12 +224,12 @@
                             </div>
                             <form action="" method="post">
                                 <div class="modal-body custom-modal-body">
-                                    <div class="mb-3 row form-group">
+                                    <!-- <div class="mb-3 row form-group">
                                         <label for="judul_buku" class="col-sm-3 col-form-label">ID Member</label>
                                         <div class="col-sm-9">
                                             <input type="text" name="id_member" class="form-control" id="id_member">
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="mb-3 row form-group">
                                         <label for="judul_buku" class="col-sm-3 col-form-label">Username</label>
                                         <div class="col-sm-9">
