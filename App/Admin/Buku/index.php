@@ -135,16 +135,16 @@
                                                         <?php 
                                                         $id = $row['ID_BUKU'];
                                                         $queryEdit = "SELECT buku.*, 
-                    GROUP_CONCAT(DISTINCT penulis.NAMA_PENULIS) AS NAMA_PENULIS, 
-                    GROUP_CONCAT(DISTINCT penulis.ID_PENULIS) AS ID_PENULIS,
-                    kategori.NAMA_KATEGORI,
-                    kategori.ID_KATEGORI
-              FROM buku
-              LEFT JOIN detail_penulis_buku ON buku.ID_BUKU = detail_penulis_buku.ID_BUKU
-              LEFT JOIN penulis ON detail_penulis_buku.ID_PENULIS = penulis.ID_PENULIS
-              LEFT JOIN detail_kategori_buku ON buku.ID_BUKU = detail_kategori_buku.ID_BUKU
-              LEFT JOIN kategori ON detail_kategori_buku.ID_KATEGORI = kategori.ID_KATEGORI
-              WHERE buku.ID_BUKU = '$id'";
+                                                                GROUP_CONCAT(DISTINCT penulis.NAMA_PENULIS) AS NAMA_PENULIS, 
+                                                                GROUP_CONCAT(DISTINCT penulis.ID_PENULIS) AS ID_PENULIS,
+                                                                kategori.NAMA_KATEGORI,
+                                                                kategori.ID_KATEGORI
+                                                        FROM buku
+                                                        LEFT JOIN detail_penulis_buku ON buku.ID_BUKU = detail_penulis_buku.ID_BUKU
+                                                        LEFT JOIN penulis ON detail_penulis_buku.ID_PENULIS = penulis.ID_PENULIS
+                                                        LEFT JOIN detail_kategori_buku ON buku.ID_BUKU = detail_kategori_buku.ID_BUKU
+                                                        LEFT JOIN kategori ON detail_kategori_buku.ID_KATEGORI = kategori.ID_KATEGORI
+                                                        WHERE buku.ID_BUKU = '$id'";
 
                                                         $resultEdit = mysqli_query($conn, $queryEdit);
                                                         $rowEdit = mysqli_fetch_assoc($resultEdit);
@@ -286,6 +286,7 @@
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
+                            <div style="height: 700px; overflow-y: auto;">
                             <form action="" method="post" enctype="multipart/form-data" >
                                 <div class="modal-body custom-modal-body">
                                     <div class="mb-3 row form-group">
@@ -405,114 +406,115 @@
                                         aria-hidden="true"><i class="fa fa-floppy-o"></i> Submit</button>
                                 </div>
                             </form>
+                            </div>
                         </div>
                     </div>
                 </div>
                     <script>
                         function addWriter(containerId) {
-        var container = document.getElementById(containerId);
+                            var container = document.getElementById(containerId);
 
-        // Create a new div for the writer
-        var writerDiv = document.createElement('div');
-        writerDiv.className = 'mb-3 row form-group';
+                            // Create a new div for the writer
+                            var writerDiv = document.createElement('div');
+                            writerDiv.className = 'mb-3 row form-group';
 
-        // Create a label element
-        var label = document.createElement('label');
-        label.className = 'col-sm-3 col-form-label';
-        label.textContent = 'Penulis';
+                            // Create a label element
+                            var label = document.createElement('label');
+                            label.className = 'col-sm-3 col-form-label';
+                            
 
-        // Create a div for the select element
-        var selectDiv = document.createElement('div');
-        selectDiv.className = 'col-sm-9';
+                            // Create a div for the select element
+                            var selectDiv = document.createElement('div');
+                            selectDiv.className = 'col-sm-12';
 
-        // Create a select element
-        var select = document.createElement('select');
-        select.name = 'penulis[]';
-        select.className = 'form-select';
+                            // Create a select element
+                            var select = document.createElement('select');
+                            select.name = 'penulis[]';
+                            select.className = 'form-select';
 
-        // Add a default option
-        var defaultOption = document.createElement('option');
-        defaultOption.selected = true;
-        defaultOption.textContent = 'Penulis';
-        select.appendChild(defaultOption);
+                            // Add a default option
+                            var defaultOption = document.createElement('option');
+                            defaultOption.selected = true;
+                            defaultOption.textContent = 'Penulis';
+                            select.appendChild(defaultOption);
 
-        // Populate select with options from PHP
-        <?php
-        $queryPenulis = "SELECT * FROM penulis";
-        $resultPenulis = mysqli_query($conn, $queryPenulis);
-        while ($rowPenulis = mysqli_fetch_assoc($resultPenulis)) {
-        ?>
-            var option = document.createElement('option');
-            option.value = '<?= $rowPenulis['ID_PENULIS'] ?>';
-            option.textContent = '<?= $rowPenulis['NAMA_PENULIS'] ?>';
-            select.appendChild(option);
-        <?php
-        }
-        ?>
+                            // Populate select with options from PHP
+                            <?php
+                            $queryPenulis = "SELECT * FROM penulis";
+                            $resultPenulis = mysqli_query($conn, $queryPenulis);
+                            while ($rowPenulis = mysqli_fetch_assoc($resultPenulis)) {
+                            ?>
+                                var option = document.createElement('option');
+                                option.value = '<?= $rowPenulis['ID_PENULIS'] ?>';
+                                option.textContent = '<?= $rowPenulis['NAMA_PENULIS'] ?>';
+                                select.appendChild(option);
+                            <?php
+                            }
+                            ?>
 
-        // Append the select to the selectDiv
-        selectDiv.appendChild(select);
+                            // Append the select to the selectDiv
+                            selectDiv.appendChild(select);
 
-        // Append the label and selectDiv to the new writerDiv
-        writerDiv.appendChild(label);
-        writerDiv.appendChild(selectDiv);
+                            // Append the label and selectDiv to the new writerDiv
+                            writerDiv.appendChild(label);
+                            writerDiv.appendChild(selectDiv);
 
-        // Append the new writerDiv to the container
-        container.appendChild(writerDiv);
-    }
+                            // Append the new writerDiv to the container
+                            container.appendChild(writerDiv);
+                        }
 
 
-    function addWriterEdit(containerId) {
-        var container = document.getElementById(containerId);
+                        function addWriterEdit(containerId) {
+                            var container = document.getElementById(containerId);
 
-        // Create a new div for the writer
-        var writerDiv = document.createElement('div');
-        writerDiv.className = 'mb-3 row form-group';
+                            // Create a new div for the writer
+                            var writerDiv = document.createElement('div');
+                            writerDiv.className = 'mb-3 row form-group';
 
-        // Create a label element
-        var label = document.createElement('label');
-        label.className = 'col-sm-3 col-form-label';
-        
+                            // Create a label element
+                            var label = document.createElement('label');
+                            label.className = 'col-sm-3 col-form-label';
+                            
 
-        // Create a div for the select element
-        var selectDiv = document.createElement('div');
-        selectDiv.className = 'col-sm-9';
+                            // Create a div for the select element
+                            var selectDiv = document.createElement('div');
+                            selectDiv.className = 'col-sm-12';
 
-        // Create a select element
-        var select = document.createElement('select');
-        select.name = 'penulis1[]';
-        select.className = 'form-select';
+                            // Create a select element
+                            var select = document.createElement('select');
+                            select.name = 'penulis1[]';
+                            select.className = 'form-select';
 
-        // Add a default option
-        var defaultOption = document.createElement('option');
-        defaultOption.selected = true;
-        defaultOption.textContent = 'Penulis';
-        select.appendChild(defaultOption);
+                            // Add a default option
+                            var defaultOption = document.createElement('option');
+                            defaultOption.selected = true;
+                            defaultOption.textContent = 'Penulis';
+                            select.appendChild(defaultOption);
 
-        // Populate select with options from PHP
-        <?php
-        $queryPenulis = "SELECT * FROM penulis";
-        $resultPenulis = mysqli_query($conn, $queryPenulis);
-        while ($rowPenulis = mysqli_fetch_assoc($resultPenulis)) {
-        ?>
-            var option = document.createElement('option');
-            option.value = '<?= $rowPenulis['ID_PENULIS'] ?>';
-            option.textContent = '<?= $rowPenulis['NAMA_PENULIS'] ?>';
-            select.appendChild(option);
-        <?php
-        }
-        ?>
+                            // Populate select with options from PHP
+                            <?php
+                            $queryPenulis = "SELECT * FROM penulis";
+                            $resultPenulis = mysqli_query($conn, $queryPenulis);
+                            while ($rowPenulis = mysqli_fetch_assoc($resultPenulis)) {
+                            ?>
+                                var option = document.createElement('option');
+                                option.value = '<?= $rowPenulis['ID_PENULIS'] ?>';
+                                option.textContent = '<?= $rowPenulis['NAMA_PENULIS'] ?>';
+                                select.appendChild(option);
+                            <?php
+                            }
+                            ?>
 
-        // Append the select to the selectDiv
-        selectDiv.appendChild(select);
+                            // Append the select to the selectDiv
+                            selectDiv.appendChild(select);
 
-        // Append the label and selectDiv to the new writerDiv
-        writerDiv.appendChild(label);
-        writerDiv.appendChild(selectDiv);
+                            // Append the label and selectDiv to the new writerDiv
+                            writerDiv.appendChild(label);
+                            writerDiv.appendChild(selectDiv);
 
-        // Append the new writerDiv to the container
-        container.appendChild(writerDiv);
-    }
+                            // Append the new writerDiv to the container
+                            container.appendChild(writerDiv);
+                        }
 
                         function resetData() {
                         var form = document.getElementById('editForm');
