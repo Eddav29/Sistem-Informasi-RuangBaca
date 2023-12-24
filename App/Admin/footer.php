@@ -12,6 +12,22 @@
 <script src="Assets/JQuery/jquery-3.7.1.min.js"></script>
 <script src="Assets/Bootstraps/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+<script>new MultiSelectTag('ID_BUKU_TAMBAH1[]', {
+rounded: true,    // default true
+shadow: true,      // default false
+placeholder: 'Search',  // default Search...
+tagColor: {
+    textColor: '#327b2c',
+    borderColor: '#92e681',
+    bgColor: '#eaffe6',
+}
+onChange: function(values) {
+    console.log(values)
+}
+})</script>
+<script>
+new MultiSelectTag('ID_BUKU_TAMBAH1[]')  // id
+</script>
 <Script>
     $(document).ready(function() {
         var trigger = $('.hamburger'),
